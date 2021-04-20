@@ -2,7 +2,7 @@
 
 Homework 1
 
-# SVG device
+### SVG device
 
 Macchina
 
@@ -12,6 +12,6 @@ _ Lunghezza macchina
 _ Dimensioni ruote
 _ Posizione x delle ruote
 
-# SVG MACHINE
+### SVG MACHINE
 
 Macchina + .....
