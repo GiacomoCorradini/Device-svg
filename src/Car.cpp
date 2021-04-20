@@ -3,37 +3,6 @@ using namespace std;
 #include <iostream>
 #include <string>
 
-struct carrozzeria
-{
-    int cx, cy;
-    int width, height;
-};
-
-struct ruota
-{
-    int ruota, cerchione;
-    int centrox, centroy;
-};
-
-struct finestrini
-{
-
-};
-
-struct spoiler
-{
-    int px, py;
-    int widths, heights;
-};
-
-struct device
-{
-    carrozzeria car;
-    ruota sx;
-    ruota dx;
-    finestrini fin;
-    spoiler spoil;
-};
 
 //void parametri(struct* device)
 //{
@@ -59,11 +28,17 @@ string coca_fine(){
     return fin;
 }
 
-//void coca_carrozzeria(carrozzeria* pcar){
-//    cout << "Inserire la lunghezza della macchina" << endl;
-//    cin >> pcar->car.width;
-//    pcar->height = 4.375 * pcar->width;
-//};
+void coca_trycarrozzeria(device* pcar){
+    cout << "Inserire la lunghezza della macchina" << endl;
+    cin >> pcar->width;
+    cout << "Inserire l'altezza della macchina" << endl;
+    cin >> pcar->height;
+}
+
+string carrozzeria(device* dev){
+    string carr;
+    carr = "<rect  x=\"100\" y=\"430\" rx=\"10\" ry=\"10\" width=\"350\" height=\"80\" style=\"stroke-width:3;stroke:rgb(0,0,0)\" fill=\"red\"/>"; 
+}
 
 //int coca_cerchioni();
 

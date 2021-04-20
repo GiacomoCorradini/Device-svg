@@ -3,11 +3,15 @@ using namespace std;
 #include <iostream>
 #include <string>
 #include "Car.h"
-
+ 
 int main(){
 
     string svg;
-    //device* dev = new device ;
+    coca_device* device;
+    coca_device dev;
+    device = &dev;
+
+    coca_trycarrozzeria(device);
     //string svg;
     //string* ps;
 
