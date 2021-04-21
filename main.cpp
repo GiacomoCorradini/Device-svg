@@ -11,25 +11,17 @@ int main(){
     coca_device dev;
     macch = &dev;
 
-    coca_trycarrozzeria(device);
-    //string svg;
-    //string* ps;
+    coca_trycarrozzeria(macch);
 
-    //string* ps = new string;  
-
-    //carrozzeria car;
-    //carrozzeria* pcar;
-
-    //dev->car.width;
-
-    //device = &car;
-    //ps = &svg;
-    
     svg = coca_intestazione();
     svg += coca_sfondo();
+    svg += coca_carrozzeria(macch);
     
     svg += coca_fine();
     
+    cout << "Il codice svg creato è:" << endl;
     cout << svg;
+
+    return 0;
 
 }

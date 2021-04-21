@@ -3,12 +3,6 @@
  
 #include <string>
 
-//std::void parametri(struct* device)
-std::string coca_intestazione();
-std::string coca_sfondo();
-std::string coca_fine();
-void coca_trycarrozzeria(coca_device* pcar);
-
 struct carrozzeria
 {
     int cx, cy;
@@ -51,5 +45,11 @@ struct coca_device
     finestrini fin;
     spoiler spoil;
 };
+
+std::string coca_intestazione();
+std::string coca_sfondo();
+std::string coca_fine();
+void coca_trycarrozzeria(coca_device* macch);
+string coca_carrozzeria(coca_device* macch);
 
 #endif //CAR_H
