@@ -18,10 +18,9 @@
     <circle cx="370" cy="500" r="25" stroke="black" stroke-width="3" fill="gray" />
 
     <!--Finestrini-->
-    <polygon points="160,430 200,376 200,430" style="fill:red;stroke:black;stroke-width:5" />
-    <polygon points="200,370 300,370 380,430 200,430" style="fill:lightblue;stroke:black;stroke-width:5" />
-
-    <line x1="300" y1="370" x2="300" y2="430" style="stroke:black;stroke-width:5" />
+    <polygon points="160,430 200,370 300,370 300,430 160,430" style="fill:red;stroke:black;stroke-width:5" />
+    
+    <polygon points="300,370 380,430 300,430" style="fill:lightblue;stroke:black;stroke-width:5" />
 
     <!--Spoiler-->
     <rect  x="110" y="400" width="20" height="30" style="stroke-width:3;stroke:rgb(0,0,0)" fill="red"/>  

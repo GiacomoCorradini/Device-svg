@@ -7,9 +7,9 @@ using namespace std;
 int main(){
 
     string svg;
-    coca_device* device;
+    coca_device* macch;
     coca_device dev;
-    device = &dev;
+    macch = &dev;
 
     coca_trycarrozzeria(device);
     //string svg;

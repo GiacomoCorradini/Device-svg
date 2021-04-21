@@ -7,7 +7,7 @@
 std::string coca_intestazione();
 std::string coca_sfondo();
 std::string coca_fine();
-void coca_trycarrozzeria(device* pcar);
+void coca_trycarrozzeria(coca_device* pcar);
 
 struct carrozzeria
 {
@@ -21,9 +21,20 @@ struct ruota
     int centrox, centroy;
 };
 
+struct tetto 
+{
+    int x1, y1; 
+    int x2, y2;
+    int x3, y3; 
+    int x4, y4;
+    int x5, y5;
+};
+
 struct finestrini
 {
-
+    int p1x, p1y; 
+    int p2x, p2y;
+    int p3x, p3y;
 };
 
 struct spoiler
