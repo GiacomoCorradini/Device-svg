@@ -44,20 +44,20 @@ void coca_tryruote(coca_device* macch){
 
     cout << "Sceglier il diametro delle ruote" << endl;
     cout << "Ruota sinistra:" << endl;
-    while(macch->sx.cerchione != 16 || macch->sx.cerchione != 17 || macch->sx.cerchione != 18){
+    while(macch->sx.cerchione != 16 && macch->sx.cerchione != 17 && macch->sx.cerchione != 18){
         cout << "Ruote disponibili:" << endl;
         cout << "Ruote 16\n Ruote 17\n Ruote 18\n" << endl;
         cin >> macch->sx.cerchione;
-            if(macch->sx.cerchione != 16 || macch->sx.cerchione != 17 || macch->sx.cerchione != 18){
+            if(macch->sx.cerchione != 16 && macch->sx.cerchione != 17 && macch->sx.cerchione != 18){
                 cout << "Ruote non disponibili" << endl;
             }
     }
     cout << "Ruota destra:" << endl;
-    while(macch->dx.cerchione != 16 || macch->dx.cerchione != 17 || macch->dx.cerchione != 18){
+    while(macch->dx.cerchione != 16 && macch->dx.cerchione != 17 && macch->dx.cerchione != 18){
         cout << "Ruote disponibili:" << endl;
         cout << "Ruote 16\n Ruote 17\n Ruote 18\n" << endl;
         cin >> macch->dx.cerchione;
-            if(macch->dx.cerchione != 16 || macch->dx.cerchione != 17 || macch->dx.cerchione != 18){
+            if(macch->dx.cerchione != 16 && macch->dx.cerchione != 17 && macch->dx.cerchione != 18){
                 cout << "Ruote non disponibili" << endl;
             }
     }
@@ -69,8 +69,32 @@ void coca_tryruote(coca_device* macch){
     macch->dx.ruota = macch->dx.cerchione * 1.25;
 }
 
-void 
-
+void coca_assetto(coca_device* macch){
+    int x;
     cout << "Sceglier l'assetto della macchina" << endl;
-    cout << "Assetti "
+        while(x!= 1 && x!= 2 && x!= 3){
+        cout << "Assetti disponibili:" << endl;
+        cout << "Assetto pista = 1\n Assetto strada = 2\n Assetto fuoristrada = 3\n" << endl;
+        cin >> x;
+            if(x!= 1 && x!= 2 && x!= 3){
+            cout << "Assetto non disponibile" << endl;
+            }
+        }
+    switch (x){
+        case 1:
+            macch->sx.centrox = 165;
+            macch->dx.centrox = 375;
+            break;
+        case 2:
+            macch->sx.centrox = 170;
+            macch->dx.centrox = 370;
+            break;
+        case 3:
+            macch->sx.centrox = 175;
+            macch->dx.centrox = 365;
+            break;
+
+        default:
+            break;
+        }
 }
