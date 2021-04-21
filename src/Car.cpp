@@ -120,3 +120,33 @@ string coca_ruote(coca_device* macch){
 
     return ruo;
 }
+
+void coca_tryfinestrini(coca_device* macch){
+
+}
+
+string coca_finestrini(coca_device* macch){
+    string fines;
+
+    return fines;
+}
+
+void coca_spoiler(coca_device* macch){
+
+}
+
+string coca_finestrini(coca_device* macch){
+    string spoil;
+    
+    return spoil;
+}
+
+void coca_trytetto(coca_device* macch){
+
+}
+
+string coca_tetto(coca_device* macch){
+    string te;
+
+    return te;
+}

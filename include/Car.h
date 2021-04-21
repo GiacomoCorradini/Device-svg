@@ -54,4 +54,12 @@ string coca_carrozzeria(coca_device* macch);
 void coca_tryruote(coca_device* macch);
 void coca_tryassetto(coca_device* macch);
 string coca_ruote(coca_device* macch);
+void coca_tryfinestrini(coca_device* macch);
+string coca_finestrini(coca_device* macch);
+void coca_spoiler(coca_device* macch);
+string coca_finestrini(coca_device* macch);
+void coca_trytetto(coca_device* macch);
+string coca_tetto(coca_device* macch);
+
+
 #endif //CAR_H
