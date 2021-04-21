@@ -39,3 +39,38 @@ string coca_carrozzeria(coca_device* macch){
     carr += " style=\"stroke-width:3;stroke:rgb(0,0,0)\" fill=\"red\"/>\n"; 
     return carr;
 }
+
+void coca_tryruote(coca_device* macch){
+
+    cout << "Sceglier il diametro delle ruote" << endl;
+    cout << "Ruota sinistra:" << endl;
+    while(macch->sx.cerchione != 16 || macch->sx.cerchione != 17 || macch->sx.cerchione != 18){
+        cout << "Ruote disponibili:" << endl;
+        cout << "Ruote 16\n Ruote 17\n Ruote 18\n" << endl;
+        cin >> macch->sx.cerchione;
+            if(macch->sx.cerchione != 16 || macch->sx.cerchione != 17 || macch->sx.cerchione != 18){
+                cout << "Ruote non disponibili" << endl;
+            }
+    }
+    cout << "Ruota destra:" << endl;
+    while(macch->dx.cerchione != 16 || macch->dx.cerchione != 17 || macch->dx.cerchione != 18){
+        cout << "Ruote disponibili:" << endl;
+        cout << "Ruote 16\n Ruote 17\n Ruote 18\n" << endl;
+        cin >> macch->dx.cerchione;
+            if(macch->dx.cerchione != 16 || macch->dx.cerchione != 17 || macch->dx.cerchione != 18){
+                cout << "Ruote non disponibili" << endl;
+            }
+    }
+
+    macch->sx.cerchione += 8;
+    macch->sx.ruota = macch->sx.cerchione * 1.25;
+
+    macch->dx.cerchione += 8;
+    macch->dx.ruota = macch->dx.cerchione * 1.25;
+}
+
+void 
+
+    cout << "Sceglier l'assetto della macchina" << endl;
+    cout << "Assetti "
+}

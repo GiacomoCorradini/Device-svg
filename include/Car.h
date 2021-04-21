@@ -51,5 +51,5 @@ std::string coca_sfondo();
 std::string coca_fine();
 void coca_trycarrozzeria(coca_device* macch);
 string coca_carrozzeria(coca_device* macch);
-
+void coca_tryruote(coca_device* macch);
 #endif //CAR_H
