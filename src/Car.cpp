@@ -25,9 +25,9 @@ string coca_fine(){
 }
 
 void coca_trycarrozzeria(coca_device* macch){
-    cout << "Inserire la lunghezza della macchina" << endl;
+    cout << "Inserire la lunghezza della macchina: ";
     cin >> macch->car.width;
-    cout << "Inserire l'altezza della macchina" << endl;
+    cout << "Inserire l'altezza della macchina: ";
     cin >> macch->car.height;
 }
 
@@ -42,20 +42,20 @@ string coca_carrozzeria(coca_device* macch){
 
 void coca_tryruote(coca_device* macch){
 
-    cout << "Sceglier il diametro delle ruote" << endl;
-    cout << "Ruota sinistra:" << endl;
+    cout << "Scegliere il diametro delle ruote" << endl;
+    cout << "RUOTA SINISTRA" << endl;
     while(macch->sx.cerchione != 16 && macch->sx.cerchione != 17 && macch->sx.cerchione != 18){
         cout << "Ruote disponibili:" << endl;
-        cout << "Ruote 16\n Ruote 17\n Ruote 18\n" << endl;
+        cout << "Ruote 16 pollici\nRuote 17 pollici\nRuote 18 pollici\n" << endl;
         cin >> macch->sx.cerchione;
             if(macch->sx.cerchione != 16 && macch->sx.cerchione != 17 && macch->sx.cerchione != 18){
                 cout << "Ruote non disponibili" << endl;
             }
     }
-    cout << "Ruota destra:" << endl;
+    cout << "RUOTA DESTRA:" << endl;
     while(macch->dx.cerchione != 16 && macch->dx.cerchione != 17 && macch->dx.cerchione != 18){
         cout << "Ruote disponibili:" << endl;
-        cout << "Ruote 16\n Ruote 17\n Ruote 18\n" << endl;
+        cout << "Ruote 16 pollici\nRuote 17 pollici\nRuote 18 pollici\n" << endl;
         cin >> macch->dx.cerchione;
             if(macch->dx.cerchione != 16 && macch->dx.cerchione != 17 && macch->dx.cerchione != 18){
                 cout << "Ruote non disponibili" << endl;
@@ -63,18 +63,18 @@ void coca_tryruote(coca_device* macch){
     }
 
     macch->sx.cerchione += 8;
-    macch->sx.ruota = macch->sx.cerchione * 1.25;
+    macch->sx.ruota = macch->sx.cerchione * 1.6;
 
     macch->dx.cerchione += 8;
-    macch->dx.ruota = macch->dx.cerchione * 1.25;
+    macch->dx.ruota = macch->dx.cerchione * 1.6;
 }
 
-void coca_assetto(coca_device* macch){
+void coca_tryassetto(coca_device* macch){
     int x;
     cout << "Sceglier l'assetto della macchina" << endl;
         while(x!= 1 && x!= 2 && x!= 3){
         cout << "Assetti disponibili:" << endl;
-        cout << "Assetto pista = 1\n Assetto strada = 2\n Assetto fuoristrada = 3\n" << endl;
+        cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
         cin >> x;
             if(x!= 1 && x!= 2 && x!= 3){
             cout << "Assetto non disponibile" << endl;
@@ -106,15 +106,15 @@ string coca_ruote(coca_device* macch){
     ruo += "cx=\"" + to_string(macch->sx.centrox) + "\" cy=\"500\" ";
     ruo += "r=\"" + to_string(macch->sx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
     // Cerchione sinistra
-    ruo = "<circle ";
+    ruo += "<circle ";
     ruo += "cx=\"" + to_string(macch->sx.centrox) + "\" cy=\"500\" ";
     ruo += "r=\"" + to_string(macch->sx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
     // Ruota destra
-    ruo = "<circle ";
+    ruo += "<circle ";
     ruo += "cx=\"" + to_string(macch->dx.centrox) + "\" cy=\"500\" ";
     ruo += "r=\"" + to_string(macch->dx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
     // Cerchione destra
-    ruo = "<circle ";
+    ruo += "<circle ";
     ruo += "cx=\"" + to_string(macch->dx.centrox) + "\" cy=\"500\" ";
     ruo += "r=\"" + to_string(macch->dx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
 
