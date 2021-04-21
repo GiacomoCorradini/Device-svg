@@ -98,3 +98,25 @@ void coca_assetto(coca_device* macch){
             break;
         }
 }
+
+string coca_ruote(coca_device* macch){
+    string ruo;
+    // Ruota sinistra
+    ruo = "<circle ";
+    ruo += "cx=\"" + to_string(macch->sx.centrox) + "\" cy=\"500\" ";
+    ruo += "r=\"" + to_string(macch->sx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
+    // Cerchione sinistra
+    ruo = "<circle ";
+    ruo += "cx=\"" + to_string(macch->sx.centrox) + "\" cy=\"500\" ";
+    ruo += "r=\"" + to_string(macch->sx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
+    // Ruota destra
+    ruo = "<circle ";
+    ruo += "cx=\"" + to_string(macch->dx.centrox) + "\" cy=\"500\" ";
+    ruo += "r=\"" + to_string(macch->dx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
+    // Cerchione destra
+    ruo = "<circle ";
+    ruo += "cx=\"" + to_string(macch->dx.centrox) + "\" cy=\"500\" ";
+    ruo += "r=\"" + to_string(macch->dx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
+
+    return ruo;
+}
