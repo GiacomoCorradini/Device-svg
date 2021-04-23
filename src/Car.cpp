@@ -4,16 +4,22 @@ using namespace std;
 #include <string>
 #include "Car.h"
 
+// Stringhe costanti non modificabili
 string coca_intestazione(){
     string inte;
     inte = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-    inte += "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"800\" height=\"600\">\n";
+    inte += "<svg xmlns=\"http://www.w3.org/2000/svg\" ";
+    inte += "width=\"" + to_string(SFONDOX) + "\" ";
+    inte += "height=\"" + to_string(SFONDOY) + "\">\n";
     return inte;
 }
 
 string coca_sfondo(){
     string sfon;
-    sfon = "<rect  x=\"0\" y=\"0\" width=\"800\" height=\"600\" style=\"fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)\"/>\n"; 
+    sfon = "<rect  x=\"0\" y=\"0\" ";
+    sfon += "width=\"" + to_string(SFONDOX) + "\" ";
+    sfon += "height=\"" + to_string(SFONDOY) + "\" ";
+    sfon += "style=\"fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)\"/>\n"; 
     return sfon;
 }
 
@@ -24,23 +30,32 @@ string coca_fine(){
     
 }
 
-void coca_trycarrozzeria(coca_device* macch){
+// Funzioni che implementano la carrozzeria
+
+void coca_try_carrozzeria(coca_device* macch){
     cout << "Inserire la lunghezza della macchina: ";
     cin >> macch->car.width;
     cout << "Inserire l'altezza della macchina: ";
     cin >> macch->car.height;
+    macch->car.cx = 100;
+    macch->car.cy = 600 - macch->car.height - 90;
+
 }
 
-string coca_carrozzeria(coca_device* macch){
+string coca_strg_carrozzeria(coca_device* macch){
     string carr;
-    carr = "<rect  x=\"100\" y=\"430\" rx=\"10\" ry=\"10\"";
+    carr = "<rect  ";
+    carr += "x=\"" + to_string(macch->car.cx) + "\" ";
+    carr += "y=\"" + to_string(macch->car.cy) + "\" ";
+    carr += "rx=\"10\" ry=\"10\"";
     carr += " width=\"" + to_string(macch->car.width) + "\"";
     carr += " height=\"" + to_string(macch->car.height) + "\"";
     carr += " style=\"stroke-width:3;stroke:rgb(0,0,0)\" fill=\"red\"/>\n"; 
     return carr;
 }
 
-void coca_tryruote(coca_device* macch){
+// Funzioni che implementano le ruote
+void coca_try_ruote(coca_device* macch){
 
     cout << "Scegliere il diametro delle ruote" << endl;
     cout << "RUOTA SINISTRA" << endl;
@@ -69,7 +84,7 @@ void coca_tryruote(coca_device* macch){
     macch->dx.ruota = macch->dx.cerchione * 1.6;
 }
 
-void coca_tryassetto(coca_device* macch){
+void coca_try_assetto(coca_device* macch){
     int x;
     cout << "Sceglier l'assetto della macchina" << endl;
         while(x!= 1 && x!= 2 && x!= 3){
@@ -82,16 +97,16 @@ void coca_tryassetto(coca_device* macch){
         }
     switch (x){
         case 1:
-            macch->sx.centrox = 165;
-            macch->dx.centrox = 375;
+            macch->sx.centrox = macch->car.cx + (macch->car.width / 5) - 5;
+            macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5) + 5;
             break;
         case 2:
-            macch->sx.centrox = 170;
-            macch->dx.centrox = 370;
+            macch->sx.centrox = macch->car.cx + (macch->car.width / 5);
+            macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5);
             break;
         case 3:
-            macch->sx.centrox = 175;
-            macch->dx.centrox = 365;
+            macch->sx.centrox = macch->car.cx + (macch->car.width / 5) +5;
+            macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5) - 5;
             break;
 
         default:
@@ -99,54 +114,99 @@ void coca_tryassetto(coca_device* macch){
         }
 }
 
-string coca_ruote(coca_device* macch){
+string coca_strg_ruote(coca_device* macch){
     string ruo;
     // Ruota sinistra
     ruo = "<circle ";
     ruo += "cx=\"" + to_string(macch->sx.centrox) + "\" cy=\"500\" ";
-    ruo += "r=\"" + to_string(macch->sx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
+    ruo += "r=\"" + to_string(macch->sx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\"/>\n";
     // Cerchione sinistra
     ruo += "<circle ";
     ruo += "cx=\"" + to_string(macch->sx.centrox) + "\" cy=\"500\" ";
-    ruo += "r=\"" + to_string(macch->sx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
+    ruo += "r=\"" + to_string(macch->sx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\"/>\n";
     // Ruota destra
     ruo += "<circle ";
     ruo += "cx=\"" + to_string(macch->dx.centrox) + "\" cy=\"500\" ";
-    ruo += "r=\"" + to_string(macch->dx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
+    ruo += "r=\"" + to_string(macch->dx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\"/>\n";
     // Cerchione destra
     ruo += "<circle ";
     ruo += "cx=\"" + to_string(macch->dx.centrox) + "\" cy=\"500\" ";
-    ruo += "r=\"" + to_string(macch->dx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\" />\n";
+    ruo += "r=\"" + to_string(macch->dx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\"/>\n";
 
     return ruo;
 }
 
-void coca_tryfinestrini(coca_device* macch){
+// Funzione che implementa i finestrini
+void coca_try_finestrini(coca_device* macch){
 
+    macch->fin.p1x = macch->car.cx + macch->car.width / 1.75;
+    macch->fin.p1y = macch->car.cy - macch->car.height / 1.33333;
+
+    macch->fin.p2x = macch->car.cx + macch->car.width / 1.25;
+    macch->fin.p2y = macch->car.cy;
+
+    macch->fin.p3x = macch->car.cx + macch->car.width / 1.75;
+    macch->fin.p3y = macch->car.cy;
 }
 
-string coca_finestrini(coca_device* macch){
+string coca_strg_finestrini(coca_device* macch){
     string fines;
-
+    fines = "<polygon points=\"";
+    fines += to_string(macch->fin.p1x) + "," + to_string(macch->fin.p1y);
+    fines += to_string(macch->fin.p2x) + "," + to_string(macch->fin.p2y);
+    fines += to_string(macch->fin.p3x) + "," + to_string(macch->fin.p3y);
+    fines += " style=\"fill:lightblue;stroke:black;stroke-width:5\" />\n";
     return fines;
 }
 
-void coca_spoiler(coca_device* macch){
+// Funzione che implementa lo spoiler
 
+void coca_try_spoiler(coca_device* macch){
+    macch->spoil.heights = macch->car.height / (2.666667);
+    macch->spoil.widths = macch->car.width / 17.5;
+    macch->spoil.px = macch->car.cx + macch->car.width /35;
+    macch->spoil.py = macch->car.cy - macch->spoil.heights;
 }
 
-string coca_finestrini(coca_device* macch){
+string coca_strg_spoiler(coca_device* macch){
     string spoil;
-    
+    spoil = "<rect ";
+    spoil += "x=\"" + to_string(macch->spoil.px) + "\" ";
+    spoil += "y=\"" + to_string(macch->spoil.py) + "\" "; 
+    spoil += "width=\"" + to_string(macch->spoil.widths) + "\" ";
+    spoil += "height=\"" + to_string(macch->spoil.heights) + "\" "; 
+    spoil += "style=\"stroke-width:3;stroke:rgb(0,0,0)\" fill=\"red\"/>\n";
     return spoil;
 }
 
-void coca_trytetto(coca_device* macch){
+// Funzione che implementa il tetto
+
+void coca_try_tetto(coca_device* macch){
+    macch->cap.x1 = macch->car.cx + macch->car.width / 5.8333;
+    macch->cap.y1 = macch->car.cy;
+
+    macch->cap.x2 = macch->car.cx + macch->car.width / 3.5;
+    macch->cap.y2 = macch->car.cy - macch->car.height / 1.33333;
+
+    macch->cap.x3 = macch->car.cx + macch->car.width / 1.75;
+    macch->cap.y3 = macch->car.cy - macch->car.height / 1.33333;
+
+    macch->cap.x4 = macch->car.cx + macch->car.width / 1.75;
+    macch->cap.y4 = macch->car.cy;
+
+    macch->cap.x5 = macch->car.cx + macch->car.width / 5.8333;
+    macch->cap.y5 = macch->car.cy;
 
 }
 
-string coca_tetto(coca_device* macch){
+string coca_strg_tetto(coca_device* macch){
     string te;
-
+    te = "<polygon points=\"";
+    te += to_string(macch->cap.x1) + "," + to_string(macch->cap.y1);
+    te += to_string(macch->cap.x2) + "," + to_string(macch->cap.y2);
+    te += to_string(macch->cap.x3) + "," + to_string(macch->cap.y3);
+    te += to_string(macch->cap.x4) + "," + to_string(macch->cap.y4);
+    te += to_string(macch->cap.x5) + "," + to_string(macch->cap.y5);
+    te += " style=\"fill:red;stroke:black;stroke-width:5\"/>\n";
     return te;
 }

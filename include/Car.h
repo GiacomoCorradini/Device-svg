@@ -2,64 +2,72 @@
 #define CAR_H
  
 #include <string>
+#define SFONDOX 800
+#define SFONDOY 600
 
-struct carrozzeria
+struct coca_carrozzeria
 {
-    int cx, cy;
-    int width, height;
+    float cx, cy;
+    float width, height;
 };
 
-struct ruota
+struct coca_ruota
 {
-    int ruota, cerchione;
-    int centrox, centroy;
+    float ruota, cerchione;
+    float centrox, centroy;
 };
 
-struct tetto 
+struct coca_tetto 
 {
-    int x1, y1; 
-    int x2, y2;
-    int x3, y3; 
-    int x4, y4;
-    int x5, y5;
+    float x1, y1; 
+    float x2, y2;
+    float x3, y3; 
+    float x4, y4;
+    float x5, y5;
 };
 
-struct finestrini
+struct coca_finestrini
 {
-    int p1x, p1y; 
-    int p2x, p2y;
-    int p3x, p3y;
+    float p1x, p1y; 
+    float p2x, p2y;
+    float p3x, p3y;
 };
 
-struct spoiler
+struct coca_spoiler
 {
-    int px, py;
-    int widths, heights;
+    float px, py;
+    float widths, heights;
 };
 
 struct coca_device
 {
-    carrozzeria car;
-    ruota sx;
-    ruota dx;
-    finestrini fin;
-    spoiler spoil;
+    coca_carrozzeria car;
+    coca_ruota sx;
+    coca_ruota dx;
+    coca_finestrini fin;
+    coca_spoiler spoil;
+    coca_tetto cap;
 };
 
 std::string coca_intestazione();
 std::string coca_sfondo();
 std::string coca_fine();
-void coca_trycarrozzeria(coca_device* macch);
-string coca_carrozzeria(coca_device* macch);
-void coca_tryruote(coca_device* macch);
-void coca_tryassetto(coca_device* macch);
-string coca_ruote(coca_device* macch);
-void coca_tryfinestrini(coca_device* macch);
-string coca_finestrini(coca_device* macch);
-void coca_spoiler(coca_device* macch);
-string coca_finestrini(coca_device* macch);
-void coca_trytetto(coca_device* macch);
-string coca_tetto(coca_device* macch);
+
+void coca_try_carrozzeria(coca_device* macch);
+std::string coca_strg_carrozzeria(coca_device* macch);
+
+void coca_try_ruote(coca_device* macch);
+void coca_try_assetto(coca_device* macch);
+std::string coca_strg_ruote(coca_device* macch);
+
+void coca_try_finestrini(coca_device* macch);
+std::string coca_strg_finestrini(coca_device* macch);
+
+void coca_try_spoiler(coca_device* macch);
+std::string coca_strg_spoiler(coca_device* macch);
+
+void coca_try_tetto(coca_device* macch);
+std::string coca_strg_tetto(coca_device* macch);
 
 
 #endif //CAR_H
