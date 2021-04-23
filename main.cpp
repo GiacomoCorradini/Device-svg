@@ -2,6 +2,10 @@ using namespace std;
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <streambuf>
+#include <sstream>
+
 #include "Car.h"
  
 int main(){
@@ -11,26 +15,22 @@ int main(){
     coca_device dev;
     macch = &dev;
 
-    coca_try_carrozzeria(macch);
-    coca_try_ruote(macch);
-    coca_try_assetto(macch);
-    coca_try_finestrini(macch);
-    coca_try_spoiler(macch);
-    coca_try_tetto(macch);
+    // Calcolo dei parametri necessari
+    coca_try_device(macch);
 
+    // Stampa stringa con i parametri passati
+    svg = coca_strg_device(macch);
 
-    svg = coca_intestazione();
-    svg += coca_sfondo();
-    svg += coca_strg_carrozzeria(macch);
-    svg += coca_strg_ruote(macch);
-    svg += coca_strg_finestrini(macch);
-    svg += coca_strg_spoiler(macch);
-    svg += coca_strg_tetto(macch);
-    svg += coca_fine();
-    
-    cout << "Il codice svg creato è:" << endl;
-    cout << svg;
+    // Create and open a text file
+    ofstream MyFile("coca_macchine.svg");
+
+    string string_to_write = svg;
+
+    // Write to the file
+    MyFile << string_to_write;
+
+    // Close the file
+    MyFile.close();
 
     return 0;
- 
 } 

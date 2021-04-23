@@ -5,18 +5,21 @@
 #define SFONDOX 800
 #define SFONDOY 600
 
+// parametri carrozzeria
 struct coca_carrozzeria
 {
     float cx, cy;
     float width, height;
 };
 
+// parametri ruota
 struct coca_ruota
 {
     float ruota, cerchione;
     float centrox, centroy;
 };
 
+// parametri tetto
 struct coca_tetto 
 {
     float x1, y1; 
@@ -26,6 +29,7 @@ struct coca_tetto
     float x5, y5;
 };
 
+// parametri finestrini
 struct coca_finestrini
 {
     float p1x, p1y; 
@@ -33,12 +37,14 @@ struct coca_finestrini
     float p3x, p3y;
 };
 
+// parametri spoiler
 struct coca_spoiler
 {
     float px, py;
     float widths, heights;
 };
 
+// parametri dell'intero device
 struct coca_device
 {
     coca_carrozzeria car;
@@ -49,25 +55,34 @@ struct coca_device
     coca_tetto cap;
 };
 
+// intestazione + fine
 std::string coca_intestazione();
 std::string coca_sfondo();
 std::string coca_fine();
 
+// funzioni carrozzeria
 void coca_try_carrozzeria(coca_device* macch);
 std::string coca_strg_carrozzeria(coca_device* macch);
 
+// funzioni ruote
 void coca_try_ruote(coca_device* macch);
 void coca_try_assetto(coca_device* macch);
 std::string coca_strg_ruote(coca_device* macch);
 
+// funzioni finestrini
 void coca_try_finestrini(coca_device* macch);
 std::string coca_strg_finestrini(coca_device* macch);
 
+// funzioni spoiler
 void coca_try_spoiler(coca_device* macch);
 std::string coca_strg_spoiler(coca_device* macch);
 
+// funzioni tetto
 void coca_try_tetto(coca_device* macch);
 std::string coca_strg_tetto(coca_device* macch);
 
+// funzioni del device
+void coca_try_device(coca_device* macch);
+string coca_strg_device(coca_device* macch);
 
 #endif //CAR_H
