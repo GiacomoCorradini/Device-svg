@@ -2,6 +2,10 @@ using namespace std;
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <streambuf>
+#include <sstream>
+
 #include "Car.h"
 
 // Stringhe costanti non modificabili
@@ -231,4 +235,22 @@ string coca_strg_device(coca_device* macch){
     svg += coca_strg_spoiler(macch);
     svg += coca_fine(); 
     return svg;
+}
+
+void coca_write(string svg){
+    string nome;
+
+    cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
+    cin >> nome;
+
+    // Create and open a text file
+    ofstream MyFile(nome);
+
+    string string_to_write = svg;
+
+    // Write to the file
+    MyFile << string_to_write;
+
+    // Close the file
+    MyFile.close();
 }

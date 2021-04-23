@@ -21,16 +21,7 @@ int main(){
     // Stampa stringa con i parametri passati
     svg = coca_strg_device(macch);
 
-    // Create and open a text file
-    ofstream MyFile("coca_macchine.svg");
-
-    string string_to_write = svg;
-
-    // Write to the file
-    MyFile << string_to_write;
-
-    // Close the file
-    MyFile.close();
+    coca_write(svg);
 
     return 0;
 } 

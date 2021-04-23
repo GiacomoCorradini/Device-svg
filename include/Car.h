@@ -1,7 +1,12 @@
 #ifndef CAR_H
 #define CAR_H
  
+#include <iostream>
 #include <string>
+#include <fstream>
+#include <streambuf>
+#include <sstream>
+
 #define SFONDOX 800
 #define SFONDOY 600
 
@@ -83,6 +88,9 @@ std::string coca_strg_tetto(coca_device* macch);
 
 // funzioni del device
 void coca_try_device(coca_device* macch);
-string coca_strg_device(coca_device* macch);
+std::string coca_strg_device(coca_device* macch);
+
+//funzione scrive su file
+void coca_write(string svg);
 
 #endif //CAR_H
