@@ -2,7 +2,7 @@
 
 Homework 1
 
-### SVG device
+## SVG device
 
 Macchina
 
@@ -14,6 +14,6 @@ _ Posizione x delle ruote
 
 ![](macchina.svg)
 
-### SVG MACHINE
+## SVG MACHINE
 
 Macchina + .....
