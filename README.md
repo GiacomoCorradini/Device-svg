@@ -14,6 +14,10 @@ _ Posizione x delle ruote
 
 ![](macchina.svg)
 
+Macchina quotata
+
+![](macchina_quotata.svg)
+
 ## SVG MACHINE
 
 Macchina + .....

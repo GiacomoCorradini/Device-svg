@@ -7,8 +7,11 @@ using namespace std;
 #include <sstream>
 
 #include "Car.h"
+ 
 
-// Stringhe costanti non modificabili
+// funzione myinit che fa un checks sui vincoli 
+
+// Stringa di Intestazione
 string coca_intestazione(){
     string inte;
     inte = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\n";
@@ -27,6 +30,7 @@ string coca_sfondo(){
     return sfon;
 }
 
+// Stringa finale
 string coca_fine(){
     string fin;
     fin = "</svg>\n";
@@ -35,14 +39,28 @@ string coca_fine(){
 }
 
 // Funzioni che implementano la carrozzeria
-
 void coca_try_carrozzeria(coca_device* macch){
+    int scelta;
     cout << "Inserire la lunghezza della macchina: ";
     cin >> macch->car.width;
     cout << "Inserire l'altezza della macchina: ";
     cin >> macch->car.height;
-    macch->car.cx = 100;
-    macch->car.cy = 600 - macch->car.height - 90;
+
+    cout << "Vuoi indicare la posizione della macchina nel foglio?" << endl;
+    while(scelta != 1 && scelta != 2){
+        cout << "[1] -> Si" << endl;
+        cout << "[2] -> No" << endl;
+        cin >> scelta;
+        if(scelta != 1 && scelta != 2) cout << "Scelta non permessa" << endl;
+    }
+    if(scelta == 1){
+        cout << "Indicare la la posizione x della macchina nel foglio" << endl;
+        cin >> macch->car.cx;
+    } if(scelta == 2) {
+        macch->car.cx = (SFONDOX/2) - (macch->car.width/2);
+    }
+
+    macch->car.cy = (SFONDOY/2) - (macch->car.height/2);
 
 }
 
@@ -60,32 +78,43 @@ string coca_strg_carrozzeria(coca_device* macch){
 
 // Funzioni che implementano le ruote
 void coca_try_ruote(coca_device* macch){
+    
+    int diametro;
 
-    cout << "Scegliere il diametro delle ruote" << endl;
-    cout << "RUOTA SINISTRA" << endl;
-    while(macch->sx.cerchione != 16 && macch->sx.cerchione != 17 && macch->sx.cerchione != 18){
-        cout << "Ruote disponibili:" << endl;
-        cout << "Ruote 16 pollici\nRuote 17 pollici\nRuote 18 pollici\n" << endl;
-        cin >> macch->sx.cerchione;
-            if(macch->sx.cerchione != 16 && macch->sx.cerchione != 17 && macch->sx.cerchione != 18){
-                cout << "Ruote non disponibili" << endl;
-            }
-    }
-    cout << "RUOTA DESTRA:" << endl;
-    while(macch->dx.cerchione != 16 && macch->dx.cerchione != 17 && macch->dx.cerchione != 18){
-        cout << "Ruote disponibili:" << endl;
-        cout << "Ruote 16 pollici\nRuote 17 pollici\nRuote 18 pollici\n" << endl;
-        cin >> macch->dx.cerchione;
-            if(macch->dx.cerchione != 16 && macch->dx.cerchione != 17 && macch->dx.cerchione != 18){
-                cout << "Ruote non disponibili" << endl;
+    cout << "Scegliere il diametro dei cerchioni" << endl;
+    while(diametro != 16 && diametro != 17 && diametro != 18){
+        cout << "Cerchioni disponibili:" << endl;
+        cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
+        cin >> diametro;
+            if(diametro != 16 && diametro != 17 && diametro != 18){
+                cout << "Cerchioni non disponibili" << endl;
             }
     }
 
-    macch->sx.cerchione += 8;
-    macch->sx.ruota = macch->sx.cerchione * 1.6;
-
-    macch->dx.cerchione += 8;
-    macch->dx.ruota = macch->dx.cerchione * 1.6;
+    switch (diametro)
+    {
+        case 16:
+            macch->sx.ruota = (macch->car.height - 1) / 2;
+            macch->sx.cerchione = macch->sx.ruota / 1.6;
+            macch->dx.ruota = (macch->car.height - 1) / 2;
+            macch->dx.cerchione = macch->dx.ruota / 1.6;
+            break;
+        case 17:
+            macch->sx.ruota = macch->car.height / 2;
+            macch->sx.cerchione = macch->sx.ruota / 1.6;
+            macch->dx.ruota = macch->car.height / 2;
+            macch->dx.cerchione = macch->dx.ruota / 1.6;
+            break;
+        case 18:
+            macch->sx.ruota = (macch->car.height + 1) / 2;
+            macch->sx.cerchione = macch->sx.ruota / 1.6;
+            macch->dx.ruota = (macch->car.height + 1) / 2;
+            macch->dx.cerchione = macch->dx.ruota / 1.6;
+            break;
+        
+        default:
+            break;
+    }
 }
 
 void coca_try_assetto(coca_device* macch){
