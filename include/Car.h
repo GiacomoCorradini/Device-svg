@@ -90,7 +90,11 @@ std::string coca_strg_tetto(coca_device* macch);
 void coca_try_device(coca_device* macch);
 std::string coca_strg_device(coca_device* macch);
 
-//funzione scrive su file
+// funzione scrive su file
 void coca_write(string svg);
+
+// funzione legge un file
+string coca_read();
+
 
 #endif //CAR_H

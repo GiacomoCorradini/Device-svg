@@ -238,6 +238,7 @@ string coca_strg_device(coca_device* macch){
 }
 
 void coca_write(string svg){
+
     string nome;
 
     cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
@@ -253,4 +254,18 @@ void coca_write(string svg){
 
     // Close the file
     MyFile.close();
+}
+
+string coca_read(){
+    string file, lettura;
+
+    cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
+    cin >> lettura;
+
+    std::ifstream t(lettura);
+    std::stringstream buffer;
+    buffer << t.rdbuf();
+    file = buffer.str();
+
+    return file;
 }
