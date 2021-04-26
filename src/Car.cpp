@@ -8,8 +8,11 @@ using namespace std;
 
 #include "Car.h"
  
+// errori
 
-// funzione myinit che fa un checks sui vincoli 
+
+// funzione myinit which checks constraints
+
 
 // Stringa di Intestazione
 string coca_intestazione(){
@@ -55,7 +58,12 @@ void coca_try_carrozzeria(coca_device* macch){
     }
     if(scelta == 1){
         cout << "Indicare la la posizione x della macchina nel foglio" << endl;
-        cin >> macch->car.cx;
+        while((macch->car.cx + macch->car.width) > SFONDOX){
+            cin >> macch->car.cx;
+            if((macch->car.cx + macch->car.width) > SFONDOX){
+                cout << "Posizione non corretta, macchina fuori dal foglio di lavoro" << endl;
+            }
+        }
     } if(scelta == 2) {
         macch->car.cx = (SFONDOX/2) - (macch->car.width/2);
     }
