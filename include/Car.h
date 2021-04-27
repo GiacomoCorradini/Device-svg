@@ -10,6 +10,18 @@
 #define SFONDOX 800
 #define SFONDOY 600
 
+// parametri da passare alla funzione per inizializzarla
+struct parametri
+{
+    float inheight; // altezza del veicolo
+    float inwidth; // larghezza del veicolo
+    float inpx; // posizione x del veicolo
+    float inpy; // posizione y del veicolo
+    int indiam; // diametro dei cerchioni (16, 17, 18)
+    int inass; // assetto della macchina (1, 2, 3)
+};
+
+
 // parametri carrozzeria
 struct coca_carrozzeria
 {
@@ -96,5 +108,7 @@ void coca_write(string svg);
 // funzione legge un file
 string coca_read();
 
+// funzione che inizzializza il device passando dei parametri
+coca_device* coca_init_device(parametri par);
 
 #endif //CAR_H

@@ -31,6 +31,7 @@ int main(){
     coca_device* macch;
     coca_device dev;
     macch = &dev;
+    struct parametri par = {80, 350, 300, 200, 16, 2};
 
     while(scelta != 6){
         
@@ -52,7 +53,8 @@ int main(){
                 break;
 
             case 4:
-                /* code */
+                macch = coca_init_device(par);
+                svg = coca_strg_device(macch, 1);
                 break;
 
             case 5:

@@ -37,10 +37,107 @@ void coca_error(int err){
     //cout << "GOING BACK TO MAIN MENU" << endl;
 }
 
+// My init parametri da funzione
+coca_device* coca_init_device(parametri par){
 
-// My init
+    coca_device* indev = new coca_device;
 
+    // carrozzeria
+    indev->car.width = par.inwidth;
+    indev->car.height = par.inheight;
+    indev->car.cx = par.inpx;
+    if((indev->car.cx + indev->car.width) > SFONDOX) coca_error(1);
+    indev->car.cy = par.inpy;
+    if((indev->car.cy + indev->car.height) > SFONDOY) coca_error(2);
 
+    // ruote
+    switch (par.indiam)
+    {
+        case 16:
+            indev->sx.ruota = (indev->car.height - 1) / 2;
+            indev->sx.cerchione = indev->sx.ruota / 1.6;
+            indev->dx.ruota = (indev->car.height - 1) / 2;
+            indev->dx.cerchione = indev->dx.ruota / 1.6;
+            break;
+        case 17:
+            indev->sx.ruota = indev->car.height / 2;
+            indev->sx.cerchione = indev->sx.ruota / 1.6;
+            indev->dx.ruota = indev->car.height / 2;
+            indev->dx.cerchione = indev->dx.ruota / 1.6;
+            break;
+        case 18:
+            indev->sx.ruota = (indev->car.height + 1) / 2;
+            indev->sx.cerchione = indev->sx.ruota / 1.6;
+            indev->dx.ruota = (indev->car.height + 1) / 2;
+            indev->dx.cerchione = indev->dx.ruota / 1.6;
+            break;
+        
+        default:
+            coca_error(3);
+
+            break;
+    }
+
+    // assetto
+    switch (par.inass){
+        case 1:
+            indev->sx.centrox = indev->car.cx + (indev->car.width / 5) - 5;
+            indev->dx.centrox = indev->car.cx + indev->car.width - (indev->car.width / 5) + 5;
+            indev->sx.centroy = indev->car.cy + indev->car.height;
+            indev->dx.centroy = indev->car.cy + indev->car.height;
+            break;
+        case 2:
+            indev->sx.centrox = indev->car.cx + (indev->car.width / 5);
+            indev->dx.centrox = indev->car.cx + indev->car.width - (indev->car.width / 5);
+            indev->sx.centroy = indev->car.cy + indev->car.height;
+            indev->dx.centroy = indev->car.cy + indev->car.height;
+            break;
+        case 3:
+            indev->sx.centrox = indev->car.cx + (indev->car.width / 5) + 5;
+            indev->dx.centrox = indev->car.cx + indev->car.width - (indev->car.width / 5) - 5;
+            indev->sx.centroy = indev->car.cy + indev->car.height;
+            indev->dx.centroy = indev->car.cy + indev->car.height;
+            break;
+
+        default:
+        coca_error(4);
+            break;
+        }
+
+    // finestrini
+    indev->fin.p1x = indev->car.cx + indev->car.width / 1.75;
+    indev->fin.p1y = indev->car.cy - indev->car.height / 1.33333;
+
+    indev->fin.p2x = indev->car.cx + indev->car.width / 1.25;
+    indev->fin.p2y = indev->car.cy;
+
+    indev->fin.p3x = indev->car.cx + indev->car.width / 1.75;
+    indev->fin.p3y = indev->car.cy;
+
+    // spoiler
+    indev->spoil.heights = indev->car.height / (2.666667);
+    indev->spoil.widths = indev->car.width / 17.5;
+    indev->spoil.px = indev->car.cx + indev->car.width /35;
+    indev->spoil.py = indev->car.cy - indev->spoil.heights;
+
+    // tetto
+    indev->cap.x1 = indev->car.cx + indev->car.width / 5.8333;
+    indev->cap.y1 = indev->car.cy;
+
+    indev->cap.x2 = indev->car.cx + indev->car.width / 3.5;
+    indev->cap.y2 = indev->car.cy - indev->car.height / 1.33333;
+
+    indev->cap.x3 = indev->car.cx + indev->car.width / 1.75;
+    indev->cap.y3 = indev->car.cy - indev->car.height / 1.33333;
+
+    indev->cap.x4 = indev->car.cx + indev->car.width / 1.75;
+    indev->cap.y4 = indev->car.cy;
+
+    indev->cap.x5 = indev->car.cx + indev->car.width / 5.8333;
+    indev->cap.y5 = indev->car.cy;
+
+    return indev;
+}
 
 // Stringa di Intestazione
 string coca_intestazione(){
