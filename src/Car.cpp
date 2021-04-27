@@ -244,7 +244,6 @@ string coca_strg_finestrini(coca_device* macch){
 }
 
 // Funzione che implementa lo spoiler
-
 void coca_try_spoiler(coca_device* macch){
     macch->spoil.heights = macch->car.height / (2.666667);
     macch->spoil.widths = macch->car.width / 17.5;
@@ -264,7 +263,6 @@ string coca_strg_spoiler(coca_device* macch){
 }
 
 // Funzione che implementa il tetto
-
 void coca_try_tetto(coca_device* macch){
     macch->cap.x1 = macch->car.cx + macch->car.width / 5.8333;
     macch->cap.y1 = macch->car.cy;
@@ -295,6 +293,7 @@ string coca_strg_tetto(coca_device* macch){
     return te;
 }
 
+// Funzione che implementa il device
 void coca_try_device(coca_device* macch){
     coca_try_carrozzeria(macch);
     coca_try_ruote(macch);
@@ -304,19 +303,24 @@ void coca_try_device(coca_device* macch){
     coca_try_tetto(macch);
 }
 
-string coca_strg_device(coca_device* macch){
+string coca_strg_device(coca_device* macch, int scelta){
     string svg;
-    svg = coca_intestazione();
-    svg += coca_sfondo();
+    if(scelta == 1){
+        svg = coca_intestazione();
+        svg += coca_sfondo();
+    }
     svg += coca_strg_carrozzeria(macch);
     svg += coca_strg_ruote(macch);
     svg += coca_strg_tetto(macch);
     svg += coca_strg_finestrini(macch);
     svg += coca_strg_spoiler(macch);
-    svg += coca_fine(); 
+    if(scelta == 1){
+        svg += coca_fine();
+    }
     return svg;
 }
 
+// Funzione che scrive su file
 void coca_write(string svg){
 
     if(svg == "") coca_error(5);
@@ -339,6 +343,7 @@ void coca_write(string svg){
     }
 }
 
+// Funzione che legge da file
 string coca_read(){
 
     string file, lettura;

@@ -40,7 +40,7 @@ int main(){
         {
             case 1:
                 coca_try_device(macch);
-                svg = coca_strg_device(macch);
+                svg = coca_strg_device(macch, 1);
                 break;
 
             case 2:

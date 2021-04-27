@@ -88,7 +88,7 @@ std::string coca_strg_tetto(coca_device* macch);
 
 // funzioni del device
 void coca_try_device(coca_device* macch);
-std::string coca_strg_device(coca_device* macch);
+std::string coca_strg_device(coca_device* macch, int scelta);
 
 // funzione scrive su file
 void coca_write(string svg);
