@@ -9,9 +9,37 @@ using namespace std;
 #include "Car.h"
  
 // errori
+void coca_error(int err){
+    
+    switch (err)
+    {
+    case 0:
+        cout << "ERROR: Scelta non permessa" << endl;
+        break;
+    case 1:
+        cout << "ERROR: Posizione x non corretta, macchina fuori dal foglio di lavoro" << endl;
+        break;
+    case 2:
+        cout << "ERROR: Posizione y non corretta, macchina fuori dal foglio di lavoro" << endl;
+        break;
+    case 3:
+        cout << "ERROR: Cerchioni non disponibili" << endl;
+        break;
+    case 4:
+        cout << "ERROR: Assetto non disponibile" << endl;
+        break;
+    case 5:
+        cout << "ERROR: File non presente, devi prima scrivere o caricare un nuovo file per potermo salvare" << endl;
+        break;
+    default:
+        break;
+    }
+    //cout << "GOING BACK TO MAIN MENU" << endl;
+}
 
 
-// funzione myinit which checks constraints
+// My init
+
 
 
 // Stringa di Intestazione
@@ -54,22 +82,31 @@ void coca_try_carrozzeria(coca_device* macch){
         cout << "[1] -> Si" << endl;
         cout << "[2] -> No" << endl;
         cin >> scelta;
-        if(scelta != 1 && scelta != 2) cout << "Scelta non permessa" << endl;
+        if(scelta != 1 && scelta != 2) coca_error(0);
     }
     if(scelta == 1){
+
         cout << "Indicare la la posizione x della macchina nel foglio" << endl;
-        while((macch->car.cx + macch->car.width) > SFONDOX){
+  
+        do
+        {
             cin >> macch->car.cx;
-            if((macch->car.cx + macch->car.width) > SFONDOX){
-                cout << "Posizione non corretta, macchina fuori dal foglio di lavoro" << endl;
-            }
-        }
-    } if(scelta == 2) {
+            if((macch->car.cx + macch->car.width) > SFONDOX) coca_error(1);
+        } while ((macch->car.cx + macch->car.width) > SFONDOX);
+
+        cout << "Indicare la la posizione y della macchina nel foglio" << endl;
+
+        do
+        {
+            cin >> macch->car.cy;
+            if((macch->car.cy + macch->car.height) > SFONDOY) coca_error(2);
+        } while ((macch->car.cy + macch->car.height) > SFONDOY);  
+    } 
+    
+    if(scelta == 2) {
         macch->car.cx = (SFONDOX/2) - (macch->car.width/2);
+        macch->car.cy = (SFONDOY/2) - (macch->car.height/2);
     }
-
-    macch->car.cy = (SFONDOY/2) - (macch->car.height/2);
-
 }
 
 string coca_strg_carrozzeria(coca_device* macch){
@@ -94,9 +131,7 @@ void coca_try_ruote(coca_device* macch){
         cout << "Cerchioni disponibili:" << endl;
         cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
         cin >> diametro;
-            if(diametro != 16 && diametro != 17 && diametro != 18){
-                cout << "Cerchioni non disponibili" << endl;
-            }
+            if(diametro != 16 && diametro != 17 && diametro != 18) coca_error(3);
     }
 
     switch (diametro)
@@ -132,22 +167,26 @@ void coca_try_assetto(coca_device* macch){
         cout << "Assetti disponibili:" << endl;
         cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
         cin >> x;
-            if(x!= 1 && x!= 2 && x!= 3){
-            cout << "Assetto non disponibile" << endl;
-            }
+            if(x!= 1 && x!= 2 && x!= 3) coca_error(4);
         }
     switch (x){
         case 1:
             macch->sx.centrox = macch->car.cx + (macch->car.width / 5) - 5;
             macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5) + 5;
+            macch->sx.centroy = macch->car.cy + macch->car.height;
+            macch->dx.centroy = macch->car.cy + macch->car.height;
             break;
         case 2:
             macch->sx.centrox = macch->car.cx + (macch->car.width / 5);
             macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5);
+            macch->sx.centroy = macch->car.cy + macch->car.height;
+            macch->dx.centroy = macch->car.cy + macch->car.height;
             break;
         case 3:
             macch->sx.centrox = macch->car.cx + (macch->car.width / 5) +5;
             macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5) - 5;
+            macch->sx.centroy = macch->car.cy + macch->car.height;
+            macch->dx.centroy = macch->car.cy + macch->car.height;
             break;
 
         default:
@@ -159,19 +198,23 @@ string coca_strg_ruote(coca_device* macch){
     string ruo;
     // Ruota sinistra
     ruo = "\t<circle ";
-    ruo += "cx=\"" + to_string(macch->sx.centrox) + "\" cy=\"500\" ";
+    ruo += "cx=\"" + to_string(macch->sx.centrox) + "\" ";
+    ruo += "cy=\"" + to_string(macch->sx.centroy) + "\" ";
     ruo += "r=\"" + to_string(macch->sx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\"/>\n\n";
     // Cerchione sinistra
     ruo += "\t<circle ";
-    ruo += "cx=\"" + to_string(macch->sx.centrox) + "\" cy=\"500\" ";
+    ruo += "cx=\"" + to_string(macch->sx.centrox) + "\" ";
+    ruo += "cy=\"" + to_string(macch->sx.centroy) + "\" ";
     ruo += "r=\"" + to_string(macch->sx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"gray\"/>\n\n";
     // Ruota destra
     ruo += "\t<circle ";
-    ruo += "cx=\"" + to_string(macch->dx.centrox) + "\" cy=\"500\" ";
+    ruo += "cx=\"" + to_string(macch->dx.centrox) + "\" ";
+    ruo += "cy=\"" + to_string(macch->dx.centroy) + "\" ";
     ruo += "r=\"" + to_string(macch->dx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\"/>\n\n";
     // Cerchione destra
     ruo += "\t<circle ";
-    ruo += "cx=\"" + to_string(macch->dx.centrox) + "\" cy=\"500\" ";
+    ruo += "cx=\"" + to_string(macch->dx.centrox) + "\" ";
+    ruo += "cy=\"" + to_string(macch->dx.centroy) + "\" ";
     ruo += "r=\"" + to_string(macch->dx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"gray\"/>\n\n";
 
     return ruo;
@@ -276,24 +319,28 @@ string coca_strg_device(coca_device* macch){
 
 void coca_write(string svg){
 
-    string nome;
+    if(svg == "") coca_error(5);
+    if(svg != ""){
+        string nome;
 
-    cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
-    cin >> nome;
+        cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
+        cin >> nome;
 
-    // Create and open a text file
-    ofstream MyFile(nome);
+        // Create and open a text file
+        ofstream MyFile(nome);
 
-    string string_to_write = svg;
+        string string_to_write = svg;
 
-    // Write to the file
-    MyFile << string_to_write;
+        // Write to the file
+        MyFile << string_to_write;
 
-    // Close the file
-    MyFile.close();
+        // Close the file
+        MyFile.close();
+    }
 }
 
 string coca_read(){
+
     string file, lettura;
 
     cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
