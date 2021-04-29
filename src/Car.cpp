@@ -7,7 +7,6 @@ using namespace std;
 #include <sstream>
 
 #include "Car.h"
- 
 // errori
 void coca_error(int err){
     
@@ -39,6 +38,8 @@ void coca_error(int err){
     }
     //cout << "GOING BACK TO MAIN MENU" << endl;
 }
+
+
 
 // My init parametri da funzione
 coca_device* coca_init_device(parametri par){
@@ -265,7 +266,7 @@ void coca_try_ruote(coca_device* macch){
 
 void coca_try_assetto(coca_device* macch){
     int x;
-    cout << "Sceglier l'assetto della macchina" << endl;
+    cout << "Scegliere l'assetto della macchina" << endl;
         while(x!= 1 && x!= 2 && x!= 3){
         cout << "Assetti disponibili:" << endl;
         cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
@@ -492,6 +493,7 @@ void coca_write(string svg){
 // Funzione che legge da file
 string coca_read(){
 
+
     string file, lettura;
 
     cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
@@ -503,4 +505,49 @@ string coca_read(){
     file = buffer.str();
 
     return file;
+}
+
+// Menù parametri da modificare
+int coca_set_menu(){
+    int cd;
+    cout << "Quale parametro vuoi modificare: " << endl;
+    cout << "[1] -> Lunghezza" << endl;
+    cout << "[2] -> Altezza" << endl;  
+    cout << "[3] -> Assetto" << endl;
+    cout << "[4] -> Dimensioni ruote" << endl;
+    cin >> cd;
+    return cd;
+}
+
+// Funzione che modifica i parametri
+void coca_set_param(coca_device* macch){
+
+    int set = coca_set_menu();
+
+    switch (set)
+    {
+    case 1:
+        cout << "Inserisci una nuova lunghezza: ";
+        cin >> macch->car.width = ;
+        break;
+    case 2:
+        cout << "Inserisci una nuova altezza: ";
+        cin >> macch->car.height = ;
+        break;
+    case 3:
+        cout << "Inserisci un nuovo assetto: ";
+        coca_try_assetto(macch);
+        break;
+    case 4:
+        cout << "Inserisci una nuova ruota: ";
+        coca_try_ruote(macch);
+        break;
+    
+    default:
+        break;
+    }
+
+    coca_try_finestrini(macch);
+    coca_try_tetto(macch);
+    coca_try_spoiler(macch);
 }
