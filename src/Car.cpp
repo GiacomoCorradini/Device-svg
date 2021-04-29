@@ -31,6 +31,9 @@ void coca_error(int err){
     case 5:
         cout << "ERROR: File non presente, devi prima scrivere o caricare un nuovo file per potermo salvare" << endl;
         break;
+    case 6:
+        cout << "ERROR: Dimensioni della macchina non compatibili" << endl;
+        break;
     default:
         break;
     }
@@ -166,14 +169,17 @@ string coca_fine(){
     
 }
 
-// Funzioni che implementano la carrozzeria
+// Funzioni che implementano la carrozzeria 
 void coca_try_carrozzeria(coca_device* macch){
     int scelta;
+    do{
     cout << "Inserire la lunghezza della macchina: ";
     cin >> macch->car.width;
     cout << "Inserire l'altezza della macchina: ";
     cin >> macch->car.height;
-
+    if(macch->car.width/macch->car.height < 3) coca_error(6);
+    } while(macch->car.width/macch->car.height < 3);
+    
     cout << "Vuoi indicare la posizione della macchina nel foglio?" << endl;
     while(scelta != 1 && scelta != 2){
         cout << "[1] -> Si" << endl;
