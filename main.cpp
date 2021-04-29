@@ -17,8 +17,9 @@ int coca_menu(){
     cout << "[3] -> Salvare un file svg" << endl;
     cout << "[4] -> Caricare un file svg" << endl;
     cout << "[5] -> Modificare un file svg" << endl;
-    cout << "[6] -> Stampa stringa svg a terminale" << endl;
-    cout << "[7] -> Uscire dal programma" << endl;
+    cout << "[6] -> Modificare un parametro file svg" << endl;
+    cout << "[7] -> Stampa stringa svg a terminale" << endl;
+    cout << "[8] -> Uscire dal programma" << endl;
     cin >> i;
 
     return i;
@@ -33,7 +34,7 @@ int main(){
     coca_device dev;
     macch = &dev;
 
-    while(scelta != 7){
+    while(scelta != 8){
         
         scelta = coca_menu();
     
@@ -62,11 +63,16 @@ int main(){
                 break;
 
             case 6:
+                coca_set_param(macch, svg);
+                svg = coca_strg_device(macch, 1, 0);
+                break;
+
+            case 7:
                 cout << "La stringa svg caricata è: " << endl;
                 cout << svg << endl;
                 break;
 
-            case 7:
+            case 8:
                 cout << "Programma terminato" << endl;
                 break;
             

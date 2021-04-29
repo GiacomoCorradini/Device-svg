@@ -114,4 +114,8 @@ coca_device* coca_init_device(parametri par);
 // funzione quotatura
 std::string coca_quotatura(coca_device* macch);
 
+int coca_set_menu();
+
+void coca_set_param(coca_device* macch, string svg);
+
 #endif //CAR_H

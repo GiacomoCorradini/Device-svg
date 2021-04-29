@@ -33,13 +33,14 @@ void coca_error(int err){
     case 6:
         cout << "ERROR: Dimensioni della macchina non compatibili" << endl;
         break;
+    case 7:
+        cout << "ERROR: Non sono presenti parametri da poter modificare" << endl;
+        break;
     default:
         break;
     }
     //cout << "GOING BACK TO MAIN MENU" << endl;
 }
-
-
 
 // My init parametri da funzione
 coca_device* coca_init_device(parametri par){
@@ -520,33 +521,35 @@ int coca_set_menu(){
 }
 
 // Funzione che modifica i parametri
-void coca_set_param(coca_device* macch){
+void coca_set_param(coca_device* macch, string svg){
 
-    int set = coca_set_menu();
+    if(svg == "") coca_error(7);
+    if(svg != ""){
+        int set = coca_set_menu();
 
-    switch (set)
-    {
-    case 1:
-        cout << "Inserisci una nuova lunghezza: ";
-        cin >> macch->car.width = ;
-        break;
-    case 2:
-        cout << "Inserisci una nuova altezza: ";
-        cin >> macch->car.height = ;
-        break;
-    case 3:
-        cout << "Inserisci un nuovo assetto: ";
-        coca_try_assetto(macch);
-        break;
-    case 4:
-        cout << "Inserisci una nuova ruota: ";
-        coca_try_ruote(macch);
-        break;
-    
-    default:
-        break;
+        switch (set)
+        {
+        case 1:
+            cout << "Inserisci una nuova lunghezza: ";
+            cin >> macch->car.width;
+            break;
+        case 2:
+            cout << "Inserisci una nuova altezza: ";
+            cin >> macch->car.height;
+            break;
+        case 3:
+            cout << "Inserisci un nuovo assetto: ";
+            coca_try_assetto(macch);
+            break;
+        case 4:
+            cout << "Inserisci una nuova ruota: ";
+            coca_try_ruote(macch);
+            break;
+        
+        default:
+            break;
+        }
     }
-
     coca_try_finestrini(macch);
     coca_try_tetto(macch);
     coca_try_spoiler(macch);
