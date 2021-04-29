@@ -100,15 +100,18 @@ std::string coca_strg_tetto(coca_device* macch);
 
 // funzioni del device
 void coca_try_device(coca_device* macch);
-std::string coca_strg_device(coca_device* macch, int scelta);
+std::string coca_strg_device(coca_device* macch, int scelta, int quota);
 
 // funzione scrive su file
 void coca_write(string svg);
 
 // funzione legge un file
-string coca_read();
+std::string coca_read();
 
 // funzione che inizzializza il device passando dei parametri
 coca_device* coca_init_device(parametri par);
+
+// funzione quotatura
+std::string coca_quotatura(coca_device* macch);
 
 #endif //CAR_H
