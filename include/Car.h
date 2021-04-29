@@ -72,50 +72,50 @@ struct coca_device
     coca_tetto cap;
 };
 
-// intestazione + fine
+// funzione che inizzializza il device passando dei parametri
+coca_device* coca_init_device(parametri par);
+
+// FUNZIONI DEVICE 
+// My init parametri da terminale
+void coca_cin_carrozzeria(coca_device* macch);
+void coca_cin_posizione(coca_device* macch, int* scelta);
+void coca_cin_ruote(coca_device* macch, int* diametro);
+void coca_cin_assetto(coca_device* macch, int* x);
+void coca_cin_device(coca_device* macch, int* scelta, int* diametro, int* x);
+
+// Funzioni che calcolano i parametri della macchina
+void coca_try_posizione(coca_device* macch, int scelta);
+void coca_try_ruote(coca_device* macch, int diametro);
+void coca_try_assetto(coca_device* macch, int x);
+void coca_try_finestrini(coca_device* macch);
+void coca_try_spoiler(coca_device* macch);
+void coca_try_tetto(coca_device* macch);
+void coca_try_device(coca_device* macch, int scelta, int diametro, int x);
+
+// STRINGHE DEVICE
 std::string coca_intestazione();
 std::string coca_sfondo();
 std::string coca_fine();
 
-// funzioni carrozzeria
-void coca_try_carrozzeria(coca_device* macch);
+// stringhe device
 std::string coca_strg_carrozzeria(coca_device* macch);
-
-// funzioni ruote
-void coca_try_ruote(coca_device* macch);
-void coca_try_assetto(coca_device* macch);
 std::string coca_strg_ruote(coca_device* macch);
-
-// funzioni finestrini
-void coca_try_finestrini(coca_device* macch);
 std::string coca_strg_finestrini(coca_device* macch);
-
-// funzioni spoiler
-void coca_try_spoiler(coca_device* macch);
 std::string coca_strg_spoiler(coca_device* macch);
-
-// funzioni tetto
-void coca_try_tetto(coca_device* macch);
 std::string coca_strg_tetto(coca_device* macch);
-
-// funzioni del device
-void coca_try_device(coca_device* macch);
 std::string coca_strg_device(coca_device* macch, int scelta, int quota);
+
+// quotatura
+string coca_quotatura(coca_device* macch);
 
 // funzione scrive su file
 void coca_write(string svg);
 
-// funzione legge un file
+// funzione legge da file
 std::string coca_read();
-
-// funzione che inizzializza il device passando dei parametri
-coca_device* coca_init_device(parametri par);
-
-// funzione quotatura
-std::string coca_quotatura(coca_device* macch);
 
 int coca_set_menu();
 
-void coca_set_param(coca_device* macch, string svg);
+void coca_set_param(coca_device* macch, string svg, int* pscelta ,int* pdiametro, int* px);
 
 #endif //CAR_H

@@ -28,25 +28,29 @@ int coca_menu(){
 
 int main(){
 
-    int scelta;
+    int menu;
     string svg;
-    coca_device* macch;
-    coca_device dev;
-    macch = &dev;
-
-    while(scelta != 8){
-        
-        scelta = coca_menu();
+    coca_device* macch = new coca_device;
+    int scelta, diametro, x;
+    int* pscelta = &scelta;
+    int* pdiametro = &diametro;
+    int* px = &x;
     
-        switch (scelta)
+    while(menu != 8){
+        
+        menu = coca_menu();
+    
+        switch (menu)
         {
             case 1:
-                coca_try_device(macch);
+                coca_cin_device(macch, pscelta, pdiametro, px);
+                coca_try_device(macch, scelta, diametro, x);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
 
             case 2:
-                coca_try_device(macch);
+                coca_cin_device(macch, pscelta, pdiametro, px);
+                coca_try_device(macch, scelta, diametro, x);
                 svg = coca_strg_device(macch, 1, 1);
                 break;
 
@@ -63,7 +67,7 @@ int main(){
                 break;
 
             case 6:
-                coca_set_param(macch, svg);
+                coca_set_param(macch, svg, pscelta, pdiametro, px);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
 
