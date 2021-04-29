@@ -212,7 +212,6 @@ void coca_cin_assetto(coca_device* macch, int* px){
         cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
         cin >> (*px);
         if((*px) != 1 && (*px) != 2 && (*px) != 3) coca_error(4);
-    
     }
 }
 void coca_cin_device(coca_device* macch, int* pscelta, int* pdiametro, int* px){
@@ -520,7 +519,7 @@ int coca_set_menu(){
     cout << "[1] -> Lunghezza" << endl;
     cout << "[2] -> Altezza" << endl;  
     cout << "[3] -> Assetto" << endl;
-    cout << "[4] -> Dimensioni ruote" << endl;
+    cout << "[4] -> Dimensioni cerhione" << endl;
     cout << "[5] -> Posizione veicolo" << endl;
     cin >> cd;
     
@@ -539,20 +538,36 @@ void coca_set_param(coca_device* macch, string svg, int* pscelta ,int* pdiametro
         switch (set)
         {
         case 1:
-            cout << "Inserisci una nuova lunghezza: ";
-            cin >> macch->car.width;
+            do{
+                cout << "Inserisci una nuova lunghezza: "; 
+                cin >> macch->car.width;
+                if(macch->car.width/macch->car.height < 3) coca_error(6);
+            } while(macch->car.width/macch->car.height < 3);
             break;
         case 2:
-            cout << "Inserisci una nuova altezza: ";
-            cin >> macch->car.height;
+            do{
+                cout << "Inserisci una nuova altezza: ";
+                cin >> macch->car.height;
+                if(macch->car.width/macch->car.height < 3) coca_error(6);
+            } while(macch->car.width/macch->car.height < 3);
             break;
         case 3:
+            do{
             cout << "Inserisci un nuovo assetto: ";
+            cout << "Assetti disponibili:" << endl;
+            cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
             cin >> (*px);
+            if((*px) != 1 && (*px) != 2 && (*px) != 3) coca_error(4);
+            } while((*px) != 1 && (*px) != 2 && (*px) != 3);
             break;
         case 4:
-            cout << "Inserisci una nuova ruota: ";
-            cin >> (*pdiametro);
+            do{
+                cout << "Scegli un nuovo cerchione: ";
+                cout << "Cerchioni disponibili:" << endl;
+                cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
+                cin >> (*pdiametro);
+                if((*pdiametro) != 16 && (*pdiametro) != 17 && (*pdiametro) != 18) coca_error(3);
+            } while((*pdiametro) != 16 && (*pdiametro) != 17 && (*pdiametro) != 18);
             break;
         case 5:
             (*pscelta) = 1;
