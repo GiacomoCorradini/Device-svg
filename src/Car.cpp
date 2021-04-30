@@ -40,7 +40,6 @@ void coca_error(int err){
     default:
         break;
     }
-    //cout << "GOING BACK TO MAIN MENU" << endl;
 }
 
 
