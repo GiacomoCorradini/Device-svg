@@ -6,7 +6,7 @@ TEST_CASE("init should succeed with non-zero denominator", "[fraction]") {
 }
 
 
-TEST_CASE("my_init on zero denominator should return NULL", "[fraction]") {
+TEST_CASE("my_init on zero denominator should return NULL", "[coca_init]") {
        
 }
 
