@@ -5,7 +5,7 @@ using namespace std;
 #include <fstream>
 #include <streambuf>
 #include <sstream>
-
+#include <cmath>
 #include "Car.h"
 
 // errori
@@ -496,18 +496,38 @@ void coca_write(string svg){
 // Funzione che legge da file
 string coca_read(){
 
-
     string file, lettura;
 
     cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
     cin >> lettura;
 
-    std::ifstream t(lettura);
-    std::stringstream buffer;
+    ifstream t(lettura);
+    stringstream buffer;
     buffer << t.rdbuf();
     file = buffer.str();
 
     return file;
+}
+
+// Funzione che legge un svg !!!!
+float coca_parse(string svg, string parse, int & partenza, string fine){
+
+    string numero;
+
+    size_t found = svg.find(parse, partenza);
+
+    if (found != string::npos) found += parse.length();
+
+    size_t found1 = svg.find(fine, found+1);
+    
+    for (found; found < found1; found++)
+    {
+        //cout << "ciclo" << stringa[found] << "\n";
+        numero += svg[found];
+    }
+
+    partenza = found;
+    return stof(numero);
 }
 
 // Menù parametri da modificare
