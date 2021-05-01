@@ -197,24 +197,24 @@ void coca_cin_ruote(coca_device* macch, int* pdiametro){
 
     cout << "Scegliere il diametro dei cerchioni" << endl;
 
-    while((*pdiametro) != 16 && (*pdiametro) != 17 && (*pdiametro) != 18)
+    do
     {
         cout << "Cerchioni disponibili:" << endl;
         cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
         cin >> (*pdiametro);
         if((*pdiametro) != 16 && (*pdiametro) != 17 && (*pdiametro) != 18) coca_error(3);
-    }
+    } while((*pdiametro) != 16 && (*pdiametro) != 17 && (*pdiametro) != 18);
 }
 void coca_cin_assetto(coca_device* macch, int* px){
 
     cout << "Scegliere l'assetto della macchina" << endl;
-    while((*px) != 1 && (*px) != 2 && (*px) != 3)
+    do
     {
         cout << "Assetti disponibili:" << endl;
         cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
         cin >> (*px);
         if((*px) != 1 && (*px) != 2 && (*px) != 3) coca_error(4);
-    }
+    } while((*px) != 1 && (*px) != 2 && (*px) != 3);
 }
 void coca_cin_device(coca_device* macch, int* pscelta, int* pdiametro, int* px){
     coca_cin_carrozzeria(macch);
