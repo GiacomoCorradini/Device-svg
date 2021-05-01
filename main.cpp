@@ -59,6 +59,8 @@ int main(){
 
             case 4:
                 svg = coca_read();
+                //coca_parse_device(macch);
+                //svg = coca_strg_device(macch, 1, 0);
                 break;
 
             case 5:
