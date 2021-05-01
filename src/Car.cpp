@@ -42,6 +42,74 @@ void coca_error(int err){
     }
 }
 
+// check constrains 
+int coca_check(coca_device* macch, int* pscelta, int* pdiametro, int* px){
+    // dimensioni della macchina non compatibili
+    if(macch->car.width/macch->car.height < 3)
+    {
+        coca_error(6);
+        return 1;
+    }
+    // posizione x non permessa
+    if((macch->car.cx + macch->car.width) > (macch->dimensionex))
+    {
+        coca_error(1);
+        return 2;
+    }
+    // posizione y non permessa
+    if((macch->car.cy + macch->car.height) > (macch->dimensioney))
+    {
+        coca_error(2);
+        return 3;
+    }
+    // scelta cerchioni
+    if((*pdiametro) != 16 && (*pdiametro) != 17 && (*pdiametro) != 18)
+    {
+        coca_error(3);
+        return 4;
+    }
+    // scelta assetto
+    if((*px) != 1 && (*px) != 2 && (*px) != 3)
+    {
+        coca_error(4);
+        return 5;
+    }
+    return 0;
+}
+void coca_riset(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check){
+    
+    switch ((*check))
+    {
+    case 1:
+        cout << "Ridefinire dimensioni della macchina" << endl;
+        coca_cin_carrozzeria(macch);
+        break;
+    case 2:
+        cout << "Ridefinire posizione della machhina" << endl;
+        coca_cin_posizione(macch, pscelta);
+        break;
+    case 3:
+        cout << "Ridefinire posizione della machhina" << endl;
+        coca_cin_posizione(macch, pscelta);
+        break;
+    case 4:
+        cout << "Ridefinire diametro dei cerchioni" << endl;
+        coca_cin_ruote(macch, pdiametro);
+        break;
+    case 5:
+        cout << "Ridefinire scelta dell'assetto" << endl;
+        coca_cin_assetto(macch, px);
+        break;
+    case 7:
+        cout << "" << endl;
+
+        break;
+    
+    default:
+        break;
+    }
+
+}
 
 // My init parametri da funzione
 coca_device* coca_init_device(parametri par){
