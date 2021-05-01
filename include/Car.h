@@ -70,6 +70,8 @@ struct coca_device
     coca_finestrini fin;
     coca_spoiler spoil;
     coca_tetto cap;
+    float dimensionex;
+    float dimensioney;
 };
 
 // funzione che inizzializza il device passando dei parametri
@@ -113,7 +115,10 @@ void coca_write(string svg);
 
 // funzione legge da file
 std::string coca_read();
+float coca_parse(string svg, string parse, int & partenza, string fine);
+void coca_parse_device(coca_device* macch);
 
+// Funzione che modifica i parametri della macchina
 int coca_set_menu();
 
 void coca_set_param(coca_device* macch, string svg, int* pscelta ,int* pdiametro, int* px);

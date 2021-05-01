@@ -6,11 +6,11 @@ Homework 1
 
 Macchina
 
-![](macchina.svg)
+![](output/macchina.svg)
 
 Macchina quotata
 
-![](macchina_quotata.svg)
+![](output/macchina_quotata.svg)
 
 ## FUNZIONAMENTO PROGRAMMA
 

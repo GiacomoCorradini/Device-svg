@@ -5,7 +5,7 @@ using namespace std;
 #include <fstream>
 #include <streambuf>
 #include <sstream>
-
+#include <cmath>
 #include "Car.h"
 
 // errori
@@ -160,6 +160,9 @@ void coca_cin_carrozzeria(coca_device* macch){
 }
 void coca_cin_posizione(coca_device* macch, int* pscelta){
     
+    macch->dimensionex = SFONDOX;
+    macch->dimensioney = SFONDOY;
+
     cout << "Vuoi indicare la posizione della macchina nel foglio?" << endl;
 
     while((*pscelta) != 1 && (*pscelta) != 2)
@@ -177,8 +180,8 @@ void coca_cin_posizione(coca_device* macch, int* pscelta){
         do
         {
             cin >> macch->car.cx;
-            if((macch->car.cx + macch->car.width) > SFONDOX) coca_error(1);
-        } while ((macch->car.cx + macch->car.width) > SFONDOX);
+            if((macch->car.cx + macch->car.width) > (macch->dimensionex)) coca_error(1);
+        } while ((macch->car.cx + macch->car.width) > (macch->dimensionex));
 
         cout << "Indicare la la posizione y della macchina nel foglio" << endl;
 
@@ -186,8 +189,8 @@ void coca_cin_posizione(coca_device* macch, int* pscelta){
 
         {
             cin >> macch->car.cy;
-            if((macch->car.cy + macch->car.height) > SFONDOY) coca_error(2);
-        } while ((macch->car.cy + macch->car.height) > SFONDOY);  
+            if((macch->car.cy + macch->car.height) > (macch->dimensioney)) coca_error(2);
+        } while ((macch->car.cy + macch->car.height) > (macch->dimensioney));  
     } 
 }
 void coca_cin_ruote(coca_device* macch, int* pdiametro){
@@ -330,20 +333,20 @@ void coca_try_device(coca_device* macch, int scelta, int diametro, int x){
 
 //STRINGHE
 // Stringa di Intestazione
-string coca_intestazione(){
+string coca_intestazione(coca_device* macch){
     string inte;
-    inte = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\n";
-    inte += "<svg xmlns=\"http://www.w3.org/2000/svg\" ";
-    inte += "width=\"" + to_string(SFONDOX) + "\" ";
-    inte += "height=\"" + to_string(SFONDOY) + "\">\n\n";
+    inte = "<?xml version='1.0' encoding='UTF-8' standalone='no'?>\n\n";
+    inte += "<svg xmlns='http://www.w3.org/2000/svg' ";
+    inte += "width='" + to_string(macch->dimensionex) + "' ";
+    inte += "height='" + to_string(macch->dimensioney) + "'>\n\n";
     return inte;
 }
 string coca_sfondo(){
     string sfon;
-    sfon = "\t<rect  x=\"0\" y=\"0\" ";
-    sfon += "width=\"" + to_string(SFONDOX) + "\" ";
-    sfon += "height=\"" + to_string(SFONDOY) + "\" ";
-    sfon += "style=\"fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)\"/>\n\n"; 
+    sfon = "\t<rect  x='0' y='0' ";
+    sfon += "width='" + to_string(SFONDOX) + "' ";
+    sfon += "height='" + to_string(SFONDOY) + "' ";
+    sfon += "style='fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)'/>\n\n"; 
     return sfon;
 }
 
@@ -359,20 +362,20 @@ string coca_fine(){
 string coca_strg_carrozzeria(coca_device* macch){
     string carr;
 
-    carr = "\t<rect x=\"" + to_string(macch->car.cx) + "\" y=\"" + to_string(macch->car.cy) + "\" rx=\"10\" ry=\"10\" width=\"" + to_string(macch->car.width) + "\" height=\"" + to_string(macch->car.height) + "\" style=\"stroke-width:3;stroke:rgb(0,0,0)\" fill=\"red\"/>\n\n"; 
+    carr = "\t<rect x='" + to_string(macch->car.cx) + "' y='" + to_string(macch->car.cy) + "' rx='10' ry='10' width='" + to_string(macch->car.width) + "' height='" + to_string(macch->car.height) + "' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/>\n\n"; 
     
     return carr;
 }
 string coca_strg_ruote(coca_device* macch){
     string ruo;
     // Ruota sinistra
-    ruo = "\t<circle cx=\"" + to_string(macch->sx.centrox) + "\" cy=\"" + to_string(macch->sx.centroy) + "\" r=\"" + to_string(macch->sx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\"/>\n\n";
+    ruo = "\t<circle cx='" + to_string(macch->sx.centrox) + "' cy='" + to_string(macch->sx.centroy) + "' r='" + to_string(macch->sx.ruota) + "' stroke='black' stroke-width='3' fill='black'/>\n\n";
     // Cerchione sinistra
-    ruo += "\t<circle cx=\"" + to_string(macch->sx.centrox) + "\" cy=\"" + to_string(macch->sx.centroy) + "\" r=\"" + to_string(macch->sx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"gray\"/>\n\n";
+    ruo += "\t<circle cx='" + to_string(macch->sx.centrox) + "' cy='" + to_string(macch->sx.centroy) + "' r='" + to_string(macch->sx.cerchione) + "' stroke='black' stroke-width='3' fill='gray'/>\n\n";
     // Ruota destra
-    ruo += "\t<circle cx=\"" + to_string(macch->dx.centrox) + "\" cy=\"" + to_string(macch->dx.centroy) + "\" r=\"" + to_string(macch->dx.ruota) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"black\"/>\n\n";
+    ruo += "\t<circle cx='" + to_string(macch->dx.centrox) + "' cy='" + to_string(macch->dx.centroy) + "' r='" + to_string(macch->dx.ruota) + "' stroke='black' stroke-width='3' fill='black'/>\n\n";
     // Cerchione destra
-    ruo += "\t<circle cx=\"" + to_string(macch->dx.centrox) + "\" cy=\"" + to_string(macch->dx.centroy) + "\" r=\"" + to_string(macch->dx.cerchione) + "\" stroke=\"black\" stroke-width=\"3\" fill=\"gray\"/>\n\n";
+    ruo += "\t<circle cx='" + to_string(macch->dx.centrox) + "' cy='" + to_string(macch->dx.centroy) + "' r='" + to_string(macch->dx.cerchione) + "' stroke='black' stroke-width='3' fill='gray'/>\n\n";
 
     return ruo;
 }
@@ -380,7 +383,7 @@ string coca_strg_finestrini(coca_device* macch){
     
     string fines;
     
-    fines = "\t<polygon points=\"" + to_string(macch->fin.p1x) + "," + to_string(macch->fin.p1y) + " " + to_string(macch->fin.p2x) + "," + to_string(macch->fin.p2y) + " " + to_string(macch->fin.p3x) + "," + to_string(macch->fin.p3y) + "\" style=\"fill:lightblue;stroke:black;stroke-width:5\" />\n\n";
+    fines = "\t<polygon points='" + to_string(macch->fin.p1x) + "," + to_string(macch->fin.p1y) + " " + to_string(macch->fin.p2x) + "," + to_string(macch->fin.p2y) + " " + to_string(macch->fin.p3x) + "," + to_string(macch->fin.p3y) + "' style='fill:lightblue;stroke:black;stroke-width:5' />\n\n";
     
     return fines;
 }
@@ -388,7 +391,7 @@ string coca_strg_spoiler(coca_device* macch){
     
     string spoil;
     
-    spoil = "\t<rect x=\"" + to_string(macch->spoil.px) + "\" y=\"" + to_string(macch->spoil.py) + "\" width=\"" + to_string(macch->spoil.widths) + "\" height=\"" + to_string(macch->spoil.heights) + "\" style=\"stroke-width:3;stroke:rgb(0,0,0)\" fill=\"red\"/>\n\n";
+    spoil = "\t<rect x='" + to_string(macch->spoil.px) + "' y='" + to_string(macch->spoil.py) + "' width='" + to_string(macch->spoil.widths) + "' height='" + to_string(macch->spoil.heights) + "' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/>\n\n";
     
     return spoil;
 }
@@ -396,7 +399,7 @@ string coca_strg_tetto(coca_device* macch){
     
     string te;
     
-    te = "\t<polygon points=\"" + to_string(macch->cap.x1) + "," + to_string(macch->cap.y1) + " " + to_string(macch->cap.x2) + "," + to_string(macch->cap.y2) + " " + to_string(macch->cap.x3) + "," + to_string(macch->cap.y3) + " " + to_string(macch->cap.x4) + "," + to_string(macch->cap.y4) + " " + to_string(macch->cap.x5) + "," + to_string(macch->cap.y5) + "\" style=\"fill:red;stroke:black;stroke-width:5\"/>\n\n";
+    te = "\t<polygon points='" + to_string(macch->cap.x1) + "," + to_string(macch->cap.y1) + " " + to_string(macch->cap.x2) + "," + to_string(macch->cap.y2) + " " + to_string(macch->cap.x3) + "," + to_string(macch->cap.y3) + " " + to_string(macch->cap.x4) + "," + to_string(macch->cap.y4) + " " + to_string(macch->cap.x5) + "," + to_string(macch->cap.y5) + "' style='fill:red;stroke:black;stroke-width:5'/>\n\n";
     
     return te;
 }
@@ -407,7 +410,7 @@ string coca_strg_device(coca_device* macch, int scelta, int quota){
     
     if(scelta == 1)
     {
-        svg = coca_intestazione();
+        svg = coca_intestazione(macch);
         svg += coca_sfondo();
     
     }
@@ -495,18 +498,101 @@ void coca_write(string svg){
 // Funzione che legge da file
 string coca_read(){
 
-
     string file, lettura;
 
     cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
     cin >> lettura;
 
-    std::ifstream t(lettura);
-    std::stringstream buffer;
+    ifstream t(lettura);
+    stringstream buffer;
     buffer << t.rdbuf();
     file = buffer.str();
 
     return file;
+}
+
+// Funzione che legge un svg !!!!
+float coca_parse(string svg, string parse, int & partenza, string fine){
+
+    string numero;
+
+    size_t found = svg.find(parse, partenza);
+
+    if (found != string::npos) found += parse.length();
+    size_t found1 = svg.find(fine, found+1);
+    for (found; found < found1; found++)
+    {
+        numero += svg[found];
+    }
+    partenza = found;
+    return stof(numero);
+}
+
+// Funzione che importa i parametri da file nella struct
+void coca_parse_device(coca_device* macch){
+
+    string svg = coca_read();
+    int partenza = 0;
+    float m;
+    
+    // dimensione foglio
+    macch->dimensionex = coca_parse(svg,"<rect  x='0' y='0' width='",partenza,"'");
+    macch->dimensioney = coca_parse(svg,"height='",partenza,"'");
+
+    // carrozzeria
+    macch->car.cx = coca_parse(svg,"x='",partenza,"'");
+    macch->car.cy = coca_parse(svg,"y='",partenza,"'");
+    macch->car.width = coca_parse(svg,"width='",partenza,"'");
+    macch->car.height = coca_parse(svg,"height='",partenza,"'");
+
+    // ruota
+    macch->sx.centrox = coca_parse(svg,"cx='",partenza,"'");
+    macch->sx.centroy = coca_parse(svg,"cy='",partenza,"'");
+    macch->sx.ruota = coca_parse(svg,"r='",partenza,"'");
+
+    macch->sx.centrox = coca_parse(svg,"cx='",partenza,"'");
+    macch->sx.centroy = coca_parse(svg,"cy='",partenza,"'");
+    macch->sx.ruota = coca_parse(svg,"r='",partenza,"'");
+
+    macch->dx.centrox = coca_parse(svg,"cx='",partenza,"'");
+    macch->dx.centroy = coca_parse(svg,"cy='",partenza,"'");
+    macch->dx.cerchione = coca_parse(svg,"r='",partenza,"'");
+
+    macch->dx.centrox = coca_parse(svg,"cx='",partenza,"'");
+    macch->dx.centroy = coca_parse(svg,"cy='",partenza,"'");
+    macch->dx.cerchione = coca_parse(svg,"r='",partenza,"'");
+
+    // tetto
+    macch->cap.x1 = coca_parse(svg,"points='",partenza,",");
+    macch->cap.y1 = coca_parse(svg,",",partenza," ");
+
+    macch->cap.x2 = coca_parse(svg," ",partenza,",");
+    macch->cap.y2 = coca_parse(svg,",",partenza," ");
+
+    macch->cap.x3 = coca_parse(svg," ",partenza,",");
+    macch->cap.y3 = coca_parse(svg,",",partenza," ");
+
+    macch->cap.x4 = coca_parse(svg," ",partenza,",");
+    macch->cap.y4 = coca_parse(svg,",",partenza," ");
+
+    macch->cap.x5 = coca_parse(svg," ",partenza,",");
+    macch->cap.y5 = coca_parse(svg,",",partenza,"'");
+
+    // finestrini
+    macch->fin.p1x = coca_parse(svg,"points='",partenza,",");
+    macch->fin.p1y = coca_parse(svg,",",partenza," ");
+
+    macch->fin.p2x = coca_parse(svg," ",partenza,",");
+    macch->fin.p2y = coca_parse(svg,",",partenza," ");
+
+    macch->fin.p3x = coca_parse(svg," ",partenza,",");
+    macch->fin.p3y = coca_parse(svg,",",partenza,"'");
+
+    // spoiler
+    macch->spoil.px = coca_parse(svg,"x='",partenza,"'");
+    macch->spoil.py = coca_parse(svg,"y='",partenza,"'");
+    macch->spoil.widths = coca_parse(svg,"width='",partenza,"'");
+    macch->spoil.heights = coca_parse(svg,"height='",partenza,"'");
 }
 
 // Menù parametri da modificare
