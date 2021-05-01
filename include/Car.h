@@ -74,6 +74,9 @@ struct coca_device
     float dimensioney;
 };
 
+// funzione errore
+void coca_error(int err);
+
 // funzione che inizzializza il device passando dei parametri
 coca_device* coca_init_device(parametri par);
 
@@ -120,7 +123,6 @@ void coca_parse_device(coca_device* macch);
 
 // Funzione che modifica i parametri della macchina
 int coca_set_menu();
-
 void coca_set_param(coca_device* macch, string svg, int* pscelta ,int* pdiametro, int* px);
 
 #endif //CAR_H

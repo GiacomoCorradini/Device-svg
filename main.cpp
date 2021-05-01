@@ -73,7 +73,11 @@ int main(){
                 break;
 
             case 7:
+                if(svg == "") coca_error(5);
+                if(svg != "")
+                {
                 cout << "Programma terminato" << endl;
+                }
                 break;
             
             default:

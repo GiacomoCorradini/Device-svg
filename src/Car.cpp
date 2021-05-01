@@ -228,8 +228,8 @@ void coca_try_posizione(coca_device* macch, int scelta){
    
     if(scelta == 2) 
     {
-        macch->car.cx = (SFONDOX/2) - (macch->car.width/2);
-        macch->car.cy = (SFONDOY/2) - (macch->car.height/2);
+        macch->car.cx = (macch->dimensionex/2) - (macch->car.width/2);
+        macch->car.cy = (macch->dimensioney/2) - (macch->car.height/2);
     }
 }
 void coca_try_ruote(coca_device* macch, int diametro){
