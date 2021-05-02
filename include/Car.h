@@ -76,6 +76,8 @@ struct coca_device
 
 // funzione errore
 void coca_error(int err);
+int coca_check(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check);
+void coca_riset(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check);
 
 // funzione che inizzializza il device passando dei parametri
 coca_device* coca_init_device(parametri par);

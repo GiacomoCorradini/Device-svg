@@ -27,13 +27,14 @@ int coca_menu(){
 
 int main(){
 
-    int menu;
+    int menu, icheck;
     string svg;
     coca_device* macch = new coca_device;
     int scelta, diametro, x;
     int* pscelta = &scelta;
     int* pdiametro = &diametro;
     int* px = &x;
+    int* check = &icheck;
     
     while(menu != 7){
         
@@ -43,7 +44,12 @@ int main(){
         {
             case 1:
                 coca_cin_device(macch, pscelta, pdiametro, px);
-                coca_try_device(macch, scelta, diametro, x);
+                while ((*check))
+                {
+                    (*check) = coca_check(macch, pscelta, pdiametro, px, check);
+                    coca_riset(macch, pscelta, pdiametro, px, check);
+                }
+                coca_try_device(macch, scelta, diametro, x);                
                 svg = coca_strg_device(macch, 1, 0);
                 break;
 

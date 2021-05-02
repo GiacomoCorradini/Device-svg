@@ -43,38 +43,39 @@ void coca_error(int err){
 }
 
 // check constrains 
-int coca_check(coca_device* macch, int* pscelta, int* pdiametro, int* px){
+int coca_check(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check){
     // dimensioni della macchina non compatibili
     if(macch->car.width/macch->car.height < 3)
     {
         coca_error(6);
-        return 1;
+        (*check) = 1;
     }
     // posizione x non permessa
     if((macch->car.cx + macch->car.width) > (macch->dimensionex))
     {
         coca_error(1);
-        return 2;
+        (*check) = 2;
     }
     // posizione y non permessa
     if((macch->car.cy + macch->car.height) > (macch->dimensioney))
     {
         coca_error(2);
-        return 3;
+        (*check) = 3;
     }
     // scelta cerchioni
     if((*pdiametro) != 16 && (*pdiametro) != 17 && (*pdiametro) != 18)
     {
         coca_error(3);
-        return 4;
+        (*check) = 4;
     }
     // scelta assetto
     if((*px) != 1 && (*px) != 2 && (*px) != 3)
     {
         coca_error(4);
-        return 5;
+        (*check) = 5;
     }
-    return 0;
+
+    (*check) = 0;
 }
 void coca_riset(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check){
     
@@ -216,15 +217,12 @@ coca_device* coca_init_device(parametri par){
 
 // My init parametri da terminale
 void coca_cin_carrozzeria(coca_device* macch){
-    
-    do
-    {
-        cout << "Inserire la lunghezza della macchina: ";
-        cin >> macch->car.width;
-        cout << "Inserire l'altezza della macchina: ";
-        cin >> macch->car.height;
-        if(macch->car.width/macch->car.height < 3) coca_error(6);
-    } while(macch->car.width/macch->car.height < 3); 
+
+    cout << "Inserire la lunghezza della macchina: ";
+    cin >> macch->car.width;
+    cout << "Inserire l'altezza della macchina: ";
+    cin >> macch->car.height;
+
 }
 void coca_cin_posizione(coca_device* macch, int* pscelta){
     
@@ -244,45 +242,26 @@ void coca_cin_posizione(coca_device* macch, int* pscelta){
     if((*pscelta) == 1)
     {
         cout << "Indicare la la posizione x della macchina nel foglio" << endl;
-  
-        do
-        {
-            cin >> macch->car.cx;
-            if((macch->car.cx + macch->car.width) > (macch->dimensionex)) coca_error(1);
-        } while ((macch->car.cx + macch->car.width) > (macch->dimensionex));
-
+        cin >> macch->car.cx;
+ 
         cout << "Indicare la la posizione y della macchina nel foglio" << endl;
-
-        do
-
-        {
-            cin >> macch->car.cy;
-            if((macch->car.cy + macch->car.height) > (macch->dimensioney)) coca_error(2);
-        } while ((macch->car.cy + macch->car.height) > (macch->dimensioney));  
-    } 
+        cin >> macch->car.cy;
+    }
 }
 void coca_cin_ruote(coca_device* macch, int* pdiametro){
 
     cout << "Scegliere il diametro dei cerchioni" << endl;
-
-    do
-    {
-        cout << "Cerchioni disponibili:" << endl;
-        cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
-        cin >> (*pdiametro);
-        if((*pdiametro) != 16 && (*pdiametro) != 17 && (*pdiametro) != 18) coca_error(3);
-    } while((*pdiametro) != 16 && (*pdiametro) != 17 && (*pdiametro) != 18);
+    cout << "Cerchioni disponibili:" << endl;
+    cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
+    cin >> (*pdiametro);
 }
 void coca_cin_assetto(coca_device* macch, int* px){
 
     cout << "Scegliere l'assetto della macchina" << endl;
-    do
-    {
-        cout << "Assetti disponibili:" << endl;
-        cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
-        cin >> (*px);
-        if((*px) != 1 && (*px) != 2 && (*px) != 3) coca_error(4);
-    } while((*px) != 1 && (*px) != 2 && (*px) != 3);
+    cout << "Assetti disponibili:" << endl;
+    cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
+    cin >> (*px);
+    
 }
 void coca_cin_device(coca_device* macch, int* pscelta, int* pdiametro, int* px){
     coca_cin_carrozzeria(macch);
