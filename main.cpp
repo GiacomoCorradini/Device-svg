@@ -64,7 +64,7 @@ int main(){
                 break;
 
             case 5:
-                coca_set_param(macch, svg, pscelta, pdiametro, px, check);
+                macch = coca_set_param(macch, svg, pscelta, pdiametro, px, check);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
 
