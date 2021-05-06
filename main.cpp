@@ -8,35 +8,6 @@ using namespace std;
 
 #include "Car.h"
 
-parametri* coca_cin_par(parametri* par){
-    
-    cout << "Inserire la lunghezza della macchina: ";
-    cin >> par->inwidth;
-    cout << "Inserire l'altezza della macchina: ";
-    cin >> par->inheight;
-    cout << "Vuoi indicare la posizione della macchina nel foglio?" << endl;
-    cout << "[1] -> Si" << endl;
-    cout << "[2] -> No" << endl;
-    cin >> (par->scpos);
-    if(par->scpos == 1)
-    {
-    cout << "Indicare la la posizione x della macchina nel foglio" << endl;
-    cin >> par->inpx;
-    cout << "Indicare la la posizione y della macchina nel foglio" << endl;
-    cin >> par->inpy;
-    }
-    cout << "Scegliere il diametro dei cerchioni" << endl;
-    cout << "Cerchioni disponibili:" << endl;
-    cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
-    cin >> (par->indiam);
-    cout << "Scegliere l'assetto della macchina" << endl;
-    cout << "Assetti disponibili:" << endl;
-    cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
-    cin >> (par->inass);
-
-    return par;
-}
-
 int coca_menu(){
 
     int i;
@@ -72,19 +43,14 @@ int main(){
         switch (menu)
         {
             case 1:
-                macch = coca_cin_device(macch, pscelta, pdiametro, px);
-                while ((*check) != 0)
-                {
-                    coca_check(macch, pscelta, pdiametro, px, check);
-                    coca_riset(macch, pscelta, pdiametro, px, icheck);
-                }
-                coca_try_device(macch, scelta, diametro, x);                
+                macch = coca_cin_device(macch, pscelta, pdiametro, px, check);
+                macch = coca_try_device(macch, scelta, diametro, x);                
                 svg = coca_strg_device(macch, 1, 0);
                 break;
 
             case 2:
-                coca_cin_device(macch, pscelta, pdiametro, px);
-                coca_try_device(macch, scelta, diametro, x);
+                macch = coca_cin_device(macch, pscelta, pdiametro, px, check);
+                macch = coca_try_device(macch, scelta, diametro, x);
                 svg = coca_strg_device(macch, 1, 1);
                 break;
 
@@ -98,7 +64,7 @@ int main(){
                 break;
 
             case 5:
-                coca_set_param(macch, svg, pscelta, pdiametro, px);
+                coca_set_param(macch, svg, pscelta, pdiametro, px, check);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
 

@@ -22,7 +22,6 @@ struct parametri
     int inass; // assetto della macchina (1, 2, 3)
 };
 
-
 // parametri carrozzeria
 struct coca_carrozzeria
 {
@@ -80,19 +79,24 @@ coca_device* coca_init();
 
 // funzione errore
 void coca_error(int err);
-void coca_check(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check);
-void coca_riset(coca_device* macch, int* pscelta, int* pdiametro, int* px, int icheck);
+int coca_check_car(coca_device* macch);
+int coca_check_posizionex(coca_device* macch);
+int coca_check_posizioney(coca_device* macch);
+int coca_check_cerchioni(coca_device* macch, int* pdiametro);
+int coca_check_assetto(coca_device* macch, int* px);
+
+void coca_riset(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check);
 
 // funzione che inizzializza il device passando dei parametri
 coca_device* coca_init_device(parametri par);
 
 // FUNZIONI DEVICE 
 // My init parametri da terminale
-coca_device* coca_cin_carrozzeria(coca_device* macch);
-coca_device* coca_cin_posizione(coca_device* macch, int* scelta);
-coca_device* coca_cin_ruote(coca_device* macch, int* diametro);
-coca_device* coca_cin_assetto(coca_device* macch, int* x);
-coca_device* coca_cin_device(coca_device* macch, int* scelta, int* diametro, int* x);
+coca_device* coca_cin_carrozzeria(coca_device* macch, int* check);
+coca_device* coca_cin_posizione(coca_device* macch, int* scelta, int* check);
+coca_device* coca_cin_ruote(coca_device* macch, int* diametro, int* check);
+coca_device* coca_cin_assetto(coca_device* macch, int* x, int* check);
+coca_device* coca_cin_device(coca_device* macch, int* scelta, int* diametro, int* x, int* check);
 
 // Funzioni che calcolano i parametri della macchina
 coca_device* coca_try_posizione(coca_device* macch, int scelta);
