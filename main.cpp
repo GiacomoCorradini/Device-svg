@@ -20,10 +20,10 @@ parametri* coca_cin_par(parametri* par){
     cin >> (par->scpos);
     if(par->scpos == 1)
     {
-    cout << "Indicare la la posizione x della macchina nel foglio" << endl;
-    cin >> par->inpx;
-    cout << "Indicare la la posizione y della macchina nel foglio" << endl;
-    cin >> par->inpy;
+        cout << "Indicare la la posizione x della macchina nel foglio" << endl;
+        cin >> par->inpx;
+        cout << "Indicare la la posizione y della macchina nel foglio" << endl;
+        cin >> par->inpy;
     }
     cout << "Scegliere il diametro dei cerchioni" << endl;
     cout << "Cerchioni disponibili:" << endl;

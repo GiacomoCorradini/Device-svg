@@ -266,22 +266,19 @@ coca_device* coca_init_device(parametri par){
     return indev;
 }
 
-
-// My init parametri da terminale
-coca_device* coca_cin_carrozzeria(coca_device* macch){
+// Funzioni che calcolano i parametri della macchina
+coca_device* coca_try_carrozzeria(parametri* par, coca_device* macch){
     
     if (macch==NULL){
         return NULL;
     }
-
-    cout << "Inserire la lunghezza della macchina: ";
-    cin >> macch->car.width;
-    cout << "Inserire l'altezza della macchina: ";
-    cin >> macch->car.height;
+    
+    macch->car.width = par->inwidth;
+    macch->car.height = par->inheight;
 
     return macch;
 }
-coca_device* coca_cin_posizione(coca_device* macch, int* pscelta){
+coca_device* coca_try_posizione(parametri* par, coca_device* macch){
     
     if (macch==NULL){
         return NULL;
@@ -290,86 +287,30 @@ coca_device* coca_cin_posizione(coca_device* macch, int* pscelta){
     macch->dimensionex = SFONDOX;
     macch->dimensioney = SFONDOY;
 
-    cout << "Vuoi indicare la posizione della macchina nel foglio?" << endl;
-
-    do
+    switch (par->scpos)
     {
-        cout << "[1] -> Si" << endl;
-        cout << "[2] -> No" << endl;
-        cin >> (*pscelta);
-        if((*pscelta) != 1 && (*pscelta) != 2) coca_error(0);
-    } while((*pscelta) != 1 && (*pscelta) != 2);
-
-    if((*pscelta) == 1)
-    {
-        cout << "Indicare la la posizione x della macchina nel foglio" << endl;
-        cin >> macch->car.cx;
- 
-        cout << "Indicare la la posizione y della macchina nel foglio" << endl;
-        cin >> macch->car.cy;
-    }
-    return macch;
-}
-coca_device* coca_cin_ruote(coca_device* macch, int* pdiametro){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    cout << "Scegliere il diametro dei cerchioni" << endl;
-    cout << "Cerchioni disponibili:" << endl;
-    cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
-    cin >> (*pdiametro);
-
-    return macch;
-}
-coca_device* coca_cin_assetto(coca_device* macch, int* px){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    cout << "Scegliere l'assetto della macchina" << endl;
-    cout << "Assetti disponibili:" << endl;
-    cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
-    cin >> (*px);
-
-    return macch;
-}
-coca_device* coca_cin_device(coca_device* macch, int* pscelta, int* pdiametro, int* px){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    coca_cin_carrozzeria(macch);
-    coca_cin_posizione(macch, pscelta);
-    coca_cin_ruote(macch, pdiametro);
-    coca_cin_assetto(macch, px);
-
-    return macch;
-}
-
-// Funzioni che calcolano i parametri della macchina
-coca_device* coca_try_posizione(coca_device* macch, int scelta){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    if(scelta == 2) 
-    {
+    case 1:
+        macch->car.cx = par->inpx;
+        macch->car.cy = par->inpy;
+        break;
+    case 2:
         macch->car.cx = (macch->dimensionex/2) - (macch->car.width/2);
         macch->car.cy = (macch->dimensioney/2) - (macch->car.height/2);
+        break;
+    
+    default:
+        break;
     }
 
     return macch;
 }
-coca_device* coca_try_ruote(coca_device* macch, int diametro){
+coca_device* coca_try_ruote(parametri* par, coca_device* macch){
+    
     if (macch==NULL){
         return NULL;
     }
-    switch (diametro)
+
+    switch (par->indiam)
     {
         case 16:
             macch->sx.ruota = (macch->car.height - 1) / 2;
@@ -395,17 +336,19 @@ coca_device* coca_try_ruote(coca_device* macch, int diametro){
 
     return macch;
 }
-coca_device* coca_try_assetto(coca_device* macch, int x){
+coca_device* coca_try_assetto(parametri* par, coca_device* macch){
+    
     if (macch==NULL){
         return NULL;
     }
-    switch (x)
+
+    switch (par->inass)
     {
         case 1:
             macch->sx.centrox = macch->car.cx + (macch->car.width / 5) - 5;
             macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5) + 5;
             macch->sx.centroy = macch->car.cy + macch->car.height;
-          macch->dx.centroy = macch->car.cy + macch->car.height;
+            macch->dx.centroy = macch->car.cy + macch->car.height;
         break;
         case 2:
             macch->sx.centrox = macch->car.cx + (macch->car.width / 5);
@@ -425,10 +368,13 @@ coca_device* coca_try_assetto(coca_device* macch, int x){
 
     return macch;
 }
+
 coca_device* coca_try_finestrini(coca_device* macch){
+    
     if (macch==NULL){
         return NULL;
     }
+
     macch->fin.p1x = macch->car.cx + macch->car.width / 1.75;
     macch->fin.p1y = macch->car.cy - macch->car.height / 1.33333;
 
@@ -441,9 +387,11 @@ coca_device* coca_try_finestrini(coca_device* macch){
     return macch;
 }
 coca_device* coca_try_spoiler(coca_device* macch){
+    
     if (macch==NULL){
         return NULL;
     }
+
     macch->spoil.heights = macch->car.height / (2.666667);
     macch->spoil.widths = macch->car.width / 17.5;
 
@@ -453,9 +401,11 @@ coca_device* coca_try_spoiler(coca_device* macch){
     return macch;
 }
 coca_device* coca_try_tetto(coca_device* macch){
+    
     if (macch==NULL){
         return NULL;
     }
+
     macch->cap.x1 = macch->car.cx + macch->car.width / 5.8333;
     macch->cap.y1 = macch->car.cy;
 
@@ -475,13 +425,16 @@ coca_device* coca_try_tetto(coca_device* macch){
 
 }
 
-coca_device* coca_try_device(coca_device* macch, int scelta, int diametro, int x){
+coca_device* coca_try_device(parametri* par, coca_device* macch){
+    
     if (macch==NULL){
         return NULL;
     }
-    coca_try_posizione(macch, scelta);
-    coca_try_ruote(macch, diametro);
-    coca_try_assetto(macch, x);
+
+    coca_try_carrozzeria(par, macch);
+    coca_try_posizione(par, macch);
+    coca_try_ruote(par, macch);
+    coca_try_assetto(par, macch);
     coca_try_finestrini(macch);
     coca_try_spoiler(macch);
     coca_try_tetto(macch);
@@ -501,7 +454,6 @@ string coca_intestazione(coca_device* macch){
     return inte;
 }
 string coca_sfondo(coca_device* macch){
-    
     string sfon;
     sfon = "\t<rect  x='0' y='0' ";
     sfon += "width='" + to_string(macch->dimensionex) + "' ";
