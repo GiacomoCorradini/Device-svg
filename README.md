@@ -76,3 +76,4 @@ Questa operazione termina il programma.
 
 Macchina + Motrice
 
+![](output/machine.svg)
