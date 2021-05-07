@@ -32,13 +32,17 @@ I parametri devo rispettare determinati vincoli che rendono il più realistico p
 
 Il programma inizia mostrando un menù che permette di eseguire diverse operzaioni:
 
-- [1] -> Scrivere un file svg
-- [2] -> Scrivere un file svg con quotatura
-- [3] -> Salvare un file svg 
-- [4] -> Caricare un file svg
-- [5] -> Modificare un parametro file svg
-- [6] -> Stampa stringa svg a terminale
-- [7] -> Uscire dal programma
+~~~
+
+[1] -> Scrivere un file svg
+[2] -> Scrivere un file svg con quotatura
+[3] -> Salvare un file svg 
+[4] -> Caricare un file svg
+[5] -> Modificare un parametro file svg
+[6] -> Stampa stringa svg a terminale
+[7] -> Uscire dal programma
+
+~~~
 
 ### [1] Scrivere un file svg
 
@@ -54,16 +58,21 @@ Questa opzione permette di salvare il file svg presente nel programma, important
 
 ### [4] Caricare un file svg
 
-Questa opzione permette di caricare un file svg, .....
+Questa opzione permette di caricare un file svg e di inserire i parametri della macchina presente nel file svg all'interno della struct del programma.
 
 ### [5] Modificare un parametro file svg
 
-Questa opzione permette di modificare un parametro della macchina, il parametro modificato viene posto a verifica dei vincoli
+Questa opzione permette di modificare un parametro della macchina, il parametro modificato viene posto a verifica dei vincoli.
 
 ### [6] Stampa stringa svg a terminale
 
+Questa operazione stampa la stringa svg salvata nel programma a terminale.
+
 ### [7] Uscire dal programma
+
+Questa operazione termina il programma.
 
 ## SVG MACHINE
 
-Macchina + .....
+Macchina + Motrice
+
