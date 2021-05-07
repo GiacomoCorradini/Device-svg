@@ -20,6 +20,8 @@ struct parametri
     float inpy; // posizione y del veicolo
     int indiam; // diametro dei cerchioni (16, 17, 18)
     int inass; // assetto della macchina (1, 2, 3)
+    float sfox; // dimensione x del foglio di lavoro
+    float sfoy; // dimensione y del foglio di lavoro
 };
 
 // parametri carrozzeria

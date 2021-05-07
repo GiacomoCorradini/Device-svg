@@ -146,7 +146,7 @@ coca_device* coca_riset(coca_device* macch, int* pscelta, int* pdiametro, int* p
 // My init parametri da funzione
 coca_device* coca_init_device(parametri par){
     
-    coca_device* indev = new coca_device;
+    coca_device* indev = coca_init();
 
     // carrozzeria
     indev->car.width = par.inwidth;
@@ -360,6 +360,256 @@ coca_device* coca_cin_device(coca_device* macch, int* pscelta, int* pdiametro, i
 }
 
 // Funzioni che calcolano i parametri della macchina
+coca_device* coca_set_foglio(coca_device* macch, parametri* par){
+
+    if (macch==NULL){
+        return NULL;
+    }
+
+    if (par==NULL){
+        return NULL;
+    }
+
+    macch->dimensionex = par->sfox;
+    macch->dimensioney = par->sfoy;
+
+}
+coca_device* coca_set_carrozzeria(coca_device* macch, parametri* par){
+    
+    if (macch==NULL){
+        return NULL;
+    }
+
+    if (par==NULL){
+        return NULL;
+    }
+
+    macch->car.height = par->inheight;
+    macch->car.width = par->inwidth;
+}
+coca_device* coca_set_posizione(coca_device* macch, parametri* par){
+    
+    if (macch==NULL){
+        return NULL;
+    }
+
+    if (par==NULL){
+        return NULL;
+    }
+
+    if(par->scpos == 1)
+    {
+        macch->car.cx = par->inpx;
+        macch->car.cy = par->inpy;
+    }
+}
+coca_device* coca_set_posstandard(coca_device* macch, parametri* par){
+    
+    if (macch==NULL){
+        return NULL;
+    }
+
+    if (par==NULL){
+        return NULL;
+    }
+
+    if(par->scpos == 2) 
+    {
+        macch->car.cx = (macch->dimensionex/2) - (macch->car.width/2);
+        macch->car.cy = (macch->dimensioney/2) - (macch->car.height/2);
+    }
+}
+coca_device* coca_set_ruote(coca_device* macch, parametri* par){
+    
+    if (macch==NULL){
+        return NULL;
+    }
+
+    if (par==NULL){
+        return NULL;
+    }
+
+    switch (par->indiam)
+    {
+        case 16:
+            macch->sx.ruota = (macch->car.height - 1) / 2;
+            macch->sx.cerchione = macch->sx.ruota / 1.6;
+            macch->dx.ruota = (macch->car.height - 1) / 2;
+            macch->dx.cerchione = macch->dx.ruota / 1.6;
+            break;
+        case 17:
+            macch->sx.ruota = macch->car.height / 2;
+            macch->sx.cerchione = macch->sx.ruota / 1.6;
+            macch->dx.ruota = macch->car.height / 2;
+            macch->dx.cerchione = macch->dx.ruota / 1.6;
+            break;
+        case 18:
+            macch->sx.ruota = (macch->car.height + 1) / 2;
+            macch->sx.cerchione = macch->sx.ruota / 1.6;
+            macch->dx.ruota = (macch->car.height + 1) / 2;
+            macch->dx.cerchione = macch->dx.ruota / 1.6;
+            break;       
+        default:
+            break;
+    }
+
+    return macch;
+}
+coca_device* coca_set_assetto(coca_device* macch, parametri* par){
+    
+    if (macch==NULL){
+        return NULL;
+    }
+
+    if (par==NULL){
+        return NULL;
+    }
+
+    switch (par->inass)
+    {
+        case 1:
+            macch->sx.centrox = macch->car.cx + (macch->car.width / 5) - 5;
+            macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5) + 5;
+            macch->sx.centroy = macch->car.cy + macch->car.height;
+            macch->dx.centroy = macch->car.cy + macch->car.height;
+        break;
+        case 2:
+            macch->sx.centrox = macch->car.cx + (macch->car.width / 5);
+            macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5);
+            macch->sx.centroy = macch->car.cy + macch->car.height;
+            macch->dx.centroy = macch->car.cy + macch->car.height;
+            break;
+        case 3:
+            macch->sx.centrox = macch->car.cx + (macch->car.width / 5) +5;
+            macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5) - 5;
+            macch->sx.centroy = macch->car.cy + macch->car.height;
+            macch->dx.centroy = macch->car.cy + macch->car.height;
+            break;
+        default:
+           break;
+    }
+
+    return macch;
+}
+coca_device* coca_set_finestrini(coca_device* macch, parametri* par){
+    
+    if (macch==NULL){
+        return NULL;
+    }
+
+    if (par==NULL){
+        return NULL;
+    }
+
+    macch->fin.p1x = macch->car.cx + macch->car.width / 1.75;
+    macch->fin.p1y = macch->car.cy - macch->car.height / 1.33333;
+
+    macch->fin.p2x = macch->car.cx + macch->car.width / 1.25;
+    macch->fin.p2y = macch->car.cy;
+
+    macch->fin.p3x = macch->car.cx + macch->car.width / 1.75;
+    macch->fin.p3y = macch->car.cy;
+
+    return macch;
+}
+coca_device* coca_set_spoiler(coca_device* macch, parametri* par){
+    
+    if (macch==NULL){
+        return NULL;
+    }
+
+    if (par==NULL){
+        return NULL;
+    }
+
+    macch->spoil.heights = macch->car.height / (2.666667);
+    macch->spoil.widths = macch->car.width / 17.5;
+
+    macch->spoil.px = macch->car.cx + macch->car.width /35;
+    macch->spoil.py = macch->car.cy - macch->spoil.heights;
+
+    return macch;
+}
+coca_device* coca_set_tetto(coca_device* macch, parametri* par){
+    
+    if (macch==NULL){
+        return NULL;
+    }
+
+    if (par==NULL){
+        return NULL;
+    }
+
+    macch->cap.x1 = macch->car.cx + macch->car.width / 5.8333;
+    macch->cap.y1 = macch->car.cy;
+
+    macch->cap.x2 = macch->car.cx + macch->car.width / 3.5;
+    macch->cap.y2 = macch->car.cy - macch->car.height / 1.33333;
+
+    macch->cap.x3 = macch->car.cx + macch->car.width / 1.75;
+    macch->cap.y3 = macch->car.cy - macch->car.height / 1.33333;
+
+    macch->cap.x4 = macch->car.cx + macch->car.width / 1.75;
+    macch->cap.y4 = macch->car.cy;
+
+    macch->cap.x5 = macch->car.cx + macch->car.width / 5.8333;
+    macch->cap.y5 = macch->car.cy;
+
+    return macch;
+
+}
+coca_device* coca_set_device(coca_device* macch, parametri* par){
+    
+    if (macch==NULL){
+        return NULL;
+    }
+
+    if (par==NULL){
+        return NULL;
+    }
+    coca_set_foglio(macch, par);
+    coca_set_carrozzeria(macch, par);
+    coca_set_posizione(macch, par);
+    coca_set_posstandard(macch, par);
+    coca_set_ruote(macch, par);
+    coca_set_assetto(macch, par);
+    coca_set_finestrini(macch, par);
+    coca_set_spoiler(macch, par);
+    coca_set_tetto(macch, par);
+
+    return macch;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 coca_device* coca_try_ruote(coca_device* macch, int diametro){
     
     if (macch==NULL){
@@ -550,7 +800,7 @@ string coca_strg_finestrini(coca_device* macch){
     
     string fines;
     
-    fines = "\t<polygon points='" + to_string(macch->fin.p1x) + "," + to_string(macch->fin.p1y) + " " + to_string(macch->fin.p2x) + "," + to_string(macch->fin.p2y) + " " + to_string(macch->fin.p3x) + "," + to_string(macch->fin.p3y) + "' style='fill:lightblue;stroke:black;stroke-width:5' />\n\n";
+    fines = "\t<polygon points='" + to_string(macch->fin.p1x) + "," + to_string(macch->fin.p1y) + " " + to_string(macch->fin.p2x) + "," + to_string(macch->fin.p2y) + " " + to_string(macch->fin.p3x) + "," + to_string(macch->fin.p3y) + "' style='fill:lightblue;stroke:black;stroke-width:1' />\n\n";
     
     return fines;
 }
@@ -566,7 +816,7 @@ string coca_strg_tetto(coca_device* macch){
     
     string te;
     
-    te = "\t<polygon points='" + to_string(macch->cap.x1) + "," + to_string(macch->cap.y1) + " " + to_string(macch->cap.x2) + "," + to_string(macch->cap.y2) + " " + to_string(macch->cap.x3) + "," + to_string(macch->cap.y3) + " " + to_string(macch->cap.x4) + "," + to_string(macch->cap.y4) + " " + to_string(macch->cap.x5) + "," + to_string(macch->cap.y5) + "' style='fill:red;stroke:black;stroke-width:5'/>\n\n";
+    te = "\t<polygon points='" + to_string(macch->cap.x1) + "," + to_string(macch->cap.y1) + " " + to_string(macch->cap.x2) + "," + to_string(macch->cap.y2) + " " + to_string(macch->cap.x3) + "," + to_string(macch->cap.y3) + " " + to_string(macch->cap.x4) + "," + to_string(macch->cap.y4) + " " + to_string(macch->cap.x5) + "," + to_string(macch->cap.y5) + "' style='fill:red;stroke:black;stroke-width:3'/>\n\n";
     
     return te;
 }
@@ -783,7 +1033,7 @@ int coca_set_menu(){
 }
 
 // Funzione che modifica i parametri
-coca_device* coca_set_param(coca_device* macch, string svg, int* pscelta ,int* pdiametro, int* px, int* check){
+coca_device* coca_mod_param(coca_device* macch, string svg, int* pscelta ,int* pdiametro, int* px, int* check){
 
     if(svg == "") 
     {
