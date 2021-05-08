@@ -69,16 +69,16 @@ int main(){
                 break;
 
             case 6:
-                cout << "La stringa svg caricata è: " << endl;
-                cout << svg << endl;
-                break;
-
-            case 7:
                 if(svg == "") coca_error(5);
                 if(svg != "")
                 {
-                cout << "Programma terminato" << endl;
+                cout << "La stringa svg caricata è: " << endl;
+                cout << svg << endl;
                 }
+                break;
+
+            case 7:
+                cout << "Programma terminato" << endl;
                 break;
             
             default:
