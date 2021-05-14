@@ -95,41 +95,33 @@ int coca_check_posizioney(parametri* par);
 int coca_check_cerchioni(parametri* par);
 int coca_check_assetto(parametri* par);
 
-coca_device* coca_riset(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check);
+// funzione che setta i parametri della struct device
+coca_device* coca_myset_sfondo(parametri* par, coca_device* indev);
+coca_device* coca_myset_carrozzeria(parametri* par, coca_device* indev);
+coca_device* coca_myset_poscarrozzeria(parametri* par, coca_device* indev);
+coca_device* coca_myset_ruote(parametri* par, coca_device* indev);
+coca_device* coca_myset_assetto(parametri* par, coca_device* indev);
+coca_device* coca_myset_finestrino(parametri* par, coca_device* indev);
+coca_device* coca_myset_spoiler(parametri* par, coca_device* indev);
+coca_device* coca_myset_tetto(parametri* par, coca_device* indev);
 
-// funzione che inizzializza il device passando dei parametri
 coca_device* coca_myset_device(parametri* par, coca_device* indev);
 
-// FUNZIONI DEVICE 
-// My init parametri da terminale
-coca_device* coca_cin_carrozzeria(coca_device* macch, int* check);
-coca_device* coca_cin_posizione(coca_device* macch, int* scelta, int* check);
-coca_device* coca_cin_ruote(coca_device* macch, int* diametro, int* check);
-coca_device* coca_cin_assetto(coca_device* macch, int* x, int* check);
-coca_device* coca_cin_device(coca_device* macch, int* scelta, int* diametro, int* x, int* check);
-
-// Funzioni che calcolano i parametri della macchina
-coca_device* coca_try_ruote(coca_device* macch, int diametro);
-coca_device* coca_try_assetto(coca_device* macch, int x);
-coca_device* coca_try_finestrini(coca_device* macch);
-coca_device* coca_try_spoiler(coca_device* macch);
-coca_device* coca_try_tetto(coca_device* macch);
-coca_device* coca_try_device(coca_device* macch, int scelta, int diametro, int x);
-
-// STRINGHE DEVICE
+// Funzione che scrive le stringhe di Intestazione
 std::string coca_intestazione(coca_device* macch);
 std::string coca_sfondo(coca_device* macch);
 std::string coca_fine();
 
-// stringhe device
+// Funzione che scrive le stringhe device
 std::string coca_strg_carrozzeria(coca_device* macch);
 std::string coca_strg_ruote(coca_device* macch);
 std::string coca_strg_finestrini(coca_device* macch);
 std::string coca_strg_spoiler(coca_device* macch);
 std::string coca_strg_tetto(coca_device* macch);
+
 std::string coca_strg_device(coca_device* macch, int scelta, int quota);
 
-// quotatura
+// Funzione che scrive la quotatura
 std::string coca_quotatura(coca_device* macch);
 
 // funzione scrive su file
@@ -139,8 +131,5 @@ int coca_write(std::string svg);
 std::string coca_read();
 float coca_parse(std::string svg, std::string parse, int & partenza, std::string fine);
 void coca_parse_device(coca_device* macch, string svg);
-
-// Funzione che modifica i parametri della macchina
-coca_device* coca_set_param(coca_device* macch, std::string svg, int* pscelta ,int* pdiametro, int* px, int* check);
 
 #endif //CAR_H

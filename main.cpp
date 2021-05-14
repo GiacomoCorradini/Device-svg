@@ -188,7 +188,7 @@ parametri* coca_parcin_device(parametri* par){
 }
 
 // funzione che modifica i parametri
-parametri* coca_set_param(parametri* par, coca_device* macch, string svg){
+coca_device* coca_set_param(parametri* par, coca_device* macch, string svg){
 
     if (par == NULL){
         return NULL;
@@ -244,12 +244,11 @@ parametri* coca_set_param(parametri* par, coca_device* macch, string svg){
         default:
             break;
         }
-    macch = coca_try_device(macch, (*pscelta), (*pdiametro), (*px));
+    macch = coca_myset_device(par, macch);
     }
 
     return macch;
 }
-
 
 // menu del programma da terminale
 int coca_menu(){
@@ -303,12 +302,10 @@ int main(){
                 coca_parse_device(macch, svg);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
-/*
             case 5:
-                macch = coca_set_param(macch, svg, pscelta, pdiametro, px, check);
+                macch = coca_set_param(par, macch, svg);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
-*/
             case 6:
                 if(svg == "") coca_error(5);
                 if(svg != "")

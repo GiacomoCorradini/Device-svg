@@ -165,7 +165,6 @@ coca_device* coca_myset_ruote(parametri* par, coca_device* indev){
             break;
         
         default:
-            coca_error(3);
             break;
     }
 
@@ -194,9 +193,50 @@ coca_device* coca_myset_assetto(parametri* par, coca_device* indev){
             break;
 
         default:
-        coca_error(4);
             break;
         }
+
+    return indev;
+}
+coca_device* coca_myset_finestrino(parametri* par, coca_device* indev){
+
+    indev->fin.p1x = indev->car.cx + indev->car.width / 1.75;
+    indev->fin.p1y = indev->car.cy - indev->car.height / 1.33333;
+
+    indev->fin.p2x = indev->car.cx + indev->car.width / 1.25;
+    indev->fin.p2y = indev->car.cy;
+
+    indev->fin.p3x = indev->car.cx + indev->car.width / 1.75;
+    indev->fin.p3y = indev->car.cy;
+
+    return indev;
+
+}
+coca_device* coca_myset_spoiler(parametri* par, coca_device* indev){
+
+    indev->spoil.heights = indev->car.height / (2.666667);
+    indev->spoil.widths = indev->car.width / 17.5;
+    indev->spoil.px = indev->car.cx + indev->car.width /35;
+    indev->spoil.py = indev->car.cy - indev->spoil.heights;
+
+    return indev;
+}
+coca_device* coca_myset_tetto(parametri* par, coca_device* indev){
+
+    indev->cap.x1 = indev->car.cx + indev->car.width / 5.8333;
+    indev->cap.y1 = indev->car.cy;
+
+    indev->cap.x2 = indev->car.cx + indev->car.width / 3.5;
+    indev->cap.y2 = indev->car.cy - indev->car.height / 1.33333;
+
+    indev->cap.x3 = indev->car.cx + indev->car.width / 1.75;
+    indev->cap.y3 = indev->car.cy - indev->car.height / 1.33333;
+
+    indev->cap.x4 = indev->car.cx + indev->car.width / 1.75;
+    indev->cap.y4 = indev->car.cy;
+
+    indev->cap.x5 = indev->car.cx + indev->car.width / 5.8333;
+    indev->cap.y5 = indev->car.cy;
 
     return indev;
 }
@@ -217,39 +257,9 @@ coca_device* coca_myset_device(parametri* par, coca_device* indev){
     indev = coca_myset_poscarrozzeria(par, indev);
     indev = coca_myset_ruote(par, indev);
     indev = coca_myset_assetto(par, indev);
-    
-
-    // finestrini
-    indev->fin.p1x = indev->car.cx + indev->car.width / 1.75;
-    indev->fin.p1y = indev->car.cy - indev->car.height / 1.33333;
-
-    indev->fin.p2x = indev->car.cx + indev->car.width / 1.25;
-    indev->fin.p2y = indev->car.cy;
-
-    indev->fin.p3x = indev->car.cx + indev->car.width / 1.75;
-    indev->fin.p3y = indev->car.cy;
-
-    // spoiler
-    indev->spoil.heights = indev->car.height / (2.666667);
-    indev->spoil.widths = indev->car.width / 17.5;
-    indev->spoil.px = indev->car.cx + indev->car.width /35;
-    indev->spoil.py = indev->car.cy - indev->spoil.heights;
-
-    // tetto
-    indev->cap.x1 = indev->car.cx + indev->car.width / 5.8333;
-    indev->cap.y1 = indev->car.cy;
-
-    indev->cap.x2 = indev->car.cx + indev->car.width / 3.5;
-    indev->cap.y2 = indev->car.cy - indev->car.height / 1.33333;
-
-    indev->cap.x3 = indev->car.cx + indev->car.width / 1.75;
-    indev->cap.y3 = indev->car.cy - indev->car.height / 1.33333;
-
-    indev->cap.x4 = indev->car.cx + indev->car.width / 1.75;
-    indev->cap.y4 = indev->car.cy;
-
-    indev->cap.x5 = indev->car.cx + indev->car.width / 5.8333;
-    indev->cap.y5 = indev->car.cy;
+    indev = coca_myset_finestrino(par, indev);
+    indev = coca_myset_spoiler(par, indev);
+    indev = coca_myset_tetto(par, indev);
 
     return indev;
 }
@@ -303,7 +313,7 @@ string coca_strg_carrozzeria(coca_device* macch){
     
     return carr;
 }
-string coca_strg_ruote(coca_device* macch){7
+string coca_strg_ruote(coca_device* macch){
 
     if (macch == NULL){
         return NULL;
@@ -500,7 +510,6 @@ float coca_parse(string svg, string parse, int & partenza, string fine){
 // Funzione che importa i parametri da file nella struct
 void coca_parse_device(coca_device* macch, string svg){
 
-    string svg = coca_read();
     int partenza = 0;
     float m;
     
