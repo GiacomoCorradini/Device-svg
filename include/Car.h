@@ -7,6 +7,7 @@
 #include <streambuf>
 #include <sstream>
 
+// dimensioni di default del foglio di lavoro
 #define SFONDOX 800
 #define SFONDOY 600
 
@@ -20,75 +21,84 @@ struct parametri
     float inpy; // posizione y del veicolo
     int indiam; // diametro dei cerchioni (16, 17, 18)
     int inass; // assetto della macchina (1, 2, 3)
+    int sceltasfondo; // scelta se indicare o meno la dimensione del foglio di lavoro
+    float indimx; // dimensione x foglio di lavoro
+    float indimy; // dimensione y foglio di lavoro
+    int check; // parametro di controllo
 };
 
 // parametri carrozzeria
 struct coca_carrozzeria
 {
-    float cx, cy;
-    float width, height;
+    float cx, cy; // posizioni x, y della carrozzeria
+    float width; // lunghezza della carrozzeria
+    float height; // altezza della carrozzeria 
 };
 
 // parametri ruota
 struct coca_ruota
 {
-    float ruota, cerchione;
-    float centrox, centroy;
+    float ruota, cerchione; // dimensioni delle ruote
+    float centrox, centroy; // posizioni x, y delle ruote
 };
 
 // parametri tetto
 struct coca_tetto 
 {
-    float x1, y1; 
-    float x2, y2;
-    float x3, y3; 
-    float x4, y4;
-    float x5, y5;
+    float x1, y1; // coordinata x,y del punto 1
+    float x2, y2; // coordinata x,y del punto 2
+    float x3, y3; // coordinata x,y del punto 3
+    float x4, y4; // coordinata x,y del punto 4
+    float x5, y5; // coordinata x,y del punto 5
 };
 
 // parametri finestrini
 struct coca_finestrini
 {
-    float p1x, p1y; 
-    float p2x, p2y;
-    float p3x, p3y;
+    float p1x, p1y; // coordinata x,y del punto 1
+    float p2x, p2y; // coordinata x,y del punto 2
+    float p3x, p3y; // coordinata x,y del punto 3
 };
 
 // parametri spoiler
 struct coca_spoiler
 {
-    float px, py;
-    float widths, heights;
+    float px, py; // posizioni x, y dello spoiler
+    float widths; // lunghezza dello spoiler
+    float heights; // altezza dello spoiler
 };
 
 // parametri dell'intero device
 struct coca_device
 {
-    coca_carrozzeria car;
-    coca_ruota sx;
-    coca_ruota dx;
-    coca_finestrini fin;
-    coca_spoiler spoil;
-    coca_tetto cap;
-    float dimensionex;
-    float dimensioney;
+    coca_carrozzeria car; // parametri carrozzeria
+    coca_ruota sx; // parametri ruota sx
+    coca_ruota dx; // parametri ruota dx
+    coca_finestrini fin; // parametri finestrini
+    coca_spoiler spoil; // parametri spoiler
+    coca_tetto cap; // parametri tetto
+    float dimensionex; // dimensione x del foglio di lavoro
+    float dimensioney; // dimensione y del foglio di lavoro
 };
 
-// funzione che inizializza una struct device
-coca_device* coca_init();
+// funzione che inizializza struct device e parametri
+coca_device* coca_init_device();
+parametri* coca_init_parametri();
 
 // funzione errore
 void coca_error(int err);
-int coca_check_car(coca_device* macch);
-int coca_check_posizionex(coca_device* macch);
-int coca_check_posizioney(coca_device* macch);
-int coca_check_cerchioni(coca_device* macch, int* pdiametro);
-int coca_check_assetto(coca_device* macch, int* px);
+
+// funzioni check 
+int coca_check_car(parametri* par);
+int coca_check_posizionex(parametri* par);
+int coca_check_posizioney(parametri* par);
+int coca_check_cerchioni(parametri* par);
+int coca_check_assetto(parametri* par);
 
 coca_device* coca_riset(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check);
 
 // funzione che inizzializza il device passando dei parametri
-coca_device* coca_init_device(parametri par);
+coca_device* coca_myset_device(parametri* par, coca_device* indev);
 
 // FUNZIONI DEVICE 
 // My init parametri da terminale
@@ -128,10 +138,9 @@ int coca_write(std::string svg);
 // funzione legge da file
 std::string coca_read();
 float coca_parse(std::string svg, std::string parse, int & partenza, std::string fine);
-void coca_parse_device(coca_device* macch);
+void coca_parse_device(coca_device* macch, string svg);
 
 // Funzione che modifica i parametri della macchina
-int coca_set_menu();
 coca_device* coca_set_param(coca_device* macch, std::string svg, int* pscelta ,int* pdiametro, int* px, int* check);
 
 #endif //CAR_H

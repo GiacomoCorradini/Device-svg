@@ -8,14 +8,20 @@ using namespace std;
 #include <cmath>
 #include "Car.h"
 
-// funzione che inizializza una struct device
-coca_device* coca_init(){
+// funzione che inizializza una struct device e parametri
+coca_device* coca_init_device(){
 
     coca_device *macch = new coca_device;
     return macch;
 }
+parametri* coca_init_parametri(){
 
-// errori
+    parametri *par = new parametri;
+    par->check = 0;
+    return par;
+}
+
+// funzione che raccoglie i possibili errori
 void coca_error(int err){
     
     string erro; 
@@ -59,10 +65,10 @@ void coca_error(int err){
     }
 }
 
-// check constrains
-int coca_check_car(coca_device* macch){
+// funzioni che fanno un check sui prametri per vedere se rispettano i vincoli
+int coca_check_car(parametri* par){
     
-    if(macch->car.width/macch->car.height < 3)
+    if(par->inwidth/par->inheight < 3)
     {
         coca_error(6);
         return 1;
@@ -70,10 +76,9 @@ int coca_check_car(coca_device* macch){
         return 0;
     }
 }
+int coca_check_posizionex(parametri* par){
 
-int coca_check_posizionex(coca_device* macch){
-
-    if((macch->car.cx + macch->car.width) > (macch->dimensionex))
+    if((par->inpx + par->inwidth) > (par->indimx))
     {
         coca_error(1);
         return 1;
@@ -82,10 +87,9 @@ int coca_check_posizionex(coca_device* macch){
     }
 
 }
+int coca_check_posizioney(parametri* par){
 
-int coca_check_posizioney(coca_device* macch){
-
-    if((macch->car.cy + macch->car.height) > (macch->dimensioney))
+    if((par->inpy + par->inheight) > (par->indimy))
     {
         coca_error(2);
         return 1;
@@ -94,10 +98,9 @@ int coca_check_posizioney(coca_device* macch){
     }
 
 }
-
-int coca_check_cerchioni(coca_device* macch, int* pdiametro){
+int coca_check_cerchioni(parametri* par){
     
-    if((*pdiametro) != 16 && (*pdiametro) != 17 && (*pdiametro) != 18)
+    if(par->indiam != 16 && par->indiam != 17 && par->indiam != 18)
     {
         coca_error(3);
         return 1;
@@ -105,10 +108,9 @@ int coca_check_cerchioni(coca_device* macch, int* pdiametro){
         return 0;
     }
 }
-
-int coca_check_assetto(coca_device* macch, int* px){
+int coca_check_assetto(parametri* par){
         
-    if((*px) != 1 && (*px) != 2 && (*px) != 3)
+    if(par->inass != 1 && par->inass != 2 && par->inass != 3)
     {
         coca_error(4);
         return 1;
@@ -117,47 +119,31 @@ int coca_check_assetto(coca_device* macch, int* px){
     }
 }
 
-coca_device* coca_riset(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check){
+// Funzioni che settano i parametri della struct
+coca_device* coca_myset_sfondo(parametri* par, coca_device* indev){
     
-    switch ((*check))
-    {
-    case 1:
-        cout << "Ridefinire dimensioni della macchina" << endl;
-        macch = coca_cin_carrozzeria(macch, check);
-        break;
-    case 2:
-        cout << "Ridefinire posizione della machhina" << endl;
-        macch = coca_cin_posizione(macch, pscelta, check);
-        break;
-    case 3:
-        cout << "Ridefinire diametro dei cerchioni" << endl;
-        macch = coca_cin_ruote(macch, pdiametro, check);
-        break;
-    case 4:
-        cout << "Ridefinire scelta dell'assetto" << endl;
-        macch = coca_cin_assetto(macch, px, check);
-        break;
-    default:
-        break;
-    }
-    return macch;
+    indev->dimensionex = par->indimx;
+    indev->dimensioney = par->indimy;
+    
+    return indev;
 }
-
-// My init parametri da funzione
-coca_device* coca_init_device(parametri par){
+coca_device* coca_myset_carrozzeria(parametri* par, coca_device* indev){
     
-    coca_device* indev = new coca_device;
+    indev->car.width = par->inwidth;
+    indev->car.height = par->inheight;
 
-    // carrozzeria
-    indev->car.width = par.inwidth;
-    indev->car.height = par.inheight;
-    indev->car.cx = par.inpx;
-    if((indev->car.cx + indev->car.width) > SFONDOX) coca_error(1);
-    indev->car.cy = par.inpy;
-    if((indev->car.cy + indev->car.height) > SFONDOY) coca_error(2);
+    return indev;
+}
+coca_device* coca_myset_poscarrozzeria(parametri* par, coca_device* indev){
 
-    // ruote
-    switch (par.indiam)
+    indev->car.cx = par->inpx;
+    indev->car.cy = par->inpy;
+
+    return indev;
+}
+coca_device* coca_myset_ruote(parametri* par, coca_device* indev){
+
+    switch (par->indiam)
     {
         case 16:
             indev->sx.ruota = (indev->car.height - 1) / 2;
@@ -180,12 +166,14 @@ coca_device* coca_init_device(parametri par){
         
         default:
             coca_error(3);
-
             break;
     }
 
-    // assetto
-    switch (par.inass){
+    return indev;
+}
+coca_device* coca_myset_assetto(parametri* par, coca_device* indev){
+
+    switch (par->inass){
         case 1:
             indev->sx.centrox = indev->car.cx + (indev->car.width / 5) - 5;
             indev->dx.centrox = indev->car.cx + indev->car.width - (indev->car.width / 5) + 5;
@@ -209,6 +197,27 @@ coca_device* coca_init_device(parametri par){
         coca_error(4);
             break;
         }
+
+    return indev;
+}
+
+// Funzione che setta i parametri della struct device
+coca_device* coca_myset_device(parametri* par, coca_device* indev){
+    
+    if (indev == NULL){
+        return NULL;
+    }
+
+    if (par == NULL){
+        return NULL;
+    }
+
+    indev = coca_myset_sfondo(par, indev);
+    indev = coca_myset_carrozzeria(par, indev);
+    indev = coca_myset_poscarrozzeria(par, indev);
+    indev = coca_myset_ruote(par, indev);
+    indev = coca_myset_assetto(par, indev);
+    
 
     // finestrini
     indev->fin.p1x = indev->car.cx + indev->car.width / 1.75;
@@ -245,260 +254,13 @@ coca_device* coca_init_device(parametri par){
     return indev;
 }
 
-// My init parametri da terminale
-coca_device* coca_cin_carrozzeria(coca_device* macch, int* check){
-    
-    cout << "Inserire la lunghezza della macchina: ";
-    cin >> macch->car.width;
-    cout << "Inserire l'altezza della macchina: ";
-    cin >> macch->car.height;
-    
-    if(coca_check_car(macch) == 1)
-    {
-        (*check) = 1;
-    } else {
-        (*check) = 0;
-    }
-    return macch;
-}
-coca_device* coca_cin_posizione(coca_device* macch, int* pscelta, int* check){
-
-    macch->dimensionex = SFONDOX;
-    macch->dimensioney = SFONDOY;
-
-    cout << "Vuoi indicare la posizione della macchina nel foglio?" << endl;
-
-    do
-    {
-        cout << "[1] -> Si" << endl;
-        cout << "[2] -> No" << endl;
-        cin >> (*pscelta);
-        if((*pscelta) != 1 && (*pscelta) != 2) coca_error(0);
-    } while((*pscelta) != 1 && (*pscelta) != 2);
-
-    if((*pscelta) == 1)
-    {
-        cout << "Indicare la la posizione x della macchina nel foglio" << endl;
-        cin >> macch->car.cx;
- 
-        cout << "Indicare la la posizione y della macchina nel foglio" << endl;
-        cin >> macch->car.cy;
-    }
-
-    if((*pscelta) == 2) 
-    {
-        macch->car.cx = (macch->dimensionex/2) - (macch->car.width/2);
-        macch->car.cy = (macch->dimensioney/2) - (macch->car.height/2);
-    }
-
-    if(coca_check_posizionex(macch) == 1 || coca_check_posizioney(macch) == 1)
-    {
-        (*check) = 2;
-    } else {
-        (*check) = 0;
-    }
-    return macch;
-}
-coca_device* coca_cin_ruote(coca_device* macch, int* pdiametro, int* check){
-
-    cout << "Scegliere il diametro dei cerchioni" << endl;
-    cout << "Cerchioni disponibili:" << endl;
-    cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
-    cin >> (*pdiametro);
-
-    if(coca_check_cerchioni(macch, pdiametro) == 1)
-    {
-        (*check) = 3;
-    } else {
-        (*check) = 0;
-    }
-    return macch;
-}
-coca_device* coca_cin_assetto(coca_device* macch, int* px, int* check){
-
-    cout << "Scegliere l'assetto della macchina" << endl;
-    cout << "Assetti disponibili:" << endl;
-    cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
-    cin >> (*px);
-
-    if(coca_check_assetto(macch, px) == 1)
-    {
-        (*check) = 4;
-    } else {
-        (*check) = 0;
-    }
-    return macch;
-}
-coca_device* coca_cin_device(coca_device* macch, int* pscelta, int* pdiametro, int* px, int* check){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    macch = coca_cin_carrozzeria(macch, check);
-    while((*check) != 0)
-    {
-    macch = coca_riset(macch, pscelta, pdiametro, px, check);
-    }
-    macch = coca_cin_posizione(macch, pscelta, check);
-    while((*check) != 0)
-    {
-    macch = coca_riset(macch, pscelta, pdiametro, px, check);
-    }
-    macch = coca_cin_ruote(macch, pdiametro, check);
-    while((*check) != 0)
-    {
-    macch = coca_riset(macch, pscelta, pdiametro, px, check);
-    }
-    macch = coca_cin_assetto(macch, px, check);
-    while((*check) != 0)
-    {
-    macch = coca_riset(macch, pscelta, pdiametro, px, check);
-    }
-
-    return macch;
-}
-
-// Funzioni che calcolano i parametri della macchina
-coca_device* coca_try_ruote(coca_device* macch, int diametro){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    switch (diametro)
-    {
-        case 16:
-            macch->sx.ruota = (macch->car.height - 1) / 2;
-            macch->sx.cerchione = macch->sx.ruota / 1.6;
-            macch->dx.ruota = (macch->car.height - 1) / 2;
-            macch->dx.cerchione = macch->dx.ruota / 1.6;
-            break;
-        case 17:
-            macch->sx.ruota = macch->car.height / 2;
-            macch->sx.cerchione = macch->sx.ruota / 1.6;
-            macch->dx.ruota = macch->car.height / 2;
-            macch->dx.cerchione = macch->dx.ruota / 1.6;
-            break;
-        case 18:
-            macch->sx.ruota = (macch->car.height + 1) / 2;
-            macch->sx.cerchione = macch->sx.ruota / 1.6;
-            macch->dx.ruota = (macch->car.height + 1) / 2;
-            macch->dx.cerchione = macch->dx.ruota / 1.6;
-            break;       
-        default:
-            break;
-    }
-
-    return macch;
-}
-coca_device* coca_try_assetto(coca_device* macch, int x){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    switch (x)
-    {
-        case 1:
-            macch->sx.centrox = macch->car.cx + (macch->car.width / 5) - 5;
-            macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5) + 5;
-            macch->sx.centroy = macch->car.cy + macch->car.height;
-            macch->dx.centroy = macch->car.cy + macch->car.height;
-        break;
-        case 2:
-            macch->sx.centrox = macch->car.cx + (macch->car.width / 5);
-            macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5);
-            macch->sx.centroy = macch->car.cy + macch->car.height;
-            macch->dx.centroy = macch->car.cy + macch->car.height;
-            break;
-        case 3:
-            macch->sx.centrox = macch->car.cx + (macch->car.width / 5) +5;
-            macch->dx.centrox = macch->car.cx + macch->car.width - (macch->car.width / 5) - 5;
-            macch->sx.centroy = macch->car.cy + macch->car.height;
-            macch->dx.centroy = macch->car.cy + macch->car.height;
-            break;
-        default:
-           break;
-    }
-
-    return macch;
-}
-coca_device* coca_try_finestrini(coca_device* macch){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    macch->fin.p1x = macch->car.cx + macch->car.width / 1.75;
-    macch->fin.p1y = macch->car.cy - macch->car.height / 1.33333;
-
-    macch->fin.p2x = macch->car.cx + macch->car.width / 1.25;
-    macch->fin.p2y = macch->car.cy;
-
-    macch->fin.p3x = macch->car.cx + macch->car.width / 1.75;
-    macch->fin.p3y = macch->car.cy;
-
-    return macch;
-}
-coca_device* coca_try_spoiler(coca_device* macch){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    macch->spoil.heights = macch->car.height / (2.666667);
-    macch->spoil.widths = macch->car.width / 17.5;
-
-    macch->spoil.px = macch->car.cx + macch->car.width /35;
-    macch->spoil.py = macch->car.cy - macch->spoil.heights;
-
-    return macch;
-}
-coca_device* coca_try_tetto(coca_device* macch){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    macch->cap.x1 = macch->car.cx + macch->car.width / 5.8333;
-    macch->cap.y1 = macch->car.cy;
-
-    macch->cap.x2 = macch->car.cx + macch->car.width / 3.5;
-    macch->cap.y2 = macch->car.cy - macch->car.height / 1.33333;
-
-    macch->cap.x3 = macch->car.cx + macch->car.width / 1.75;
-    macch->cap.y3 = macch->car.cy - macch->car.height / 1.33333;
-
-    macch->cap.x4 = macch->car.cx + macch->car.width / 1.75;
-    macch->cap.y4 = macch->car.cy;
-
-    macch->cap.x5 = macch->car.cx + macch->car.width / 5.8333;
-    macch->cap.y5 = macch->car.cy;
-
-    return macch;
-
-}
-
-coca_device* coca_try_device(coca_device* macch, int scelta, int diametro, int x){
-    
-    if (macch==NULL){
-        return NULL;
-    }
-
-    coca_try_ruote(macch, diametro);
-    coca_try_assetto(macch, x);
-    coca_try_finestrini(macch);
-    coca_try_spoiler(macch);
-    coca_try_tetto(macch);
-
-    return macch;
-}
-
-//STRINGHE
-// Stringa di Intestazione
+// Funzione che scrive le stringhe di Intestazione
 string coca_intestazione(coca_device* macch){
     
+    if (macch == NULL){
+        return NULL;
+    }
+
     string inte;
     inte = "<?xml version='1.0' encoding='UTF-8' standalone='no'?>\n\n";
     inte += "<svg xmlns='http://www.w3.org/2000/svg' ";
@@ -508,6 +270,10 @@ string coca_intestazione(coca_device* macch){
 }
 string coca_sfondo(coca_device* macch){
     
+    if (macch == NULL){
+        return NULL;
+    }
+
     string sfon;
     sfon = "\t<rect  x='0' y='0' ";
     sfon += "width='" + to_string(macch->dimensionex) + "' ";
@@ -516,7 +282,7 @@ string coca_sfondo(coca_device* macch){
     return sfon;
 }
 
-// Stringa finale
+// Funzione che scrive la stringa finale
 string coca_fine(){
     string fin;
     fin = "</svg>\n";
@@ -524,16 +290,25 @@ string coca_fine(){
     
 }
 
-// stringhe device
+// Funzione che scrive le stringhe device
 string coca_strg_carrozzeria(coca_device* macch){
     
+    if (macch == NULL){
+        return NULL;
+    }
+
     string carr;
 
     carr = "\t<rect x='" + to_string(macch->car.cx) + "' y='" + to_string(macch->car.cy) + "' rx='10' ry='10' width='" + to_string(macch->car.width) + "' height='" + to_string(macch->car.height) + "' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/>\n\n"; 
     
     return carr;
 }
-string coca_strg_ruote(coca_device* macch){
+string coca_strg_ruote(coca_device* macch){7
+
+    if (macch == NULL){
+        return NULL;
+    }
+
     string ruo;
     // Ruota sinistra
     ruo = "\t<circle cx='" + to_string(macch->sx.centrox) + "' cy='" + to_string(macch->sx.centroy) + "' r='" + to_string(macch->sx.ruota) + "' stroke='black' stroke-width='3' fill='black'/>\n\n";
@@ -548,6 +323,10 @@ string coca_strg_ruote(coca_device* macch){
 }
 string coca_strg_finestrini(coca_device* macch){
     
+    if (macch == NULL){
+        return NULL;
+    }
+
     string fines;
     
     fines = "\t<polygon points='" + to_string(macch->fin.p1x) + "," + to_string(macch->fin.p1y) + " " + to_string(macch->fin.p2x) + "," + to_string(macch->fin.p2y) + " " + to_string(macch->fin.p3x) + "," + to_string(macch->fin.p3y) + "' style='fill:lightblue;stroke:black;stroke-width:5' />\n\n";
@@ -556,6 +335,10 @@ string coca_strg_finestrini(coca_device* macch){
 }
 string coca_strg_spoiler(coca_device* macch){
     
+    if (macch == NULL){
+        return NULL;
+    }
+
     string spoil;
     
     spoil = "\t<rect x='" + to_string(macch->spoil.px) + "' y='" + to_string(macch->spoil.py) + "' width='" + to_string(macch->spoil.widths) + "' height='" + to_string(macch->spoil.heights) + "' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/>\n\n";
@@ -564,6 +347,10 @@ string coca_strg_spoiler(coca_device* macch){
 }
 string coca_strg_tetto(coca_device* macch){
     
+    if (macch == NULL){
+        return NULL;
+    }
+
     string te;
     
     te = "\t<polygon points='" + to_string(macch->cap.x1) + "," + to_string(macch->cap.y1) + " " + to_string(macch->cap.x2) + "," + to_string(macch->cap.y2) + " " + to_string(macch->cap.x3) + "," + to_string(macch->cap.y3) + " " + to_string(macch->cap.x4) + "," + to_string(macch->cap.y4) + " " + to_string(macch->cap.x5) + "," + to_string(macch->cap.y5) + "' style='fill:red;stroke:black;stroke-width:5'/>\n\n";
@@ -573,6 +360,10 @@ string coca_strg_tetto(coca_device* macch){
 
 string coca_strg_device(coca_device* macch, int scelta, int quota){
     
+    if (macch == NULL){
+        return NULL;
+    }
+
     string svg;
     
     if(scelta == 1)
@@ -601,9 +392,13 @@ string coca_strg_device(coca_device* macch, int scelta, int quota){
     return svg;
 }
 
-// quotatura
+// Funzione che scrive la quotatura
 string coca_quotatura(coca_device* macch){
     
+    if (macch == NULL){
+        return NULL;
+    }
+
     string svg;
 
     //<!--Height-->
@@ -647,6 +442,7 @@ int coca_write(string svg){
         coca_error(5);
         return 1;
     }
+
     if(svg != ""){
         string nome;
 
@@ -664,6 +460,7 @@ int coca_write(string svg){
         // Close the file
         MyFile.close();
     }
+
     return 0;
 }
 
@@ -683,7 +480,7 @@ string coca_read(){
     return file;
 }
 
-// Funzione che legge un svg !!!!
+// Funzione che legge un svg
 float coca_parse(string svg, string parse, int & partenza, string fine){
 
     string numero;
@@ -701,7 +498,7 @@ float coca_parse(string svg, string parse, int & partenza, string fine){
 }
 
 // Funzione che importa i parametri da file nella struct
-void coca_parse_device(coca_device* macch){
+void coca_parse_device(coca_device* macch, string svg){
 
     string svg = coca_read();
     int partenza = 0;
@@ -765,73 +562,4 @@ void coca_parse_device(coca_device* macch){
     macch->spoil.py = coca_parse(svg,"y='",partenza,"'");
     macch->spoil.widths = coca_parse(svg,"width='",partenza,"'");
     macch->spoil.heights = coca_parse(svg,"height='",partenza,"'");
-}
-
-// Menù parametri da modificare
-int coca_set_menu(){
-    
-    int cd;
-    
-    cout << "Quale parametro vuoi modificare: " << endl;
-    cout << "[1] -> Dimensioni della macchina" << endl;
-    cout << "[2] -> Assetto" << endl;
-    cout << "[3] -> Dimensioni cerhione" << endl;
-    cout << "[4] -> Posizione veicolo" << endl;
-    cin >> cd;
-    
-    return cd;
-}
-
-// Funzione che modifica i parametri
-coca_device* coca_set_param(coca_device* macch, string svg, int* pscelta ,int* pdiametro, int* px, int* check){
-
-    if(svg == "") 
-    {
-        coca_error(7);
-        return NULL;
-    }
-
-    if(svg != "")
-    {
-
-        int set = coca_set_menu();
-
-        switch (set)
-        {
-        case 1:
-            macch = coca_cin_carrozzeria(macch, check);
-            while((*check) != 0)
-            {
-            macch = coca_riset(macch, pscelta, pdiametro, px, check);
-            }
-            break;
-        case 2:
-            macch = coca_cin_assetto(macch, px, check);
-            while((*check) != 0)
-            {
-            macch = coca_riset(macch, pscelta, pdiametro, px, check);
-            }
-            break;
-        case 3:
-            macch = coca_cin_ruote(macch, pdiametro, check);
-            while((*check) != 0)
-            {
-            macch = coca_riset(macch, pscelta, pdiametro, px, check);
-            }
-            break;
-        case 4:
-            (*pscelta) = 1;
-            macch = coca_cin_posizione(macch, pscelta, check);
-            while((*check) != 0)
-            {
-            macch = coca_riset(macch, pscelta, pdiametro, px, check);
-            }
-            break;
-        default:
-            break;
-        }
-    macch = coca_try_device(macch, (*pscelta), (*pdiametro), (*px));
-    }
-
-    return macch;
 }
