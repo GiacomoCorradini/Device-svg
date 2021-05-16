@@ -43,7 +43,7 @@ void coca_error(int err){
         cout << erro << endl;
         break;
     case 5:
-        erro = "ERROR: File non presente, devi prima scrivere o caricare un nuovo file per potermo salvare";
+        erro = "ERROR: File non presente, devi prima scrivere o caricare un nuovo file per poterlo salvare";
         cout << erro << endl;
         break;
     case 6:
@@ -54,6 +54,10 @@ void coca_error(int err){
         erro = "ERROR: Non sono presenti parametri da poter modificare";
         cout << erro << endl;
         break;
+    case 8:
+        erro = "ERROR: File non presente, devi prima scrivere o caricare un nuovo file per poterlo leggere";
+            cout << erro << endl;
+            break;
     default:
         break;
     }
@@ -464,22 +468,6 @@ int coca_write(string svg){
     return 0;
 }
 
-// Funzione che legge da file
-string coca_read(){
-
-    string file, lettura;
-
-    cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
-    cin >> lettura;
-
-    ifstream t(lettura);
-    stringstream buffer;
-    buffer << t.rdbuf();
-    file = buffer.str();
-
-    return file;
-}
-
 // Funzione che legge un svg
 float coca_parse(string svg, string parse, int & partenza, string fine){
 
@@ -498,7 +486,13 @@ float coca_parse(string svg, string parse, int & partenza, string fine){
 }
 
 // Funzione che importa i parametri da file nella struct
-void coca_parse_device(coca_device* macch, string svg){
+coca_device* coca_parse_device(coca_device* macch, string svg){
+
+    if(svg == "") 
+    {
+        coca_error(8);
+        return NULL;
+    }
 
     int partenza = 0;
     float m;
@@ -561,4 +555,6 @@ void coca_parse_device(coca_device* macch, string svg){
     macch->spoil.py = coca_parse(svg,"y='",partenza,"'");
     macch->spoil.widths = coca_parse(svg,"width='",partenza,"'");
     macch->spoil.heights = coca_parse(svg,"height='",partenza,"'");
+
+    return macch;
 }

@@ -116,8 +116,7 @@ std::string coca_quotatura(coca_device* macch);
 int coca_write(std::string svg);
 
 // funzione legge da file
-std::string coca_read();
 float coca_parse(std::string svg, std::string parse, int & partenza, std::string fine);
-void coca_parse_device(coca_device* macch, string svg);
+coca_device* coca_parse_device(coca_device* macch, std::string svg);
 
 #endif //CAR_H

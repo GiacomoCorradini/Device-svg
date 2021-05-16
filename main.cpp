@@ -244,6 +244,22 @@ coca_device* coca_set_param(coca_device* device, string svg){
     return device;
 }
 
+// Funzione che legge da file
+string coca_read(){
+
+    string file, lettura;
+
+    cout << "Scrivere il nome del file (es: nomefile.svg)" << endl;
+    cin >> lettura;
+
+    ifstream t(lettura);
+    stringstream buffer;
+    buffer << t.rdbuf();
+    file = buffer.str();
+
+    return file;
+}
+
 // menu del programma da terminale
 int coca_menu(){
 
@@ -291,7 +307,7 @@ int main(){
 
             case 4:
                 svg = coca_read();
-                coca_parse_device(macch, svg);
+                macch = coca_parse_device(macch, svg);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
             case 5:
