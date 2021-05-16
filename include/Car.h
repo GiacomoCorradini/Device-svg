@@ -11,28 +11,12 @@
 #define SFONDOX 800
 #define SFONDOY 600
 
-// parametri da passare alla funzione per inizializzarla
-struct parametri
-{
-    float inheight; // altezza del veicolo
-    float inwidth; // larghezza del veicolo
-    int scpos; // scelta se indicare o meno la posizione
-    float inpx; // posizione x del veicolo
-    float inpy; // posizione y del veicolo
-    int indiam; // diametro dei cerchioni (16, 17, 18)
-    int inass; // assetto della macchina (1, 2, 3)
-    int sceltasfondo; // scelta se indicare o meno la dimensione del foglio di lavoro
-    float indimx; // dimensione x foglio di lavoro
-    float indimy; // dimensione y foglio di lavoro
-    int check; // parametro di controllo
-};
-
 // parametri carrozzeria
 struct coca_carrozzeria
 {
     float cx, cy; // posizioni x, y della carrozzeria
     float width; // lunghezza della carrozzeria
-    float height; // altezza della carrozzeria 
+    float height; // altezza della carrozzeria
 };
 
 // parametri ruota
@@ -77,35 +61,39 @@ struct coca_device
     coca_finestrini fin; // parametri finestrini
     coca_spoiler spoil; // parametri spoiler
     coca_tetto cap; // parametri tetto
+    int scelta_sfondo; // scelta se indicare o meno la dimensione del foglio di lavoro
+    int check; // parametro di controllo
     float dimensionex; // dimensione x del foglio di lavoro
     float dimensioney; // dimensione y del foglio di lavoro
+    int diametro; // diametro dei cerchioni (16, 17, 18)
+    int assetto; // assetto della macchina (1, 2, 3)
+    int scelta_posizione; // scelta se indicare o meno la posizione
 };
 
 // funzione che inizializza struct device e parametri
 coca_device* coca_init_device();
-parametri* coca_init_parametri();
 
 // funzione errore
 void coca_error(int err);
 
 // funzioni check 
-int coca_check_car(parametri* par);
-int coca_check_posizionex(parametri* par);
-int coca_check_posizioney(parametri* par);
-int coca_check_cerchioni(parametri* par);
-int coca_check_assetto(parametri* par);
+int coca_check_car(coca_device* device);
+int coca_check_posizionex(coca_device* device);
+int coca_check_posizioney(coca_device* device);
+int coca_check_cerchioni(coca_device* device);
+int coca_check_assetto(coca_device* device);
 
 // funzione che setta i parametri della struct device
-coca_device* coca_myset_sfondo(parametri* par, coca_device* indev);
-coca_device* coca_myset_carrozzeria(parametri* par, coca_device* indev);
-coca_device* coca_myset_poscarrozzeria(parametri* par, coca_device* indev);
-coca_device* coca_myset_ruote(parametri* par, coca_device* indev);
-coca_device* coca_myset_assetto(parametri* par, coca_device* indev);
-coca_device* coca_myset_finestrino(parametri* par, coca_device* indev);
-coca_device* coca_myset_spoiler(parametri* par, coca_device* indev);
-coca_device* coca_myset_tetto(parametri* par, coca_device* indev);
+coca_device* coca_myset_sfondo(coca_device* indev);
+coca_device* coca_myset_carrozzeria(coca_device* indev);
+coca_device* coca_myset_poscarrozzeria(coca_device* indev);
+coca_device* coca_myset_ruote(coca_device* indev);
+coca_device* coca_myset_assetto(coca_device* indev);
+coca_device* coca_myset_finestrino(coca_device* indev);
+coca_device* coca_myset_spoiler(coca_device* indev);
+coca_device* coca_myset_tetto(coca_device* indev);
 
-coca_device* coca_myset_device(parametri* par, coca_device* indev);
+coca_device* coca_myset_device(coca_device* indev);
 
 // Funzione che scrive le stringhe di Intestazione
 std::string coca_intestazione(coca_device* macch);

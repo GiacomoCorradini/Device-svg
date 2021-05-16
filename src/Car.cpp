@@ -14,12 +14,6 @@ coca_device* coca_init_device(){
     coca_device *macch = new coca_device;
     return macch;
 }
-parametri* coca_init_parametri(){
-
-    parametri *par = new parametri;
-    par->check = 0;
-    return par;
-}
 
 // funzione che raccoglie i possibili errori
 void coca_error(int err){
@@ -66,9 +60,9 @@ void coca_error(int err){
 }
 
 // funzioni che fanno un check sui prametri per vedere se rispettano i vincoli
-int coca_check_car(parametri* par){
+int coca_check_car(coca_device* device){
     
-    if(par->inwidth/par->inheight < 3)
+    if(device->car.width/device->car.height < 3)
     {
         coca_error(6);
         return 1;
@@ -76,9 +70,9 @@ int coca_check_car(parametri* par){
         return 0;
     }
 }
-int coca_check_posizionex(parametri* par){
+int coca_check_posizionex(coca_device* device){
 
-    if((par->inpx + par->inwidth) > (par->indimx))
+    if((device->car.cx + device->car.width) > (device->dimensionex))
     {
         coca_error(1);
         return 1;
@@ -87,9 +81,9 @@ int coca_check_posizionex(parametri* par){
     }
 
 }
-int coca_check_posizioney(parametri* par){
+int coca_check_posizioney(coca_device* device){
 
-    if((par->inpy + par->inheight) > (par->indimy))
+    if((device->car.cy + device->car.height) > (device->dimensioney))
     {
         coca_error(2);
         return 1;
@@ -98,9 +92,9 @@ int coca_check_posizioney(parametri* par){
     }
 
 }
-int coca_check_cerchioni(parametri* par){
+int coca_check_cerchioni(coca_device* device){
     
-    if(par->indiam != 16 && par->indiam != 17 && par->indiam != 18)
+    if(device->diametro != 16 && device->diametro != 17 && device->diametro != 18)
     {
         coca_error(3);
         return 1;
@@ -108,9 +102,9 @@ int coca_check_cerchioni(parametri* par){
         return 0;
     }
 }
-int coca_check_assetto(parametri* par){
+int coca_check_assetto(coca_device* device){
         
-    if(par->inass != 1 && par->inass != 2 && par->inass != 3)
+    if(device->assetto != 1 && device->assetto != 2 && device->assetto != 3)
     {
         coca_error(4);
         return 1;
@@ -120,30 +114,30 @@ int coca_check_assetto(parametri* par){
 }
 
 // Funzioni che settano i parametri della struct
-coca_device* coca_myset_sfondo(parametri* par, coca_device* indev){
+coca_device* coca_myset_sfondo(coca_device* indev){
     
-    indev->dimensionex = par->indimx;
-    indev->dimensioney = par->indimy;
+    indev->dimensionex = indev->dimensionex;
+    indev->dimensioney = indev->dimensioney;
     
     return indev;
 }
-coca_device* coca_myset_carrozzeria(parametri* par, coca_device* indev){
+coca_device* coca_myset_carrozzeria(coca_device* indev){
     
-    indev->car.width = par->inwidth;
-    indev->car.height = par->inheight;
+    indev->car.width = indev->car.width;
+    indev->car.height = indev->car.height;
 
     return indev;
 }
-coca_device* coca_myset_poscarrozzeria(parametri* par, coca_device* indev){
+coca_device* coca_myset_poscarrozzeria(coca_device* indev){
 
-    indev->car.cx = par->inpx;
-    indev->car.cy = par->inpy;
+    indev->car.cx = indev->car.cx;
+    indev->car.cy = indev->car.cy;
 
     return indev;
 }
-coca_device* coca_myset_ruote(parametri* par, coca_device* indev){
+coca_device* coca_myset_ruote(coca_device* indev){
 
-    switch (par->indiam)
+    switch (indev->diametro)
     {
         case 16:
             indev->sx.ruota = (indev->car.height - 1) / 2;
@@ -170,9 +164,9 @@ coca_device* coca_myset_ruote(parametri* par, coca_device* indev){
 
     return indev;
 }
-coca_device* coca_myset_assetto(parametri* par, coca_device* indev){
+coca_device* coca_myset_assetto(coca_device* indev){
 
-    switch (par->inass){
+    switch (indev->assetto){
         case 1:
             indev->sx.centrox = indev->car.cx + (indev->car.width / 5) - 5;
             indev->dx.centrox = indev->car.cx + indev->car.width - (indev->car.width / 5) + 5;
@@ -198,7 +192,7 @@ coca_device* coca_myset_assetto(parametri* par, coca_device* indev){
 
     return indev;
 }
-coca_device* coca_myset_finestrino(parametri* par, coca_device* indev){
+coca_device* coca_myset_finestrino(coca_device* indev){
 
     indev->fin.p1x = indev->car.cx + indev->car.width / 1.75;
     indev->fin.p1y = indev->car.cy - indev->car.height / 1.33333;
@@ -212,7 +206,7 @@ coca_device* coca_myset_finestrino(parametri* par, coca_device* indev){
     return indev;
 
 }
-coca_device* coca_myset_spoiler(parametri* par, coca_device* indev){
+coca_device* coca_myset_spoiler(coca_device* indev){
 
     indev->spoil.heights = indev->car.height / (2.666667);
     indev->spoil.widths = indev->car.width / 17.5;
@@ -221,7 +215,7 @@ coca_device* coca_myset_spoiler(parametri* par, coca_device* indev){
 
     return indev;
 }
-coca_device* coca_myset_tetto(parametri* par, coca_device* indev){
+coca_device* coca_myset_tetto(coca_device* indev){
 
     indev->cap.x1 = indev->car.cx + indev->car.width / 5.8333;
     indev->cap.y1 = indev->car.cy;
@@ -242,24 +236,20 @@ coca_device* coca_myset_tetto(parametri* par, coca_device* indev){
 }
 
 // Funzione che setta i parametri della struct device
-coca_device* coca_myset_device(parametri* par, coca_device* indev){
+coca_device* coca_myset_device(coca_device* indev){
     
     if (indev == NULL){
         return NULL;
     }
 
-    if (par == NULL){
-        return NULL;
-    }
-
-    indev = coca_myset_sfondo(par, indev);
-    indev = coca_myset_carrozzeria(par, indev);
-    indev = coca_myset_poscarrozzeria(par, indev);
-    indev = coca_myset_ruote(par, indev);
-    indev = coca_myset_assetto(par, indev);
-    indev = coca_myset_finestrino(par, indev);
-    indev = coca_myset_spoiler(par, indev);
-    indev = coca_myset_tetto(par, indev);
+    indev = coca_myset_sfondo(indev);
+    indev = coca_myset_carrozzeria(indev);
+    indev = coca_myset_poscarrozzeria(indev);
+    indev = coca_myset_ruote(indev);
+    indev = coca_myset_assetto(indev);
+    indev = coca_myset_finestrino(indev);
+    indev = coca_myset_spoiler(indev);
+    indev = coca_myset_tetto(indev);
 
     return indev;
 }
@@ -530,11 +520,11 @@ void coca_parse_device(coca_device* macch, string svg){
 
     macch->sx.centrox = coca_parse(svg,"cx='",partenza,"'");
     macch->sx.centroy = coca_parse(svg,"cy='",partenza,"'");
-    macch->sx.ruota = coca_parse(svg,"r='",partenza,"'");
+    macch->sx.cerchione = coca_parse(svg,"r='",partenza,"'");
 
     macch->dx.centrox = coca_parse(svg,"cx='",partenza,"'");
     macch->dx.centroy = coca_parse(svg,"cy='",partenza,"'");
-    macch->dx.cerchione = coca_parse(svg,"r='",partenza,"'");
+    macch->dx.ruota = coca_parse(svg,"r='",partenza,"'");
 
     macch->dx.centrox = coca_parse(svg,"cx='",partenza,"'");
     macch->dx.centroy = coca_parse(svg,"cy='",partenza,"'");

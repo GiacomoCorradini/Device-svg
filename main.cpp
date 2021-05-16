@@ -9,188 +9,182 @@ using namespace std;
 #include "Car.h"
 
 // funzioni che chiedono parametri da terminale singole
-parametri* coca_parcin_dimfoglio(parametri* par){
+coca_device* coca_parcin_dimfoglio(coca_device* device){
     
     do
     {
         cout << "Vuoi impostare le dimensioni del foglio? " << endl;
         cout << "[1] -> Si" << endl;
         cout << "[2] -> No" << endl;
-        cin >> par->sceltasfondo;
-        if(par->sceltasfondo != 1 && par->sceltasfondo != 2) coca_error(0);
+        cin >> device->scelta_sfondo;
+        if(device->scelta_sfondo != 1 && device->scelta_sfondo != 2) coca_error(0);
 
-    } while (par->sceltasfondo != 1 && par->sceltasfondo != 2);
+    } while (device->scelta_sfondo != 1 && device->scelta_sfondo != 2);
 
-    if(par->sceltasfondo == 1){
+    if(device->scelta_sfondo == 1){
         cout << "Dimensione x: ";
-        cin >> par->indimx;
+        cin >> device->dimensionex;
         cout << "Dimensione y: ";
-        cin >> par->indimy;
+        cin >> device->dimensioney;
     }
 
-    if(par->sceltasfondo == 2){
-        par->indimx = SFONDOX;
-        par->indimy = SFONDOY;
+    if(device->scelta_sfondo == 2){
+        device->dimensionex = SFONDOX;
+        device->dimensioney = SFONDOY;
     }
 
-    return par;
+    return device;
 }
-parametri* coca_parcin_dimmacch(parametri* par){
+coca_device* coca_parcin_dimmacch(coca_device* device){
 
     cout << "Inserire la lunghezza della macchina: ";
-    cin >> par->inwidth;
+    cin >> device->car.width;
     cout << "Inserire l'altezza della macchina: ";
-    cin >> par->inheight;
+    cin >> device->car.height;
 
-    if(coca_check_car(par) == 1)
+    if(coca_check_car(device) == 1)
     {
-        par->check = 1;
+        device->check = 1;
     } else {
-        par->check = 0;
+        device->check = 0;
     }
 
-    return par;
+    return device;
 }
-parametri* coca_parcin_posmacch(parametri* par){
+coca_device* coca_parcin_posmacch(coca_device* device){
     
     do
     {
         cout << "Vuoi indicare la posizione della macchina nel foglio?" << endl;
         cout << "[1] -> Si" << endl;
         cout << "[2] -> No" << endl;
-        cin >> par->scpos;
-        if(par->scpos != 1 && par->scpos != 2) coca_error(0);
-    } while(par->scpos != 1 && par->scpos != 2);
+        cin >> device->scelta_posizione;
+        if(device->scelta_posizione != 1 && device->scelta_posizione != 2) coca_error(0);
+    } while(device->scelta_posizione != 1 && device->scelta_posizione != 2);
 
-    if(par->scpos == 1)
+    if(device->scelta_posizione == 1)
     {
         cout << "Indicare la la posizione x della macchina nel foglio" << endl;
-        cin >> par->inpx;
+        cin >> device->car.cx;
  
         cout << "Indicare la la posizione y della macchina nel foglio" << endl;
-        cin >> par->inpy;
+        cin >> device->car.cy;
     }
 
-    if(par->scpos == 2) 
+    if(device->scelta_posizione == 2) 
     {
-        par->inpx = (par->indimx/2) - (par->inwidth/2);
-        par->inpy = (par->indimy/2) - (par->inheight/2);
+        device->car.cx = (device->dimensionex/2) - (device->car.width/2);
+        device->car.cy = (device->dimensioney/2) - (device->car.height/2);
     }
 
-    if(coca_check_posizionex(par) == 1 || coca_check_posizioney(par) == 1)
+    if(coca_check_posizionex(device) == 1 || coca_check_posizioney(device) == 1)
     {
-        par->check = 2;
+        device->check = 2;
     } else {
-        par->check = 0;
+        device->check = 0;
     }
 
-    return par;
+    return device;
 }
-parametri* coca_parcin_ruote(parametri* par){
+coca_device* coca_parcin_ruote(coca_device* device){
 
     cout << "Scegliere il diametro dei cerchioni" << endl;
     cout << "Cerchioni disponibili:" << endl;
     cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
-    cin >> par->indiam;
+    cin >> device->diametro;
 
-    if(coca_check_cerchioni(par) == 1)
+    if(coca_check_cerchioni(device) == 1)
     {
-        par->check = 3;
+        device->check = 3;
     } else {
-        par->check = 0;
+        device->check = 0;
     }
 
-    return par;
+    return device;
 }
-parametri* coca_parcin_assetto(parametri* par){
+coca_device* coca_parcin_assetto(coca_device* device){
 
     cout << "Scegliere l'assetto della macchina" << endl;
     cout << "Assetti disponibili:" << endl;
     cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
-    cin >> par->inass;
+    cin >> device->assetto;
 
-    if(coca_check_assetto(par) == 1)
+    if(coca_check_assetto(device) == 1)
     {
-        par->check = 4;
+        device->check = 4;
     } else {
-        par->check = 0;
+        device->check = 0;
     }
 
-    return par;
+    return device;
 }
 
 // funzione che risetta parametri che non rispettano i vincoli
-parametri* coca_riparcin(parametri* par){
+coca_device* coca_riparcin(coca_device* device){
 
-    switch (par->check)
+    switch (device->check)
     {
     case 1:
         cout << "Ridefinire dimensioni della macchina" << endl;
-        par = coca_parcin_dimmacch(par);
+        device = coca_parcin_dimmacch(device);
         break;
     case 2:
         cout << "Ridefinire posizione della machhina" << endl;
-        par = coca_parcin_posmacch(par);
+        device = coca_parcin_posmacch(device);
         break;
     case 3:
         cout << "Ridefinire diametro dei cerchioni" << endl;
-        par = coca_parcin_ruote(par);
+        device = coca_parcin_ruote(device);
         break;
     case 4:
         cout << "Ridefinire scelta dell'assetto" << endl;
-        par = coca_parcin_assetto(par);
+        device = coca_parcin_assetto(device);
         break;
     default:
         break;
     }
-    return par;
+    return device;
 }
 
 // funzione che chiede parametri da terminale complessiva
-parametri* coca_parcin_device(parametri* par){
+coca_device* coca_parcin_device(coca_device* device){
 
     // Set dimensioni sfondo
-    par = coca_parcin_dimfoglio(par);
+    device = coca_parcin_dimfoglio(device);
 
     // set dimensioni macchina
-    par = coca_parcin_dimmacch(par);
-
-    while(par->check != 0)
+    device = coca_parcin_dimmacch(device);
+    while(device->check != 0)
     {
-        par = coca_riparcin(par);
+        device = coca_riparcin(device);
     }
-
     // set posizione macchina
-    par = coca_parcin_posmacch(par);
-
-    while(par->check != 0)
+    device = coca_parcin_posmacch(device);
+    while(device->check != 0)
     {
-        par = coca_riparcin(par);
+        device = coca_riparcin(device);
     }
-
     // set ruote
-    par = coca_parcin_ruote(par);
-
-    while(par->check != 0)
+    device = coca_parcin_ruote(device);
+    while(device->check != 0)
     {
-        par = coca_riparcin(par);
+        device = coca_riparcin(device);
     }
-
     // set assetto
-    par = coca_parcin_assetto(par);
-
-    while(par->check != 0)
+    device = coca_parcin_assetto(device);
+    while(device->check != 0)
     {
-        par = coca_riparcin(par);
+        device = coca_riparcin(device);
     }
-
-    return par;
+    return device;
 }
 
 // funzione che modifica i parametri
-coca_device* coca_set_param(parametri* par, coca_device* macch, string svg){
+coca_device* coca_set_param(coca_device* device, string svg){
 
-    if (par == NULL){
+    coca_device* newmacch = new coca_device;
+
+    if (device == NULL){
         return NULL;
     }
 
@@ -214,40 +208,40 @@ coca_device* coca_set_param(parametri* par, coca_device* macch, string svg){
         switch (set)
         {
         case 1:
-            par = coca_parcin_dimmacch(par);
-            while(par->check != 0)
+            device = coca_parcin_dimmacch(device);
+            while(device->check != 0)
             {
-                par = coca_riparcin(par);
+                device = coca_riparcin(device);
             }
             break;
         case 2:
-            par = coca_parcin_assetto(par);
-            while(par->check != 0)
+            device = coca_parcin_assetto(device);
+            while(device->check != 0)
             {
-                par = coca_riparcin(par);
+                device = coca_riparcin(device);
             }
             break;
         case 3:
-            par = coca_parcin_ruote(par);
-            while(par->check != 0)
+            device = coca_parcin_ruote(device);
+            while(device->check != 0)
             {
-                par = coca_riparcin(par);
+                device = coca_riparcin(device);
             }
             break;
         case 4:
-            par = coca_parcin_posmacch(par);
-            while(par->check != 0)
+            device = coca_parcin_posmacch(device);
+            while(device->check != 0)
             {
-                par = coca_riparcin(par);
+                device = coca_riparcin(device);
             }
             break;
         default:
             break;
         }
-    macch = coca_myset_device(par, macch);
+    device = coca_myset_device(device);
     }
 
-    return macch;
+    return device;
 }
 
 // menu del programma da terminale
@@ -267,13 +261,11 @@ int coca_menu(){
     return i;
 }
 
-
 int main(){
 
     int menu;
     string svg;
     coca_device* macch = coca_init_device();  
-    parametri* par = coca_init_parametri();
 
     while(menu != 7){
         
@@ -282,14 +274,14 @@ int main(){
         switch (menu)
         {
             case 1:
-                par = coca_parcin_device(par);
-                macch = coca_myset_device(par, macch);
+                macch = coca_parcin_device(macch);
+                macch = coca_myset_device(macch);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
 
             case 2:
-                par = coca_parcin_device(par);
-                macch = coca_myset_device(par, macch);
+                macch = coca_parcin_device(macch);
+                macch = coca_myset_device(macch);
                 svg = coca_strg_device(macch, 1, 1);
                 break;
 
@@ -303,7 +295,7 @@ int main(){
                 svg = coca_strg_device(macch, 1, 0);
                 break;
             case 5:
-                macch = coca_set_param(par, macch, svg);
+                macch = coca_set_param(macch, svg);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
             case 6:
@@ -316,7 +308,6 @@ int main(){
                 break;
 
             case 7:
-                delete par;
                 delete macch;
                 cout << "Programma terminato" << endl;
                 break;
