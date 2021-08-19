@@ -36,7 +36,7 @@ TEST_CASE("coca_check_car dovrebbe ritornare 0 se è rispettato il rapporto widt
     delete(macch);    
 }
 
-// test sulla funzione coca_check_posizionex
+// test sulla funzione coca_check_posizione x
 TEST_CASE("coca_check_posizionex dovrebbe ritornare 1 se non è rispettata l'impaginazione nella coordinata x", "[car]") {
     
     coca_device* macch = coca_init_device();
@@ -73,7 +73,7 @@ TEST_CASE("coca_check_posizionex dovrebbe ritornare 0 se è rispettata l'impagin
     delete(macch);    
 }
 
-// test sulla funzione coca_check_posizioney
+// test sulla funzione coca_check_posizione y
 TEST_CASE("coca_check_posizioney dovrebbe ritornare 1 se non è rispettata l'impaginazione nella coordinata y", "[car]") {
     
     coca_device* macch = coca_init_device();

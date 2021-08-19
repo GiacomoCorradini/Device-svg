@@ -13,6 +13,7 @@ coca_device* coca_init_device(){
 
     coca_device *macch = new coca_device;
     return macch;
+    
 }
 
 // funzione che raccoglie i possibili errori

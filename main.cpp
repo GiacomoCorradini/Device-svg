@@ -260,7 +260,7 @@ string coca_read(){
     return file;
 }
 
-// menu del programma da terminale
+// Menu programma
 char coca_menu(){
 
     char i;
