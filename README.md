@@ -56,6 +56,7 @@ I parametri devo rispettare determinati vincoli che cercano di rendere il più r
 
 ## Funzionamento programma
 
+~~~
 [a] -> Scrivere un file svg
 [b] -> Scrivere un file svg con quotatura
 [c] -> Salvare un file svg 
@@ -63,6 +64,7 @@ I parametri devo rispettare determinati vincoli che cercano di rendere il più r
 [e] -> Modificare un parametro file svg
 [f] -> Stampa stringa svg a terminale
 [q] -> Uscire dal programma
+~~~
 
 ### [a] Scrivere un file .svg
 
