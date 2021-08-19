@@ -94,7 +94,7 @@ Questa operazione stampa la stringa svg salvata nel programma a terminale.
 
 Questa operazione termina il programma.
 
-## SVG MACHINE
+## Svg machine
 
 Macchina + Motrice
 
