@@ -1,4 +1,4 @@
-# Homework 1 (DII - Tecniche di programmazione avanzata)
+# HOMEWORK 1 (DII - Tecniche di programmazione avanzata)
 
 Il seguente progetto prevede la creazione di un device cons estensione .svg. Il device consiste in una macchina che può essere personalizzata dall'utente. Successivamente il progetto viene implementato con un altro device sviluppato da un altro collega. 
 
@@ -12,27 +12,49 @@ Il file .svg può essere ulteriormente implementato inserendo la quotatura.
 
 ![](output/macchina_quotata.svg)
 
-## FUNZIONAMENTO PROGRAMMA
+## Parametri di progetto
 
 Il programma permette di disegnare una macchina inserendo determinati parametri.
 
 Parametri da inserire:
-- Altezza macchina
-- Lunghezza macchina
-- Dimensioni ruote
-- Assetto della macchina
 
-I parametri devo rispettare determinati vincoli che rendono il più realistico possibile il veicolo
+- Dimensioni del disegno
+    - Dimensione 'x'
+    - Dimensione 'y'
+
+- Dimensioni carrozzeria della macchina
+    - Lunghezza
+    - Altezza
+
+- Posizione della macchina nel foglio
+    - Coordinata 'x'
+    - Coordinata 'y'
+
+- Dimensioni ruote
+    - '16' pollici
+    - '17' pollici
+    - '18' pollici
+
+- Assetto della macchina
+    - Assetto pista
+    - Assetto strada
+    - Assetto fuoristrada
+
+## Vincoli dimensionali
+
+I parametri devo rispettare determinati vincoli che cercano di rendere il più realistico possibile il veicolo.
 
 - Il rapporto tra lunghezza e altezza della macchina non deve essere inferiore a 3
+
 - La posizione x della macchina deve essere tale da garantire che la macchhina non vada fuori dal foglio di lavoro
+
 - La posizione y della macchina deve essere tale da garantire che la machhina non vada fuori dal foglio di lavoro
+
 - I cerchioni disponibili sono di tre misure: 16" 17" 18"
+
 - Gli assetti disponibili sono di tre tipi: Pista, Strada, Fuoristrada
 
-Il programma inizia mostrando un menù che permette di eseguire diverse operzaioni:
-
-~~~
+## FUNZIONAMENTO PROGRAMMA
 
 [1] -> Scrivere un file svg
 [2] -> Scrivere un file svg con quotatura
@@ -41,8 +63,6 @@ Il programma inizia mostrando un menù che permette di eseguire diverse operzaio
 [5] -> Modificare un parametro file svg
 [6] -> Stampa stringa svg a terminale
 [7] -> Uscire dal programma
-
-~~~
 
 ### [1] Scrivere un file svg
 
