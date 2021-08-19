@@ -219,7 +219,7 @@ TEST_CASE("coca_strg_device dovrebbe ritornare una stringa != "" ", "[car]") {
 
     delete(macch);    
 }
-
+ 
 // test sulla funzione coca_quotatura
 TEST_CASE("coca_quotatura dovrebbe ritornare una stringa != "" ", "[car]") {
     

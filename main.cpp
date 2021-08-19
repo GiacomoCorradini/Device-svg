@@ -261,17 +261,18 @@ string coca_read(){
 }
 
 // menu del programma da terminale
-int coca_menu(){
+char coca_menu(){
 
-    int i;
-    cout << "Che cosa vuoi fare: " << endl;
-    cout << "[1] -> Scrivere un file svg" << endl;
-    cout << "[2] -> Scrivere un file svg con quotatura" << endl;
-    cout << "[3] -> Salvare un file svg" << endl;
-    cout << "[4] -> Caricare un file svg" << endl;
-    cout << "[5] -> Modificare un parametro file svg" << endl;
-    cout << "[6] -> Stampa stringa svg a terminale" << endl;
-    cout << "[7] -> Uscire dal programma" << endl;
+    char i;
+    cout << "GESTIONE FILE SVG: " << endl;
+    cout << "\tMenu:" << endl;
+    cout << "\t\t[a] -> Scrivere un file svg" << endl;
+    cout << "\t\t[b] -> Scrivere un file svg con quotatura" << endl;
+    cout << "\t\t[c] -> Salvare un file svg" << endl;
+    cout << "\t\t[d] -> Caricare un file svg" << endl;
+    cout << "\t\t[e] -> Modificare un parametro file svg" << endl;
+    cout << "\t\t[f] -> Stampa stringa svg a terminale" << endl;
+    cout << "\t\t[q] -> Uscire dal programma" << endl;
     cin >> i;
 
     return i;
@@ -279,42 +280,42 @@ int coca_menu(){
 
 int main(){
 
-    int menu;
+    char m;
     string svg;
     coca_device* macch = coca_init_device();  
 
-    while(menu != 7){
+    while(m !='q'){
         
-        menu = coca_menu();
+        m = coca_menu();
     
-        switch (menu)
+        switch (m)
         {
-            case 1:
+            case 'a':
                 macch = coca_parcin_device(macch);
                 macch = coca_myset_device(macch);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
 
-            case 2:
+            case 'b':
                 macch = coca_parcin_device(macch);
                 macch = coca_myset_device(macch);
                 svg = coca_strg_device(macch, 1, 1);
                 break;
 
-            case 3:
+            case 'c':
                 coca_write(svg);
                 break;
 
-            case 4:
+            case 'd':
                 svg = coca_read();
                 macch = coca_parse_device(macch, svg);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
-            case 5:
+            case 'e':
                 macch = coca_set_param(macch, svg);
                 svg = coca_strg_device(macch, 1, 0);
                 break;
-            case 6:
+            case 'f':
                 if(svg == "") coca_error(5);
                 if(svg != "")
                 {
@@ -323,7 +324,7 @@ int main(){
                 }
                 break;
 
-            case 7:
+            case 'q':
                 delete macch;
                 cout << "Programma terminato" << endl;
                 break;

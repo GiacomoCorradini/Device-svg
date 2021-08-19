@@ -1,14 +1,14 @@
-# DII - Tecniche di programmazione avanzata
+# Homework 1 (DII - Tecniche di programmazione avanzata)
 
-Homework 1
+Il seguente progetto prevede la creazione di un device cons estensione .svg. Il device consiste in una macchina che può essere personalizzata dall'utente. Successivamente il progetto viene implementato con un altro device sviluppato da un altro collega. 
 
 ## SVG device
 
-Macchina
+Di seguito viene riportato un esempio di macchina sviluppata utilizzando opportuni parametri.
 
 ![](output/macchina.svg)
 
-Macchina quotata
+Il file .svg può essere ulteriormente implementato inserendo la quotatura.
 
 ![](output/macchina_quotata.svg)
 
