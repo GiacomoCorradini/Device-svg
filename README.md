@@ -54,41 +54,41 @@ I parametri devo rispettare determinati vincoli che cercano di rendere il più r
 
 - Gli assetti disponibili sono di tre tipi: Pista, Strada, Fuoristrada
 
-## FUNZIONAMENTO PROGRAMMA
+## Funzionamento programma
 
-[1] -> Scrivere un file svg
-[2] -> Scrivere un file svg con quotatura
-[3] -> Salvare un file svg 
-[4] -> Caricare un file svg
-[5] -> Modificare un parametro file svg
-[6] -> Stampa stringa svg a terminale
-[7] -> Uscire dal programma
+[a] -> Scrivere un file svg
+[b] -> Scrivere un file svg con quotatura
+[c] -> Salvare un file svg 
+[d] -> Caricare un file svg
+[e] -> Modificare un parametro file svg
+[f] -> Stampa stringa svg a terminale
+[q] -> Uscire dal programma
 
-### [1] Scrivere un file svg
+### [a] Scrivere un file .svg
 
-Questa opzione permette di scrivere il file svg inserendo i parametri della macchina chiesti a terminale. Ad ogni parametro inserito verrà verificato il rispetto del vincolo, in caso di non rispetto del vincolo viene segnalato l'errore.
+Questa opzione permette di scrivere il file svg inserendo i parametri della macchina richiesti a terminale. Ad ogni parametro inserito verrà verificato il rispetto del vincolo, in caso di non rispetto del vincolo viene segnalato l'errore.
 
-### [2] Scrivere un file svg con quotatura
+### [b] Scrivere un file .svg con quotatura
 
 Questa opzione permette di scrivere un file svg come nel primo caso ma con l'aggiunta della quotatura a disegno.
 
-### [3] Salvare un file svg
+### [c] Salvare un file .svg
 
 Questa opzione permette di salvare il file svg presente nel programma, importante mettere l'estensione nel nome, esempio: nomefile.svg
 
-### [4] Caricare un file svg
+### [d] Caricare un file .svg
 
 Questa opzione permette di caricare un file svg e di inserire i parametri della macchina presente nel file svg all'interno della struct del programma.
 
-### [5] Modificare un parametro file svg
+### [e] Modificare un parametro del file .svg
 
 Questa opzione permette di modificare un parametro della macchina, il parametro modificato viene posto a verifica dei vincoli.
 
-### [6] Stampa stringa svg a terminale
+### [f] Stampa stringa svg a terminale
 
 Questa operazione stampa la stringa svg salvata nel programma a terminale.
 
-### [7] Uscire dal programma
+### [q] Uscire dal programma
 
 Questa operazione termina il programma.
 
