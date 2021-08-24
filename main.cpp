@@ -272,12 +272,27 @@ string coca_read(){
     return file;
 }
 
-// Menu programma
-char coca_menu(){
+// Menu generale
+char coca_menu_generale(){
 
     char i;
     cout << "GESTIONE FILE SVG: " << endl;
-    cout << "\tMenu:" << endl;
+    cout << "\tMenu generale:" << endl;
+    cout << "\tScegliere quale file svg gestire" << endl;
+    cout << "\t\t[c] -> Device car" << endl;
+    cout << "\t\t[m] -> Device motrice" << endl;
+    cout << "\t\t[l] -> Machine macchina + motrice" << endl;
+    cout << "\t\t[q] -> Uscire dal programma" << endl;
+    cin >> i;
+
+    return i;
+}
+
+// Menu macchina
+char coca_menu_car(){
+
+    char i;
+    cout << "\tMenu macchina:" << endl;
     cout << "\t\t[a] -> Scrivere un file svg" << endl;
     cout << "\t\t[b] -> Scrivere un file svg con quotatura" << endl;
     cout << "\t\t[c] -> Salvare un file svg" << endl;
@@ -292,59 +307,80 @@ char coca_menu(){
 
 int main(){
 
-    char m;
+    char m, a;
     string svg;
     coca_device* macch = coca_init_device();  
 
-    while(m !='q'){
-        
-        m = coca_menu();
-    
-        switch (m)
-        {
-            case 'a':
-                macch = coca_parcin_device(macch);
-                macch = coca_myset_device(macch);
-                svg = coca_strg_device(macch, 1, 0);
-                break;
+    while(a != 'q'){
 
-            case 'b':
-                macch = coca_parcin_device(macch);
-                macch = coca_myset_device(macch);
-                svg = coca_strg_device(macch, 1, 1);
-                break;
+        a = coca_menu_generale();
 
+            switch (a)
+            {
             case 'c':
-                coca_write(svg);
-                break;
+                while(m !='q'){ 
+                    m = coca_menu_car();
+                    switch (m)
+                    {
+                        case 'a':
+                            macch = coca_parcin_device(macch);
+                            macch = coca_myset_device(macch);
+                            svg = coca_strg_device(macch, 1, 0);
+                            break;
 
-            case 'd':
-                svg = coca_read();
-                macch = coca_parse_device(macch, svg);
-                svg = coca_strg_device(macch, 1, 0);
-                break;
-            case 'e':
-                macch = coca_set_param(macch, svg);
-                svg = coca_strg_device(macch, 1, 0);
-                break;
-            case 'f':
-                if(svg == "") coca_error(5);
-                if(svg != "")
-                {
-                cout << "La stringa svg caricata è: " << endl;
-                cout << svg << endl;
+                        case 'b':
+                            macch = coca_parcin_device(macch);
+                            macch = coca_myset_device(macch);
+                            svg = coca_strg_device(macch, 1, 1);
+                            break;
+
+                        case 'c':
+                            coca_write(svg);
+                            break;
+
+                        case 'd':
+                            svg = coca_read();
+                            macch = coca_parse_device(macch, svg);
+                            svg = coca_strg_device(macch, 1, 0);
+                            break;
+                        case 'e':
+                            macch = coca_set_param(macch, svg);
+                            svg = coca_strg_device(macch, 1, 0);
+                            break;
+                        case 'f':
+                            if(svg == "") coca_error(5);
+                            if(svg != "")
+                            {
+                            cout << "La stringa svg caricata è: " << endl;
+                            cout << svg << endl;
+                            }
+                            break;
+
+                        case 'q':
+                            delete macch;
+                            cout << "Programma terminato" << endl;
+                            break;
+                        
+                        default:
+                            cout << "Scelta non disponibile" << endl;
+                            break;
+                    }
                 }
                 break;
-
+            case 'm':
+                cout << "Implementa motrice" << endl;
+                break;
+            case 'l':
+                cout << "Implementa" << endl;
+                break;
             case 'q':
                 delete macch;
                 cout << "Programma terminato" << endl;
                 break;
-            
             default:
                 cout << "Scelta non disponibile" << endl;
                 break;
-        }
+            }
     }
 
     return 0;

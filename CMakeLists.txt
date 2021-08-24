@@ -11,6 +11,8 @@ add_executable(mainEntry main.cpp)
 target_include_directories(mainEntry PRIVATE include)
 # Class A is not a library: its source file needs to be included in the target sources
 target_sources(mainEntry PRIVATE src/Car.cpp)
+target_sources(mainEntry PRIVATE src/machine.cpp)
+target_sources(mainEntry PRIVATE src/motrice.cpp)
 target_link_libraries(mainEntry)
 
 # TESTS SECTION
