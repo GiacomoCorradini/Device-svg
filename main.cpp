@@ -22,10 +22,14 @@ coca_device* coca_parcin_dimfoglio(coca_device* device){
     } while (device->scelta_sfondo != 1 && device->scelta_sfondo != 2);
 
     if(device->scelta_sfondo == 1){
-        cout << "Dimensione x: ";
-        cin >> device->dimensionex;
-        cout << "Dimensione y: ";
-        cin >> device->dimensioney;
+        do
+        {
+            cout << "Dimensione x: ";
+            cin >> device->dimensionex;
+            cout << "Dimensione y: ";
+            cin >> device->dimensioney;
+            if(device->dimensionex < 0 || device->dimensioney < 0) coca_error(9);
+        } while (device->dimensionex < 0 || device->dimensioney < 0);
     }
 
     if(device->scelta_sfondo == 2){
@@ -36,11 +40,14 @@ coca_device* coca_parcin_dimfoglio(coca_device* device){
     return device;
 }
 coca_device* coca_parcin_dimmacch(coca_device* device){
-
-    cout << "Inserire la lunghezza della macchina: ";
-    cin >> device->car.width;
-    cout << "Inserire l'altezza della macchina: ";
-    cin >> device->car.height;
+        do
+        {
+            cout << "Inserire la lunghezza della macchina: ";
+            cin >> device->car.width;
+            cout << "Inserire l'altezza della macchina: ";
+            cin >> device->car.height;
+            if(device->car.width < 0 || device->car.height < 0) coca_error(9);
+        } while (device->car.width < 0 || device->car.height < 0);
 
     if(coca_check_car(device) == 1)
     {
@@ -64,11 +71,16 @@ coca_device* coca_parcin_posmacch(coca_device* device){
 
     if(device->scelta_posizione == 1)
     {
-        cout << "Indicare la la posizione x della macchina nel foglio" << endl;
-        cin >> device->car.cx;
- 
-        cout << "Indicare la la posizione y della macchina nel foglio" << endl;
-        cin >> device->car.cy;
+        do
+        {
+            cout << "Indicare la la posizione x della macchina nel foglio" << endl;
+            cin >> device->car.cx;
+            cout << "Indicare la la posizione y della macchina nel foglio" << endl;
+            cin >> device->car.cy;
+            if(device->car.cx < 0 || device->car.cy < 0) coca_error(9);
+        } while (device->car.cx < 0 || device->car.cy < 0);
+        
+        
     }
 
     if(device->scelta_posizione == 2) 

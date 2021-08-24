@@ -59,6 +59,10 @@ void coca_error(int err){
         erro = "ERROR: File non presente, devi prima scrivere o caricare un nuovo file per poterlo leggere";
             cout << erro << endl;
             break;
+    case 9:
+        erro = "ERROR: Il numero deve essere strettamente positivo";
+            cout << erro << endl;
+            break;
     default:
         break;
     }
