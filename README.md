@@ -59,6 +59,7 @@ I parametri devo rispettare determinati vincoli che cercano di rendere il più r
 ## Funzionamento programma
 
 ~~~
+Menu macchina
 [a] -> Scrivere un file svg
 [b] -> Scrivere un file svg con quotatura
 [c] -> Salvare un file svg 
@@ -129,14 +130,11 @@ Per usare il programma si può seguire la semplice guida che viene stampata all�
 
 
 ~~~
-GENERATORE DI IMMAGINI SVG
- Menu:
+ Menu motrice:
  [l] - caricare svg da file
  [c] - creare un nuovo svg
  [s] - salvare svg su file
  [q] - quit
-
- Cosa si desidera fare?
 ~~~
 
 
