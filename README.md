@@ -134,7 +134,7 @@ Per usare il programma si pu√≤ seguire la semplice guida che viene stampata all‚
  [l] - caricare svg da file
  [c] - creare un nuovo svg
  [s] - salvare svg su file
- [q] - quit
+ [q] - uscire dal menu motrice
 ~~~
 
 
