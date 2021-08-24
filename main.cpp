@@ -7,6 +7,12 @@ using namespace std;
 #include <sstream>
   
 #include "Car.h"
+#include "motrice.h"
+#include "machine.h"
+
+/**
+ * FUNZIONI GIACOMO
+*/
 
 // funzioni che chiedono parametri da terminale singole
 coca_device* coca_parcin_dimfoglio(coca_device* device){
@@ -272,6 +278,69 @@ string coca_read(){
     return file;
 }
 
+/**
+ * FUNZIONI MENNI
+*/
+
+/**
+ * Setta le dimensioni dell'immagine
+ *
+ * @param device contiene i parametri dell'immagine
+ * @return un puntatore a device
+ */
+
+MeniniDevice* menini_set(MeniniDevice* device){
+    cout << "Creazione di un nuovo Device: \n";
+    float r = 0;
+    int control;
+
+    cout << "Quanto deve essere lungo il pianale? ";
+    cin >> device->pianale.w; //Non può fallire in quanto non ho definito nessun altro parametro
+    
+    cout << "Quanto deve essere alto il pianale? ";
+    cin >> device->pianale.h; //Non può fallire in quanto non ho definito nessun altro parametro
+    
+    cout << "A che distanza dalla linea fronale della cabina deve essere posizionata la ruota anteriore? ";
+    cin >> r;
+    control = menini_set_ruotasx(device,r);
+    while(control==1){
+        cout << "ERRORE: La ruota di sinistra deve essere nella prima metà del pianale\n";
+        cout << "A che distanza dalla linea fronale della cabina deve essere posizionata la ruota anteriore? ";
+        cin >> r;
+        control = menini_set_ruotasx(device,r);
+    }
+
+    cout << "A che distanza dalla linea fronale della cabina deve essere posizionata la ruota posteriore? ";
+    cin >> r;
+    control = menini_set_ruotadx(device,r);
+    while(control==1){
+        cout << "ERRORE: La ruota di destra deve essere nella seconda metà del pianale\n";
+        cout << "A che distanza dalla linea fronale della cabina deve essere posizionata la ruota posteriore? ";
+        cin >> r;
+        control = menini_set_ruotadx(device,r);
+    }
+
+    device->ruotasx.x += device->margineds;
+    device->ruotadx.x += device->margineds;
+
+    cout << "Qual è il raggio delle ruote? ";
+    cin >> r;
+    control = menini_set_raggi(device,r);
+    while(control==1){
+        cout << "ERRORE: Le ruote devono avere raggio inferiore all'altezza del pianale\n";
+        cout << "Qual è il raggio delle ruote? ";
+        cin >> r;
+        control = menini_set_raggi(device,r);
+    }
+
+    menini_reset(device);
+    return device;
+}
+
+/**
+ * MENU
+*/
+
 // Menu generale
 char coca_menu_generale(){
 
@@ -309,7 +378,8 @@ int main(){
 
     char m, a;
     string svg;
-    coca_device* macch = coca_init_device();  
+    coca_device* macch = coca_init_device();
+    MeniniDevice *device = menini_init();
 
     while(a != 'q'){
 
@@ -371,7 +441,7 @@ int main(){
                 cout << "Implementa motrice" << endl;
                 break;
             case 'l':
-                cout << "Implementa" << endl;
+                cout << "Implementa device" << endl;
                 break;
             case 'q':
                 delete macch;
