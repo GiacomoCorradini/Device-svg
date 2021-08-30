@@ -1,6 +1,7 @@
 # Sources that contain the tests
 add_executable(catch2Test catch2Main.cpp) # Just this one contains BOOST_TEST_MAIN
 target_sources(catch2Test PRIVATE testCar.cpp)
+target_sources(catch2Test PRIVATE testMachine.cpp)
 
 # Libraries used in the tests
 target_link_libraries(catch2Test)
@@ -11,6 +12,7 @@ target_include_directories(catch2Test PRIVATE
 
 # Including sources
 target_sources(catch2Test PRIVATE
-        ../src/Car.cpp)
-
+        ../src/Car.cpp
+        ../src/machine.cpp
+        ../src/motrice.cpp)
 #target_compile_options(catch2Test PRIVATE -Wa,-mbig-obj) # Solves assembler error of file too big

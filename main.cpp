@@ -108,7 +108,7 @@ coca_device* coca_parcin_ruote(coca_device* device){
 
     cout << "Scegliere il diametro dei cerchioni" << endl;
     cout << "Cerchioni disponibili:" << endl;
-    cout << "16 pollici\n17 pollici\n18 pollici\n" << endl;
+    cout << "16 pollici\n17 pollici\n18 pollici" << endl;
     cin >> device->diametro;
 
     if(coca_check_cerchioni(device) == 1)
@@ -124,7 +124,7 @@ coca_device* coca_parcin_assetto(coca_device* device){
 
     cout << "Scegliere l'assetto della macchina" << endl;
     cout << "Assetti disponibili:" << endl;
-    cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3\n" << endl;
+    cout << "Assetto pista = 1\nAssetto strada = 2\nAssetto fuoristrada = 3" << endl;
     cin >> device->assetto;
 
     if(coca_check_assetto(device) == 1)
@@ -338,6 +338,65 @@ MeniniDevice* menini_set(MeniniDevice* device){
 }
 
 /**
+ * MACHINE
+*/
+
+// funzione che chiede parametri da terminale macchina limitata
+coca_device* coca_parcin_device_machine(coca_device* device){
+/*
+    // Set dimensioni sfondo
+    device = coca_parcin_dimfoglio(device);
+*/
+    // set dimensioni macchina
+    device = coca_parcin_dimmacch(device);
+    while(device->check != 0)
+    {
+        device = coca_riparcin(device);
+    }
+/*
+    // set posizione macchina
+    device = coca_parcin_posmacch(device);
+    while(device->check != 0)
+    {
+        device = coca_riparcin(device);
+    }
+*/
+    // set ruote
+    device = coca_parcin_ruote(device);
+    while(device->check != 0)
+    {
+        device = coca_riparcin(device);
+    }
+
+    // set assetto
+    device = coca_parcin_assetto(device);
+    while(device->check != 0)
+    {
+        device = coca_riparcin(device);
+    }
+    return device;
+}
+
+coca_machine* coca_parcin_machine(){
+    int n;
+    do
+    {
+        cout << "Quante macchine vuoi caricare sul carro attrezzi?" << endl;
+        cin >> n;
+        if(n < 0) coca_error(9);
+    } while (n < 0);
+    coca_machine* machine = coca_init_machine(n);
+    coca_device* car = coca_init_device();
+    cout << "Impostare caratteristiche della macchina" << endl;
+    car = coca_parcin_device_machine(car);
+    car = coca_myset_device(car);
+    for(int i = 0; i < n; i++){
+        machine->arr_car[i] = car;
+    }
+    return machine;
+}
+
+/**
  * MENU
 */
 
@@ -388,12 +447,27 @@ char coca_menu_motrice(){
     return i;
 }
 
+// Menu machine
+char coca_menu_machine(){
+
+    char p;
+    cout << "\tMenu machine:" << endl;
+    cout << "\t\t[a] -> creare un nuovo svg" << endl;
+    cout << "\t\t[b] -> caricare svg da file" << endl;
+    cout << "\t\t[c] -> salvare svg su file" << endl;
+    cout << "\t\t[q] -> Uscire dal menu machine" << endl;
+    cin >> p;
+
+    return p;
+}
+
 int main(){
 
-    char m, a, b;
+    char m, a, b, c;
     string svg, stringa, testoletto;
     coca_device* macch = coca_init_device();
     MeniniDevice *device = menini_init();
+    coca_machine* machine = new coca_machine;
 
     while(a != 'q'){
 
@@ -427,10 +501,12 @@ int main(){
                             macch = coca_parse_device(macch, svg);
                             svg = coca_strg_device(macch, 1, 0);
                             break;
+
                         case 'e':
                             macch = coca_set_param(macch, svg);
                             svg = coca_strg_device(macch, 1, 0);
                             break;
+
                         case 'f':
                             if(svg == "") coca_error(5);
                             if(svg != "")
@@ -441,7 +517,6 @@ int main(){
                             break;
 
                         case 'q':
-                            delete macch;
                             cout << "Quit" << endl;
                             break;
                         
@@ -462,9 +537,11 @@ int main(){
                             testoletto = menini_read_file(stringa);
                             device = menini_parse(testoletto);
                             break;
+
                         case 'c'://creazione
                             menini_set (device);
                             break;
+
                         case 's'://salvataggio
                             stringa = "";
                             cout << "Inserire nome file su cui salvare l'svg ";
@@ -491,6 +568,11 @@ int main(){
                             stringa += "</g>\n</svg>\n";
                             menini_write_file(stringa, testoletto);
                             break;
+
+                        case 'q':
+                            cout << "Quit" << endl;
+                            break;
+
                         default:
                             cout << "Scelta non disponibile" << endl;
                             break;
@@ -499,11 +581,38 @@ int main(){
                 break;
             case 'l':
                 cout << "Implementa device" << endl;
+                while (c != 'q'){
+                    c = coca_menu_machine();
+                    switch (c)
+                    {
+                        case 'a':
+                            machine = coca_parcin_machine();
+                            break;
+
+                        case 'b':
+                            break;
+
+                        case 'c':
+                            break;
+
+                        case 'q':
+                            cout << "Quit" << endl;
+                            break;
+
+                        default:
+                            cout << "Scelta non disponibile" << endl;
+                            break;
+                    }
+                }
                 break;
+
             case 'q':
                 delete macch;
+                delete device;
+                delete machine;
                 cout << "Programma terminato" << endl;
                 break;
+
             default:
                 cout << "Scelta non disponibile" << endl;
                 break;

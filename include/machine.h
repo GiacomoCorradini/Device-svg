@@ -12,16 +12,17 @@
 
 // parametri della machine (parametri car + parametri motrice)
 struct coca_machine{
-    int numero;
-    coca_device** arr_car;
-    MeniniDevice* motrice;
+    int dist_macchine;
+    int numero; // numero di macchine 
+    coca_device** arr_car; // macchine
+    MeniniDevice* motrice; // motrice
 };
 
 // funzione che scrive la strigna machine
 std::string coca_strg_machine(coca_machine* machine, int scelta, int quota);
 
 // funzione che inizializza struct machine e parametri
-coca_machine* coca_init_machine();
+coca_machine* coca_init_machine(int n);
 
 // funzione che legge da file machine
 coca_machine* coca_parse_machine(coca_machine* macch, std::string svg);
