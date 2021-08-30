@@ -14,7 +14,7 @@
 struct coca_machine{
     int dist_macchine;
     int numero; // numero di macchine 
-    coca_device** arr_car; // macchine
+    coca_device* car; // macchine
     MeniniDevice* motrice; // motrice
 };
 
@@ -22,7 +22,7 @@ struct coca_machine{
 std::string coca_strg_machine(coca_machine* machine, int scelta, int quota);
 
 // funzione che inizializza struct machine e parametri
-coca_machine* coca_init_machine(int n);
+coca_machine* coca_init_machine();
 
 // funzione che legge da file machine
 coca_machine* coca_parse_machine(coca_machine* macch, std::string svg);

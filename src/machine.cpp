@@ -17,14 +17,11 @@ std::string coca_strg_machine(coca_machine* machine, int scelta, int quota){
 }
 */
 // funzione che inizializza struct machine e parametri
-coca_machine* coca_init_machine(int n){
+coca_machine* coca_init_machine(){
     coca_machine* macch = new coca_machine;
-    macch->numero = n;
+    macch->numero = 0;
     macch->motrice = menini_init();
-    macch->arr_car = new coca_device* [n];
-    for(int i = 0; i < macch->numero; i++){
-        macch->arr_car[i] = coca_init_device();
-    }
+    macch->car = coca_init_device();
     return macch;
 }
 /*
@@ -38,23 +35,19 @@ coca_machine* coca_parse_machine(coca_machine* macch, std::string svg){
 coca_machine* coca_myset_machine(coca_machine* macch){
     float r;
     int control;
-    /*
-    for(int i = 0; i < macch->numero; i++){
-            coca_myset_device(macch->arr_car[i]);
-    }
-    */
+
    // distanza tra una macchina e l'altra
-    macch->dist_macchine = macch->arr_car[0]->car.width / 100;
+    macch->dist_macchine = macch->car->car.width / 100;
 
     // dimensioni pianale
-    macch->motrice->pianale.w = (macch->arr_car[0]->car.width + macch->dist_macchine) * macch->numero; // spazio necessario per le macchine
+    macch->motrice->pianale.w = (macch->car->car.width + macch->dist_macchine) * macch->numero; // spazio necessario per le macchine
     macch->motrice->pianale.w += (macch->motrice->pianale.w / 3); // sapzio necessario per la cabina
 
-    macch->motrice->pianale.h = macch->arr_car[0]->car.height / 4;
+    macch->motrice->pianale.h = macch->car->car.height / 4;
 
     // dimensioni ruote
-    macch->motrice->ruotasx.r = macch->arr_car[0]->sx.ruota * 1.5;
-    macch->motrice->ruotadx.r = macch->arr_car[0]->dx.ruota * 1.5;
+    macch->motrice->ruotasx.r = macch->car->sx.ruota * 1.5;
+    macch->motrice->ruotadx.r = macch->car->dx.ruota * 1.5;
 
     // posizione ruote
     macch->motrice->ruotasx.x = macch->motrice->pianale.w / 5;

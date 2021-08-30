@@ -377,22 +377,16 @@ coca_device* coca_parcin_device_machine(coca_device* device){
     return device;
 }
 
-coca_machine* coca_parcin_machine(){
-    int n;
+coca_machine* coca_parcin_machine(coca_machine* machine){
     do
     {
         cout << "Quante macchine vuoi caricare sul carro attrezzi?" << endl;
-        cin >> n;
-        if(n < 0) coca_error(9);
-    } while (n < 0);
-    coca_machine* machine = coca_init_machine(n);
-    coca_device* car = coca_init_device();
+        cin >> machine->numero;
+        if(machine->numero < 0) coca_error(9);
+    } while (machine->numero < 0);
     cout << "Impostare caratteristiche della macchina" << endl;
-    car = coca_parcin_device_machine(car);
-    car = coca_myset_device(car);
-    for(int i = 0; i < n; i++){
-        machine->arr_car[i] = car;
-    }
+    machine->car = coca_parcin_device_machine(machine->car);
+    machine->car = coca_myset_device(machine->car);
     return machine;
 }
 
@@ -586,7 +580,7 @@ int main(){
                     switch (c)
                     {
                         case 'a':
-                            machine = coca_parcin_machine();
+                            machine = coca_parcin_machine(machine);
                             break;
 
                         case 'b':
