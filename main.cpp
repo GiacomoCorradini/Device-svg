@@ -451,6 +451,7 @@ char coca_menu_machine(){
 
 int main(){
 
+    int scelta_quota;
     char m, a, b, c;
     string svg, stringa, testoletto;
     coca_device* macch = coca_init_device();
@@ -575,7 +576,14 @@ int main(){
                         case 'a': // scrivere un file SVG machine
                             machine = coca_parcin_machine(machine);
                             machine = coca_myset_machine(machine);
-                           // svg = coca_strg_device(, 1, 0);
+                            do
+                            {
+                                cout << "Si desidera visializzare le misure? (Premere 1 per si, 0 per no) ";
+                                cin >> scelta_quota;
+                                if(scelta_quota != 1 && scelta_quota != 0) coca_error(0);
+                            } while (scelta_quota != 1 && scelta_quota != 0);
+                            
+                            svg = coca_strg_machine(machine, scelta_quota);
                             break;
 
                         case 'b': // caricare un file SVG

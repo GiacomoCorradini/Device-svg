@@ -28,7 +28,7 @@ struct coca_machine{
  * @return la stringa svg
 */
 
-std::string coca_strg_machine(coca_machine* machine, int scelta, int quota);
+std::string coca_strg_machine(coca_machine* machine, int quota);
 
 /**
  * funzione che inizializza struct machine e parametri
