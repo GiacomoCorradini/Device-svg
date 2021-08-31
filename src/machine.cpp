@@ -26,13 +26,15 @@ std::string coca_strg_machine(coca_machine* machine, int quota){
     svg += "height='" + to_string(machine->motrice->h) + "'>\n\n";
 
     // sfondo
-    svg = "\t<rect  x='0' y='0' ";
+    svg += "\t<rect  x='0' y='0' ";
     svg += "width='" + to_string(machine->motrice->w) + "' ";
     svg += "height='" + to_string(machine->motrice->h) + "' ";
     svg += "style='fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)'/>\n\n";
 
     // device motrice
     svg += menini_to_svg(machine->motrice, quota);
+
+    // device car
 
 
 

@@ -24,7 +24,7 @@ struct coca_machine{
 
 /**
  * funzione che scrive la strigna svg della struct machine
- * @param coca_strg_machine vengono passati: puntatore a struct machine, scelta se inserire l'intestazione, scelta se inserire quota
+ * @param coca_strg_machine vengono passati: puntatore a struct machine, scelta se inserire quota
  * @return la stringa svg
 */
 
