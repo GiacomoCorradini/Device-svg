@@ -582,6 +582,7 @@ int main(){
                             break;
 
                         case 'c': // salvare un file SVG
+                            coca_write(svg);
                             break;
 
                         case 'q':
