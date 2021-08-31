@@ -12,6 +12,7 @@ using namespace std;
 
 /**
  * FUNZIONI GIACOMO
+ * Funzioni necessarie a gestire il device car
 */
 
 // funzioni che chiedono parametri da terminale singole
@@ -280,6 +281,7 @@ string coca_read(){
 
 /**
  * FUNZIONI MENNI
+ * Funzioni necessarie a gestire il device motrice
 */
 
 /**
@@ -339,28 +341,19 @@ MeniniDevice* menini_set(MeniniDevice* device){
 
 /**
  * MACHINE
+ * Funzioni necessarie a gestire la machine car + motrice
 */
 
 // funzione che chiede parametri da terminale macchina limitata
 coca_device* coca_parcin_device_machine(coca_device* device){
-/*
-    // Set dimensioni sfondo
-    device = coca_parcin_dimfoglio(device);
-*/
+
     // set dimensioni macchina
     device = coca_parcin_dimmacch(device);
     while(device->check != 0)
     {
         device = coca_riparcin(device);
     }
-/*
-    // set posizione macchina
-    device = coca_parcin_posmacch(device);
-    while(device->check != 0)
-    {
-        device = coca_riparcin(device);
-    }
-*/
+
     // set ruote
     device = coca_parcin_ruote(device);
     while(device->check != 0)
@@ -392,6 +385,7 @@ coca_machine* coca_parcin_machine(coca_machine* machine){
 
 /**
  * MENU
+ * Funzioni necessarie a gestire il menu programma
 */
 
 // Menu generale
@@ -461,7 +455,7 @@ int main(){
     string svg, stringa, testoletto;
     coca_device* macch = coca_init_device();
     MeniniDevice *device = menini_init();
-    coca_machine* machine = new coca_machine;
+    coca_machine* machine = coca_init_machine();
 
     while(a != 'q'){
 
@@ -474,34 +468,34 @@ int main(){
                     m = coca_menu_car();
                     switch (m)
                     {
-                        case 'a':
+                        case 'a': // scrivere un file SVG
                             macch = coca_parcin_device(macch);
                             macch = coca_myset_device(macch);
                             svg = coca_strg_device(macch, 1, 0);
                             break;
 
-                        case 'b':
+                        case 'b': // scrivere un file SVG con quotatura
                             macch = coca_parcin_device(macch);
                             macch = coca_myset_device(macch);
                             svg = coca_strg_device(macch, 1, 1);
                             break;
 
-                        case 'c':
+                        case 'c': // salvare un file svg
                             coca_write(svg);
                             break;
 
-                        case 'd':
+                        case 'd': // caricare un file svg
                             svg = coca_read();
                             macch = coca_parse_device(macch, svg);
                             svg = coca_strg_device(macch, 1, 0);
                             break;
 
-                        case 'e':
+                        case 'e': // modificare un parametro file svg
                             macch = coca_set_param(macch, svg);
                             svg = coca_strg_device(macch, 1, 0);
                             break;
 
-                        case 'f':
+                        case 'f': // stampa stringa a terminale
                             if(svg == "") coca_error(5);
                             if(svg != "")
                             {
@@ -574,19 +568,20 @@ int main(){
                 }
                 break;
             case 'l':
-                cout << "Implementa device" << endl;
                 while (c != 'q'){
                     c = coca_menu_machine();
                     switch (c)
                     {
-                        case 'a':
+                        case 'a': // scrivere un file SVG machine
                             machine = coca_parcin_machine(machine);
+                            machine = coca_myset_machine(machine);
+                           // svg = coca_strg_device(, 1, 0);
                             break;
 
-                        case 'b':
+                        case 'b': // caricare un file SVG
                             break;
 
-                        case 'c':
+                        case 'c': // salvare un file SVG
                             break;
 
                         case 'q':

@@ -40,7 +40,7 @@ struct MeniniDevice{
     float w;
     float h;
     float margineds = 30;
-    float marginess = 30;
+    float marginess = 150;
 };
 
 
