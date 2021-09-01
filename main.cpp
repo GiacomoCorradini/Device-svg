@@ -368,7 +368,7 @@ coca_device* coca_parcin_device_machine(coca_device* device){
         device = coca_riparcin(device);
     }
     return device;
-}
+} 
 
 coca_machine* coca_parcin_machine(coca_machine* machine){
     do
