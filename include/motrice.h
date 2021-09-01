@@ -39,7 +39,7 @@ struct MeniniDevice{
     MeniniRuota ruotadx;
     float w;
     float h;
-    float margineds = 30;
+    float margineds = 100;
     float marginess = 150;
 };
 

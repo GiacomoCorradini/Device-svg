@@ -35,7 +35,9 @@ std::string coca_strg_machine(coca_machine* machine, int quota){
     svg += menini_to_svg(machine->motrice, quota);
 
     // device car
-
+    for(int i = 0; i < machine->numero; i++){
+        
+    }
 
 
     // stringa finale
