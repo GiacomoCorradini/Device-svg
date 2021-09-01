@@ -18,7 +18,7 @@
 struct coca_machine{
     int dist_macchine;
     int numero; // numero di macchine 
-    coca_device* car; // macchine
+    coca_device** car; // macchine
     MeniniDevice* motrice; // motrice
 };
 
@@ -36,7 +36,7 @@ std::string coca_strg_machine(coca_machine* machine, int quota);
  * @return un puntatore alla struct device
 */
 
-coca_machine* coca_init_machine();
+coca_machine* coca_init_machine(coca_machine* machine);
 
 /**
  * funzione che legge da file svg e setta i parametri della struct machine

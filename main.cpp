@@ -378,8 +378,8 @@ coca_machine* coca_parcin_machine(coca_machine* machine){
         if(machine->numero < 0) coca_error(9);
     } while (machine->numero < 0);
     cout << "Impostare caratteristiche della macchina" << endl;
-    machine->car = coca_parcin_device_machine(machine->car);
-    machine->car = coca_myset_device(machine->car);
+    machine->car[0] = coca_parcin_device_machine(machine->car[0]);
+    machine->car[0] = coca_myset_device(machine->car[0]);
     return machine;
 }
 
@@ -456,7 +456,7 @@ int main(){
     string svg, stringa, testoletto;
     coca_device* macch = coca_init_device();
     MeniniDevice *device = menini_init();
-    coca_machine* machine = coca_init_machine();
+    coca_machine* machine = new coca_machine;
 
     while(a != 'q'){
 
@@ -574,6 +574,7 @@ int main(){
                     switch (c)
                     {
                         case 'a': // scrivere un file SVG machine
+                            machine = coca_init_machine(machine);
                             machine = coca_parcin_machine(machine);
                             machine = coca_myset_machine(machine);
                             do

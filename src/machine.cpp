@@ -36,7 +36,7 @@ std::string coca_strg_machine(coca_machine* machine, int quota){
 
     // device car
     for(int i = 0; i < machine->numero; i++){
-        
+        svg += coca_strg_device(machine->car[i], 0, quota);
     }
 
 
@@ -48,11 +48,13 @@ std::string coca_strg_machine(coca_machine* machine, int quota){
 }
 
 // funzione che inizializza struct machine e parametri
-coca_machine* coca_init_machine(){
-    coca_machine* macch = new coca_machine;
-    macch->numero = 0;
+coca_machine* coca_init_machine(coca_machine* macch){
+    macch->numero = 1;
     macch->motrice = menini_init();
-    macch->car = coca_init_device();
+    macch->car = new coca_device* [macch->numero];
+    for(int i = 0; i < macch->numero; i++){
+        macch->car[i] = coca_init_device();
+    }
     return macch;
 }
 /*
@@ -70,26 +72,34 @@ coca_machine* coca_myset_machine(coca_machine* macch){
     }
 
    // distanza tra una macchina e l'altra
-    macch->dist_macchine = macch->car->car.width / 100;
+    macch->dist_macchine = macch->car[0]->car.width / 100;
 
     // dimensioni pianale
-    macch->motrice->pianale.w = (macch->car->car.width + macch->dist_macchine) * macch->numero; // spazio necessario per le macchine
+    macch->motrice->pianale.w = (macch->car[0]->car.width + macch->dist_macchine) * macch->numero; // spazio necessario per le macchine
     macch->motrice->pianale.w += (macch->motrice->pianale.w / 2); // sapzio necessario per la cabina
 
-    macch->motrice->pianale.h = macch->car->car.height / 1.5; 
+    macch->motrice->pianale.h = macch->car[0]->car.height / 1.5; 
 
     // dimensioni ruote
-    macch->motrice->ruotasx.r = macch->car->sx.ruota;
-    macch->motrice->ruotadx.r = macch->car->dx.ruota;
+    macch->motrice->ruotasx.r = macch->car[0]->sx.ruota;
+    macch->motrice->ruotadx.r = macch->car[0]->dx.ruota;
 
     // posizione ruote
-    macch->motrice->ruotasx.x = macch->motrice->pianale.w / 6;
-    macch->motrice->ruotadx.x = macch->motrice->pianale.w * 5 / 6;
+    macch->motrice->ruotasx.x = macch->motrice->pianale.w / 6 + macch->motrice->margineds;
+    macch->motrice->ruotadx.x = macch->motrice->pianale.w * 5 / 6 + macch->motrice->margineds;
 
     menini_reset(macch->motrice);
 
-    macch->car->car.cx = macch->motrice->cabina.x + macch->motrice->cabina.w + macch->dist_macchine;
-    macch->car->car.cy = macch->motrice->pianale.y - macch->car->car.height - macch->car->dx.ruota;
+    macch->car[0]->car.cx = macch->motrice->cabina.x + macch->motrice->cabina.w + macch->dist_macchine;
+    macch->car[0]->car.cy = macch->motrice->pianale.y - macch->car[0]->car.height - macch->car[0]->dx.ruota;
+
+    for(int i = 0; i < macch->numero; i++){
+        macch->car[i] = coca_myset_device(macch->car[0]);
+        if(i > 0){
+            macch->car[i]->car.cx += (macch->car[0]->car.width + macch->dist_macchine);
+            macch->car[i] = coca_myset_device(macch->car[i]);
+        }
+    }
 
     return macch;
 }
