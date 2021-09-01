@@ -24,8 +24,9 @@ struct coca_machine{
 
 /**
  * funzione che scrive la strigna svg della struct machine
- * @param coca_strg_machine vengono passati: puntatore a struct machine, scelta se inserire quota
- * @return la stringa svg
+ * @param machine puntatore a struct machine
+ * @param quota scelta se inserire quota
+ * @return stringa svg
 */
 
 std::string coca_strg_machine(coca_machine* machine, int quota);
@@ -39,7 +40,8 @@ coca_machine* coca_init_machine();
 
 /**
  * funzione che legge da file svg e setta i parametri della struct machine
- * @param coca_parse_machine vengono passati: puntatore a struct machine da settare e stringa da leggere
+ * @param macch puntatore a struct machine
+ * @param svg stringa da leggere
  * @return un puntatore alla struct device
 */
 
@@ -47,7 +49,7 @@ coca_machine* coca_parse_machine(coca_machine* macch, std::string svg);
 
 /**
  * funzione che setta i parametri della machine
- * @param coca_myset_machine vengono passati: puntatore a struct machine da settare
+ * @param macch puntatore a struct machine da settare
  * @return un puntatore alla struct device
 */
 
