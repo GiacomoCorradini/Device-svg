@@ -409,12 +409,10 @@ char coca_menu_car(){
 
     char i;
     cout << "\tMenu macchina:" << endl;
-    cout << "\t\t[a] -> Scrivere un file svg" << endl;
-    cout << "\t\t[b] -> Scrivere un file svg con quotatura" << endl;
-    cout << "\t\t[c] -> Salvare un file svg" << endl;
-    cout << "\t\t[d] -> Caricare un file svg" << endl;
+    cout << "\t\t[l] -> caricare svg da file" << endl;
+    cout << "\t\t[c] -> creare un nuovo svg" << endl;
+    cout << "\t\t[s] -> salvare un svg su file" << endl;
     cout << "\t\t[e] -> Modificare un parametro file svg" << endl;
-    cout << "\t\t[f] -> Stampa stringa svg a terminale" << endl;
     cout << "\t\t[q] -> Uscire dal menu macchina" << endl;
     cin >> i;
 
@@ -440,9 +438,9 @@ char coca_menu_machine(){
 
     char p;
     cout << "\tMenu machine:" << endl;
-    cout << "\t\t[a] -> creare un nuovo svg" << endl;
-    cout << "\t\t[b] -> caricare svg da file" << endl;
-    cout << "\t\t[c] -> salvare svg su file" << endl;
+    cout << "\t\t[l] -> caricare svg da file" << endl;
+    cout << "\t\t[c] -> creare un nuovo svg" << endl;
+    cout << "\t\t[s] -> salvare svg su file" << endl;
     cout << "\t\t[q] -> Uscire dal menu machine" << endl;
     cin >> p;
 
@@ -469,40 +467,31 @@ int main(){
                     m = coca_menu_car();
                     switch (m)
                     {
-                        case 'a': // scrivere un file SVG
-                            macch = coca_parcin_device(macch);
-                            macch = coca_myset_device(macch);
-                            svg = coca_strg_device(macch, 1, 0);
-                            break;
-
-                        case 'b': // scrivere un file SVG con quotatura
-                            macch = coca_parcin_device(macch);
-                            macch = coca_myset_device(macch);
-                            svg = coca_strg_device(macch, 1, 1);
-                            break;
-
-                        case 'c': // salvare un file svg
-                            coca_write(svg);
-                            break;
-
-                        case 'd': // caricare un file svg
+                        case 'l': // caricare svg da file
                             svg = coca_read();
                             macch = coca_parse_device(macch, svg);
                             svg = coca_strg_device(macch, 1, 0);
                             break;
 
+                        case 'c': // scrivere un file SVG
+                            macch = coca_parcin_device(macch);
+                            macch = coca_myset_device(macch);
+                            do
+                            {
+                                cout << "Si desidera visializzare le misure? (Premere 1 per si, 0 per no) ";
+                                cin >> scelta_quota;
+                                if(scelta_quota != 1 && scelta_quota != 0) coca_error(0);
+                            } while (scelta_quota != 1 && scelta_quota != 0);
+                            svg = coca_strg_device(macch, 1, scelta_quota);
+                            break;
+
+                        case 's': // salvare un file svg
+                            coca_write(svg);
+                            break;
+
                         case 'e': // modificare un parametro file svg
                             macch = coca_set_param(macch, svg);
                             svg = coca_strg_device(macch, 1, 0);
-                            break;
-
-                        case 'f': // stampa stringa a terminale
-                            if(svg == "") coca_error(5);
-                            if(svg != "")
-                            {
-                            cout << "La stringa svg caricata è: " << endl;
-                            cout << svg << endl;
-                            }
                             break;
 
                         case 'q':
@@ -573,7 +562,11 @@ int main(){
                     c = coca_menu_machine();
                     switch (c)
                     {
-                        case 'a': // scrivere un file SVG machine
+                        case 'l': // caricare un file SVG
+                            
+                            break;
+
+                        case 'c': // scrivere un file SVG machine
                             machine = coca_init_machine(machine);
                             machine = coca_parcin_machine(machine);
                             machine = coca_myset_machine(machine);
@@ -587,10 +580,7 @@ int main(){
                             svg = coca_strg_machine(machine, scelta_quota);
                             break;
 
-                        case 'b': // caricare un file SVG
-                            break;
-
-                        case 'c': // salvare un file SVG
+                        case 's': // salvare un file SVG
                             coca_write(svg);
                             break;
 
