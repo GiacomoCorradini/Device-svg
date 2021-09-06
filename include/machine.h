@@ -49,11 +49,18 @@ coca_machine* coca_parse_machine(coca_machine* macch, std::string svg);
 
 /**
  * funzione che setta i parametri della machine
- * @param macch puntatore a struct machine da settare
+ * @param macch puntatore a struct machine
  * @return un puntatore alla struct device
 */
 
 coca_machine* coca_myset_machine(coca_machine* macch);
 
+/**
+ * funzione che setta le posizioni della macchina
+ * @param macch puntatore a struct machine
+ * @return un puntatore alla struct device
+*/
+
+coca_machine* coca_myset_poscar(coca_machine* macch);
 
 #endif // MACHINE_H

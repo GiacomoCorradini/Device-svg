@@ -49,7 +49,7 @@ std::string coca_strg_machine(coca_machine* machine, int quota){
 
 // funzione che inizializza struct machine e parametri
 coca_machine* coca_init_machine(coca_machine* macch){
-    macch->numero = 1;
+
     macch->motrice = menini_init();
     macch->car = new coca_device* [macch->numero];
     for(int i = 0; i < macch->numero; i++){
@@ -89,17 +89,37 @@ coca_machine* coca_myset_machine(coca_machine* macch){
     macch->motrice->ruotadx.x = macch->motrice->pianale.w * 5 / 6 + macch->motrice->margineds;
 
     menini_reset(macch->motrice);
+    macch = coca_myset_poscar(macch);
 
+    return macch;
+}
+
+// funzione che setta le posizioni della macchina
+
+coca_machine* coca_myset_poscar(coca_machine* macch){
+
+    coca_device* copy 
+
+    // setta la posizione della prima macchina
     macch->car[0]->car.cx = macch->motrice->cabina.x + macch->motrice->cabina.w + macch->dist_macchine;
     macch->car[0]->car.cy = macch->motrice->pianale.y - macch->car[0]->car.height - macch->car[0]->dx.ruota;
+    macch->car[0] = coca_myset_device(macch->car[0]);
 
-    for(int i = 0; i < macch->numero; i++){
+    // setta la posizione delle altre macchine
+    for(int i = 1; i < macch->numero; i++){
+        //macch->car[i] = coca_myset_device(macch->car[i-1]);
+        //macch->car[i]->car.cx += (macch->car[i-1]->car.width + macch->dist_macchine);
         macch->car[i] = coca_myset_device(macch->car[0]);
-        if(i > 0){
-            macch->car[i]->car.cx += (macch->car[0]->car.width + macch->dist_macchine);
-            macch->car[i] = coca_myset_device(macch->car[i]);
-        }
-    }
+        cout << "DEBUG: " << macch->car[i]->car.cx << endl;
 
+    }
+/*
+    // setta la posizione delle altre macchine
+    for(int i = 1; i < macch->numero; i++){
+        //macch->car[i] = coca_myset_device(macch->car[i-1]);
+        macch->car[i]->car.cx += (macch->car[i]->car.width + macch->dist_macchine);
+        macch->car[i] = coca_myset_device(macch->car[i]);
+    }
+*/
     return macch;
 }
