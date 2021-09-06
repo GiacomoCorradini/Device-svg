@@ -1,16 +1,21 @@
 # HOMEWORK 1 (DII - Tecniche di programmazione avanzata)
 
-Il seguente progetto prevede la creazione di un device cons estensione .svg. Il device consiste in una macchina che può essere personalizzata dall'utente. Successivamente il progetto viene implementato con un altro device sviluppato da un altro collega. 
+Il seguente progetto prevede la creazione di un device con estensione .svg. Il device consiste in una macchina che può essere personalizzata dall'utente. Successivamente il progetto viene implementato con un altro device sviluppato da un collega.
 
+# PROGRAMMA
+
+~~~
+GESTIONE FILE SVG:
+Menu generale:
+Scegliere quale file svg gestire
+[c] -> Device car
+[m] -> Device motrice
+[l] -> Machine macchina + motrice
+[q] -> Uscire dal programma
+~~~
 # SVG DEVICE
 
 ## device car
-
-Di seguito viene riportato un esempio di macchina sviluppata utilizzando opportuni parametri.
-
-![](output/macchina.svg)
-
-Il file .svg può essere ulteriormente implementato inserendo la quotatura.
 
 ![](output/macchina_quotata.svg)
 
@@ -60,42 +65,32 @@ I parametri devo rispettare determinati vincoli che cercano di rendere il più r
 
 ~~~
 Menu macchina
-[a] -> Scrivere un file svg
-[b] -> Scrivere un file svg con quotatura
-[c] -> Salvare un file svg 
-[d] -> Caricare un file svg
+[l] -> caricare svg da file
+[c] -> creare un nuovo svg
+[s] -> salvare un svg su file
 [e] -> Modificare un parametro file svg
-[f] -> Stampa stringa svg a terminale
 [q] -> Uscire dal menu macchina
 ~~~
 
-### [a] Scrivere un file .svg
+### [l] Caricare un file .svg
+
+Questa opzione permette di caricare un file svg e di inserire i parametri della macchina presente nel file svg all'interno della struct del programma.
+
+### [c] creare un nuovo svg
 
 Questa opzione permette di scrivere il file svg inserendo i parametri della macchina richiesti a terminale. Ad ogni parametro inserito verrà verificato il rispetto del vincolo, in caso di non rispetto del vincolo viene segnalato l'errore.
 
-### [b] Scrivere un file .svg con quotatura
-
-Questa opzione permette di scrivere un file svg come nel primo caso ma con l'aggiunta della quotatura a disegno.
-
-### [c] Salvare un file .svg
+### [s] Salvare un file .svg
 
 Questa opzione permette di salvare il file svg presente nel programma, importante mettere l'estensione nel nome, esempio: nomefile.svg
-
-### [d] Caricare un file .svg
-
-Questa opzione permette di caricare un file svg e di inserire i parametri della macchina presente nel file svg all'interno della struct del programma.
 
 ### [e] Modificare un parametro del file .svg
 
 Questa opzione permette di modificare un parametro della macchina, il parametro modificato viene posto a verifica dei vincoli.
 
-### [f] Stampa stringa svg a terminale
-
-Questa operazione stampa la stringa svg salvata nel programma a terminale.
-
 ### [q] Uscire dal programma
 
-Questa operazione termina il programma.
+Questa operazione esce dal programma macchina
 
 ## device motrice
 
@@ -130,27 +125,45 @@ Per usare il programma si può seguire la semplice guida che viene stampata all�
 
 
 ~~~
- Menu motrice:
- [l] - caricare svg da file
- [c] - creare un nuovo svg
- [s] - salvare svg su file
- [q] - uscire dal menu motrice
+Menu motrice:
+[l] -> caricare svg da file
+[c] -> creare un nuovo svg
+[s] -> salvare svg su file
+[q] -> uscire dal menu motrice
 ~~~
 
-
+### [l] caricare svg da file
 Lanciando il comando “l” viene richiesto di inserire il nome del file da cui si vuole caricare i parametri e in seguito essi vengono caricati per mezzo della funzione menini_parse().
 
-
+### [c] creare un nuovo svg
 Lanciando il comando “c” vengono richiesti uno alla volta i parametri, bloccando l’inserimento qualora essi non siano ammessi secondo i limiti di cui sopra.
 
-
+### [s] salvare svg su file
 Lanciando il comando “s” viene richiesto il nome del file su cui salvare il device e in seguito viene richiesto se si vuole salvare o meno anche le misure insieme ad esso.
 
-
+### [q] uscire dal menu motrice
 Lanciando il comando “q” si esce invece dal programma
 
 # SVG MACHINE
 
-Macchina + Motrice
-
 ![](output/machine.svg)
+
+~~~
+Menu machine
+[l] -> caricare svg da file
+[c] -> creare un nuovo svg
+[s] -> salvare svg su file
+[q] -> Uscire dal menu machine
+~~~
+
+### [l] caricare svg da file
+Questa opzione permette di caricare un file svg e di inserire i parametri della machine presente nel file svg all'interno della struct del programma.
+
+### [c] creare un nuovo svg
+Questa opzione permette di scrivere il file svg inserendo i parametri della machine richiesti a terminale. Ad ogni parametro inserito verrà verificato il rispetto del vincolo, in caso di non rispetto del vincolo viene segnalato l'errore.
+
+### [s] salvare svg su file
+Questa opzione permette di salvare il file svg presente nel programma, importante mettere l'estensione nel nome, esempio: nomefile.svg
+
+### [q] uscire dal menu motrice
+Questa operazione esce dal programma machine
