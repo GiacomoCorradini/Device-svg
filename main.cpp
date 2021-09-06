@@ -15,7 +15,11 @@ using namespace std;
  * Funzioni necessarie a gestire il device car
 */
 
-// funzioni che chiedono parametri da terminale singole
+/**
+ * funzioni che chiedono parametri da terminale dimensioni foglio
+ * @param device puntatore a struct device car
+ * @return puntatore a struct device car
+*/
 coca_device* coca_parcin_dimfoglio(coca_device* device){
     
     do
@@ -46,6 +50,11 @@ coca_device* coca_parcin_dimfoglio(coca_device* device){
 
     return device;
 }
+/**
+ * funzioni che chiedono parametri da terminale dimensioni macchina
+ * @param device puntatore a struct device car
+ * @return puntatore a struct device car
+*/
 coca_device* coca_parcin_dimmacch(coca_device* device){
         do
         {
@@ -65,6 +74,11 @@ coca_device* coca_parcin_dimmacch(coca_device* device){
 
     return device;
 }
+/**
+ * funzioni che chiedono parametri da terminale posizione macchina nel foglio
+ * @param device puntatore a struct device car
+ * @return puntatore a struct device car
+*/
 coca_device* coca_parcin_posmacch(coca_device* device){
     
     do
@@ -105,6 +119,11 @@ coca_device* coca_parcin_posmacch(coca_device* device){
 
     return device;
 }
+/**
+ * funzioni che chiedono parametri da terminale dimensioni ruote
+ * @param device puntatore a struct device car
+ * @return puntatore a struct device car
+*/
 coca_device* coca_parcin_ruote(coca_device* device){
 
     cout << "Scegliere il diametro dei cerchioni" << endl;
@@ -121,6 +140,11 @@ coca_device* coca_parcin_ruote(coca_device* device){
 
     return device;
 }
+/**
+ * funzioni che chiedono parametri da terminale assetto macchina
+ * @param device puntatore a struct device car
+ * @return puntatore a struct device car
+*/
 coca_device* coca_parcin_assetto(coca_device* device){
 
     cout << "Scegliere l'assetto della macchina" << endl;
@@ -137,8 +161,11 @@ coca_device* coca_parcin_assetto(coca_device* device){
 
     return device;
 }
-
-// funzione che risetta parametri che non rispettano i vincoli
+/**
+ * funzione che risetta parametri che non rispettano i vincoli
+ * @param device puntatore a struct device car
+ * @return puntatore a struct device car
+*/
 coca_device* coca_riparcin(coca_device* device){
 
     switch (device->check)
@@ -164,8 +191,11 @@ coca_device* coca_riparcin(coca_device* device){
     }
     return device;
 }
-
-// funzione che chiede parametri da terminale complessiva
+/**
+ * funzione che chiede parametri da terminale
+ * @param device puntatore a struct device car
+ * @return puntatore a struct device car
+*/
 coca_device* coca_parcin_device(coca_device* device){
 
     // Set dimensioni sfondo
@@ -197,8 +227,12 @@ coca_device* coca_parcin_device(coca_device* device){
     }
     return device;
 }
-
-// funzione che modifica i parametri
+/**
+ * funzioni che chiedono quale parametre modificare
+ * @param device puntatore a struct device car
+ * @param svg stringa svg contenente i parametri struct device car
+ * @return puntatore a struct device car
+*/
 coca_device* coca_set_param(coca_device* device, string svg){
 
     coca_device* newmacch = new coca_device;
@@ -262,8 +296,11 @@ coca_device* coca_set_param(coca_device* device, string svg){
 
     return device;
 }
+/**
+ * Funzione che legge da file
+ * @return stringa letta
+*/
 
-// Funzione che legge da file
 string coca_read(){
 
     string file, lettura;
@@ -344,7 +381,12 @@ MeniniDevice* menini_set(MeniniDevice* device){
  * Funzioni necessarie a gestire la machine car + motrice
 */
 
-// funzione che chiede parametri da terminale macchina limitata
+/**
+ * funzione che chiede parametri da terminale machine
+ * @param device puntatore a struct device car
+ * @return puntatore a struct device car
+*/
+// 
 coca_device* coca_parcin_device_machine(coca_device* device){
 
     // set dimensioni macchina
@@ -369,7 +411,11 @@ coca_device* coca_parcin_device_machine(coca_device* device){
     }
     return device;
 } 
-
+/**
+ * funzione che chiede il numero di macchine e inizializza una struct machine
+ * @param device puntatore a struct machine car + motrice
+ * @return puntatore a struct machine car + motrice
+*/
 coca_machine* coca_parcin_machine(coca_machine* machine){
     do
     {
@@ -495,7 +541,7 @@ int main(){
                             svg = coca_strg_device(macch, 1, 0);
                             break;
 
-                        case 'q':
+                        case 'q': // quit
                             cout << "Quit" << endl;
                             break;
                         
@@ -548,7 +594,7 @@ int main(){
                             menini_write_file(stringa, testoletto);
                             break;
 
-                        case 'q':
+                        case 'q': // quit
                             cout << "Quit" << endl;
                             break;
 
@@ -564,7 +610,9 @@ int main(){
                     switch (c)
                     {
                         case 'l': // caricare un file SVG
-                            
+                            svg = coca_read();
+                            machine = coca_parse_machine(svg);
+                            svg = coca_strg_machine(machine, 0);
                             break;
 
                         case 'c': // scrivere un file SVG machine
@@ -585,7 +633,7 @@ int main(){
                             coca_write(svg);
                             break;
 
-                        case 'q':
+                        case 'q': // quit
                             cout << "Quit" << endl;
                             break;
 
@@ -596,7 +644,7 @@ int main(){
                 }
                 break;
 
-            case 'q':
+            case 'q': // quit
                 delete macch;
                 delete device;
                 delete machine;
