@@ -147,7 +147,7 @@ Lanciando il comando “q” si esce invece dal programma
 # SVG MACHINE
 
 ![](output/machine.svg)
-
+ 
 ~~~
 Menu machine
 [l] -> caricare svg da file
