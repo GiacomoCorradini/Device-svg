@@ -17,6 +17,7 @@
 
 struct coca_machine{
     int dist_macchine;
+    float offset;
     int numero; // numero di macchine 
     coca_device** car; // macchine
     MeniniDevice* motrice; // motrice
@@ -62,5 +63,13 @@ coca_machine* coca_myset_machine(coca_machine* macch);
 */
 
 coca_machine* coca_myset_poscar(coca_machine* macch);
+
+/**
+ * funzione che fa una copia della car
+ * @param macch puntatore a struct car
+ * @return un puntatore a struct car
+*/
+
+coca_device* coca_copy_car(coca_device* car);
 
 #endif // MACHINE_H

@@ -89,6 +89,7 @@ coca_machine* coca_myset_machine(coca_machine* macch){
     macch->motrice->ruotadx.x = macch->motrice->pianale.w * 5 / 6 + macch->motrice->margineds;
 
     menini_reset(macch->motrice);
+
     macch = coca_myset_poscar(macch);
 
     return macch;
@@ -98,28 +99,42 @@ coca_machine* coca_myset_machine(coca_machine* macch){
 
 coca_machine* coca_myset_poscar(coca_machine* macch){
 
-    coca_device* copy 
-
     // setta la posizione della prima macchina
     macch->car[0]->car.cx = macch->motrice->cabina.x + macch->motrice->cabina.w + macch->dist_macchine;
     macch->car[0]->car.cy = macch->motrice->pianale.y - macch->car[0]->car.height - macch->car[0]->dx.ruota;
     macch->car[0] = coca_myset_device(macch->car[0]);
+    
+    // set offset tra le macchine
+    if(macch->numero > 1){
 
-    // setta la posizione delle altre macchine
-    for(int i = 1; i < macch->numero; i++){
-        //macch->car[i] = coca_myset_device(macch->car[i-1]);
-        //macch->car[i]->car.cx += (macch->car[i-1]->car.width + macch->dist_macchine);
-        macch->car[i] = coca_myset_device(macch->car[0]);
-        cout << "DEBUG: " << macch->car[i]->car.cx << endl;
+        coca_device* prova = coca_init_device();
+        prova = coca_copy_car(macch->car[0]);
 
+        macch->offset = macch->car[0]->car.width + macch->dist_macchine;
+
+        // setta la posizione delle altre macchine
+        for(int i = 1; i < macch->numero; i++){
+            macch->car[i] = coca_copy_car(prova);
+            macch->car[i]->car.cx += (macch->offset * i);
+            macch->car[i] = coca_myset_device(macch->car[i]);
+            cout << "DEBUG: " << macch->car[i]->car.cx << endl;
+        }
     }
-/*
-    // setta la posizione delle altre macchine
-    for(int i = 1; i < macch->numero; i++){
-        //macch->car[i] = coca_myset_device(macch->car[i-1]);
-        macch->car[i]->car.cx += (macch->car[i]->car.width + macch->dist_macchine);
-        macch->car[i] = coca_myset_device(macch->car[i]);
-    }
-*/
     return macch;
+}
+
+coca_device* coca_copy_car(coca_device* car){
+    
+    coca_device* macchina = coca_init_device();
+
+    macchina->car.cx = car->car.cx;
+    macchina->car.cy = car->car.cy;
+    macchina->car.height = car->car.height;
+    macchina->car.width = car->car.width;
+    macchina->diametro = car->diametro;
+    macchina->assetto = car->assetto;
+
+    macchina = coca_myset_device(macchina);
+
+    return macchina;
 }
