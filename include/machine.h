@@ -41,12 +41,11 @@ coca_machine* coca_init_machine(coca_machine* machine);
 
 /**
  * funzione che legge da file svg e setta i parametri della struct machine
- * @param macch puntatore a struct machine
  * @param svg stringa da leggere
  * @return un puntatore alla struct device
 */
 
-coca_machine* coca_parse_machine(coca_machine* macch, std::string svg);
+coca_machine* coca_parse_machine(std::string svg);
 
 /**
  * funzione che setta i parametri della machine

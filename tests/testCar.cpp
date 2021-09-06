@@ -249,7 +249,7 @@ TEST_CASE("coca_parse_device dovrebbe ritornare un puntatore a un device == NULL
 
     coca_device* macch = coca_init_device();
 
-    macch = coca_parse_device(macch, svg);
+    macch = coca_parse_device(macch, svg, 1);
 
     REQUIRE(macch == NULL);
 
@@ -261,7 +261,7 @@ TEST_CASE("coca_parse_device dovrebbe ritornare la dimensione del foglio dalla s
     std::string svg = "<?xml version='1.0' encoding='UTF-8' standalone='no'?> <svg xmlns='http://www.w3.org/2000/svg' width='800.000000' height='600.000000'> <rect  x='0' y='0' width='800.000000' height='600.000000' style='fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)'/> <rect x='225.000000' y='260.000000' rx='10' ry='10' width='350.000000' height='80.000000' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> <circle cx='295.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='295.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <circle cx='505.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='505.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <polygon points='285.000336,260.000000 325.000000,199.999847 425.000000,199.999847 425.000000,260.000000 285.000336,260.000000' style='fill:red;stroke:black;stroke-width:5'/> <polygon points='425.000000,199.999847 505.000000,260.000000 425.000000,260.000000' style='fill:lightblue;stroke:black;stroke-width:5' /> <rect x='235.000000' y='230.000000' width='20.000000' height='29.999996' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> </svg>";
     
     coca_device* macch = coca_init_device();
-    macch = coca_parse_device(macch, svg);
+    macch = coca_parse_device(macch, svg, 1);
 
     REQUIRE(macch->dimensionex == (float)800);
     REQUIRE(macch->dimensioney == (float)600);   
@@ -274,7 +274,7 @@ TEST_CASE("coca_parse_device dovrebbe ritornare la dimensione della carrozzeria 
     std::string svg = "<?xml version='1.0' encoding='UTF-8' standalone='no'?> <svg xmlns='http://www.w3.org/2000/svg' width='800.000000' height='600.000000'> <rect  x='0' y='0' width='800.000000' height='600.000000' style='fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)'/> <rect x='225.000000' y='260.000000' rx='10' ry='10' width='350.000000' height='80.000000' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> <circle cx='295.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='295.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <circle cx='505.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='505.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <polygon points='285.000336,260.000000 325.000000,199.999847 425.000000,199.999847 425.000000,260.000000 285.000336,260.000000' style='fill:red;stroke:black;stroke-width:5'/> <polygon points='425.000000,199.999847 505.000000,260.000000 425.000000,260.000000' style='fill:lightblue;stroke:black;stroke-width:5' /> <rect x='235.000000' y='230.000000' width='20.000000' height='29.999996' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> </svg>";
     
     coca_device* macch = coca_init_device();
-    macch = coca_parse_device(macch, svg);
+    macch = coca_parse_device(macch, svg, 1);
     
     REQUIRE(macch->car.cx == (float)225);
     REQUIRE(macch->car.cy == (float)260);
@@ -289,7 +289,7 @@ TEST_CASE("coca_parse_device dovrebbe ritornare la dimensione delle ruote dalla 
     std::string svg = "<?xml version='1.0' encoding='UTF-8' standalone='no'?> <svg xmlns='http://www.w3.org/2000/svg' width='800.000000' height='600.000000'> <rect  x='0' y='0' width='800.000000' height='600.000000' style='fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)'/> <rect x='225.000000' y='260.000000' rx='10' ry='10' width='350.000000' height='80.000000' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> <circle cx='295.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='295.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <circle cx='505.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='505.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <polygon points='285.000336,260.000000 325.000000,199.999847 425.000000,199.999847 425.000000,260.000000 285.000336,260.000000' style='fill:red;stroke:black;stroke-width:5'/> <polygon points='425.000000,199.999847 505.000000,260.000000 425.000000,260.000000' style='fill:lightblue;stroke:black;stroke-width:5' /> <rect x='235.000000' y='230.000000' width='20.000000' height='29.999996' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> </svg>";
     
     coca_device* macch = coca_init_device();
-    macch = coca_parse_device(macch, svg);
+    macch = coca_parse_device(macch, svg, 1);
     
     REQUIRE(macch->sx.centrox == (float)295);
     REQUIRE(macch->sx.centroy == (float)340);
@@ -308,7 +308,7 @@ TEST_CASE("coca_parse_device dovrebbe ritornare la dimensione del tetto dalla st
     std::string svg = "<?xml version='1.0' encoding='UTF-8' standalone='no'?> <svg xmlns='http://www.w3.org/2000/svg' width='800.000000' height='600.000000'> <rect  x='0' y='0' width='800.000000' height='600.000000' style='fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)'/> <rect x='225.000000' y='260.000000' rx='10' ry='10' width='350.000000' height='80.000000' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> <circle cx='295.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='295.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <circle cx='505.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='505.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <polygon points='285.000336,260.000000 325.000000,199.999847 425.000000,199.999847 425.000000,260.000000 285.000336,260.000000' style='fill:red;stroke:black;stroke-width:5'/> <polygon points='425.000000,199.999847 505.000000,260.000000 425.000000,260.000000' style='fill:lightblue;stroke:black;stroke-width:5' /> <rect x='235.000000' y='230.000000' width='20.000000' height='29.999996' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> </svg>";
     
     coca_device* macch = coca_init_device();
-    macch = coca_parse_device(macch, svg);
+    macch = coca_parse_device(macch, svg, 1);
     
     REQUIRE(macch->cap.x1 == (float)285.000336);
     REQUIRE(macch->cap.y1 == (float)260);
@@ -333,7 +333,7 @@ TEST_CASE("coca_parse_device dovrebbe ritornare la dimensione dei finestrini dal
     std::string svg = "<?xml version='1.0' encoding='UTF-8' standalone='no'?> <svg xmlns='http://www.w3.org/2000/svg' width='800.000000' height='600.000000'> <rect  x='0' y='0' width='800.000000' height='600.000000' style='fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)'/> <rect x='225.000000' y='260.000000' rx='10' ry='10' width='350.000000' height='80.000000' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> <circle cx='295.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='295.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <circle cx='505.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='505.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <polygon points='285.000336,260.000000 325.000000,199.999847 425.000000,199.999847 425.000000,260.000000 285.000336,260.000000' style='fill:red;stroke:black;stroke-width:5'/> <polygon points='425.000000,199.999847 505.000000,260.000000 425.000000,260.000000' style='fill:lightblue;stroke:black;stroke-width:5' /> <rect x='235.000000' y='230.000000' width='20.000000' height='29.999996' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> </svg>";
     
     coca_device* macch = coca_init_device();
-    macch = coca_parse_device(macch, svg);
+    macch = coca_parse_device(macch, svg, 1);
     
     REQUIRE(macch->fin.p1x == (float)425);
     REQUIRE(macch->fin.p1y == (float)199.999847);
@@ -352,7 +352,7 @@ TEST_CASE("coca_parse_device dovrebbe ritornare la dimensione dello spoiler dall
     std::string svg = "<?xml version='1.0' encoding='UTF-8' standalone='no'?> <svg xmlns='http://www.w3.org/2000/svg' width='800.000000' height='600.000000'> <rect  x='0' y='0' width='800.000000' height='600.000000' style='fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)'/> <rect x='225.000000' y='260.000000' rx='10' ry='10' width='350.000000' height='80.000000' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> <circle cx='295.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='295.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <circle cx='505.000000' cy='340.000000' r='39.500000' stroke='black' stroke-width='3' fill='black'/> <circle cx='505.000000' cy='340.000000' r='24.687500' stroke='black' stroke-width='3' fill='gray'/> <polygon points='285.000336,260.000000 325.000000,199.999847 425.000000,199.999847 425.000000,260.000000 285.000336,260.000000' style='fill:red;stroke:black;stroke-width:5'/> <polygon points='425.000000,199.999847 505.000000,260.000000 425.000000,260.000000' style='fill:lightblue;stroke:black;stroke-width:5' /> <rect x='235.000000' y='230.000000' width='20.000000' height='29.999996' style='stroke-width:3;stroke:rgb(0,0,0)' fill='red'/> </svg>";
     
     coca_device* macch = coca_init_device();
-    macch = coca_parse_device(macch, svg);
+    macch = coca_parse_device(macch, svg, 1);
     
     REQUIRE(macch->spoil.px == (float)235);
     REQUIRE(macch->spoil.py == (float)230);

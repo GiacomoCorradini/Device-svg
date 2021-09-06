@@ -491,7 +491,7 @@ float coca_parse(string svg, string parse, int & partenza, string fine){
 }
 
 // Funzione che importa i parametri da file nella struct
-coca_device* coca_parse_device(coca_device* macch, string svg){
+coca_device* coca_parse_device(coca_device* macch, string svg, int foglio){
 
     if(svg == "") 
     {
@@ -500,12 +500,14 @@ coca_device* coca_parse_device(coca_device* macch, string svg){
     }
 
     int partenza = 0;
-    float m;
-    
-    // dimensione foglio
-    macch->dimensionex = coca_parse(svg,"<rect  x='0' y='0' width='",partenza,"'");
-    macch->dimensioney = coca_parse(svg,"height='",partenza,"'");
 
+    if(foglio == 1){
+    
+        // dimensione foglio
+        macch->dimensionex = coca_parse(svg,"<rect  x='0' y='0' width='",partenza,"'");
+        macch->dimensioney = coca_parse(svg,"height='",partenza,"'");
+    }
+    
     // carrozzeria
     macch->car.cx = coca_parse(svg,"x='",partenza,"'");
     macch->car.cy = coca_parse(svg,"y='",partenza,"'");

@@ -117,6 +117,6 @@ int coca_write(std::string svg);
 
 // funzione legge da file
 float coca_parse(std::string svg, std::string parse, int & partenza, std::string fine);
-coca_device* coca_parse_device(coca_device* macch, std::string svg);
+coca_device* coca_parse_device(coca_device* macch, std::string svg, int foglio);
 
 #endif //CAR_H

@@ -25,20 +25,17 @@ std::string coca_strg_machine(coca_machine* machine, int quota){
     svg += "width='" + to_string(machine->motrice->w) + "' ";
     svg += "height='" + to_string(machine->motrice->h) + "'>\n\n";
 
-    // sfondo
-    svg += "\t<rect  x='0' y='0' ";
-    svg += "width='" + to_string(machine->motrice->w) + "' ";
-    svg += "height='" + to_string(machine->motrice->h) + "' ";
-    svg += "style='fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)'/>\n\n";
-
     // device motrice
     svg += menini_to_svg(machine->motrice, quota);
+
+    // commento con numero di macchine presenti nel file svg
+    svg += "\n<!-- N° car: " + to_string(machine->numero) + "-->\n";
 
     // device car
     for(int i = 0; i < machine->numero; i++){
         svg += coca_strg_device(machine->car[i], 0, quota);
+        svg += "\n<!--" + to_string(i) + "-->\n";
     }
-
 
     // stringa finale
     svg += "</svg>\n";
@@ -57,12 +54,46 @@ coca_machine* coca_init_machine(coca_machine* macch){
     }
     return macch;
 }
-/*
-// funzione che legge da file machine
-coca_machine* coca_parse_machine(coca_machine* macch, std::string svg){
 
+// funzione che legge da file machine svg
+coca_machine* coca_parse_machine(std::string svg){
+    
+    if(svg == "") 
+    {
+        coca_error(8);
+        return NULL;
+    }
+
+    string motrice_string;
+    string carvett_string;
+    string car_string;
+
+    coca_machine* ret = new coca_machine;
+
+    int n;
+    int partenza = 0;
+
+    n = coca_parse(svg, "<!-- N° car: ", partenza, "-");
+    ret->numero = n;
+    ret = coca_init_machine(ret);
+
+    size_t motrice = svg.find("<!-- N° car: ") + 18;
+    size_t car = svg.size();
+
+    motrice_string = svg.substr(0, motrice);
+    carvett_string = svg.substr(motrice);
+
+    ret->motrice = menini_parse(motrice_string);
+
+    for(int i = 0; i < ret->numero; i++){
+        ret->car[i] = coca_parse_device(ret->car[i], carvett_string, 0);
+        size_t pos = carvett_string.find("<!--") + 4;
+        carvett_string = carvett_string.substr(pos);
+    }
+
+    return ret;
 }
-*/
+
 
 // funzione che setta i parametri della machine
 coca_machine* coca_myset_machine(coca_machine* macch){
@@ -117,12 +148,12 @@ coca_machine* coca_myset_poscar(coca_machine* macch){
             macch->car[i] = coca_copy_car(prova);
             macch->car[i]->car.cx += (macch->offset * i);
             macch->car[i] = coca_myset_device(macch->car[i]);
-            cout << "DEBUG: " << macch->car[i]->car.cx << endl;
         }
     }
     return macch;
 }
 
+// funzione che fa una copia della car
 coca_device* coca_copy_car(coca_device* car){
     
     coca_device* macchina = coca_init_device();

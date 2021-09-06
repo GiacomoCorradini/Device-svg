@@ -470,7 +470,7 @@ int main(){
                     {
                         case 'l': // caricare svg da file
                             svg = coca_read();
-                            macch = coca_parse_device(macch, svg);
+                            macch = coca_parse_device(macch, svg, 1);
                             svg = coca_strg_device(macch, 1, 0);
                             break;
 
