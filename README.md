@@ -49,7 +49,7 @@ Parametri da inserire:
 
 ## Vincoli dimensionali
 
-I parametri devo rispettare determinati vincoli che cercano di rendere il più realistico possibile il veicolo.
+I parametri devono rispettare determinati vincoli che cercano di rendere il più realistico possibile il veicolo.
 
 - Il rapporto tra lunghezza e altezza della macchina non deve essere inferiore a 3
 
