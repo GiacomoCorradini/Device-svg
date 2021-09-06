@@ -217,20 +217,22 @@ TEST_CASE("coca_parse_machine deve settare i device car", "[machine]") {
     REQUIRE(macch->car[0]->car.width == (float)300.000000);
     REQUIRE(macch->car[0]->car.height == (float)80.000000);
     REQUIRE(macch->car[0]->car.cx == (float)709.000000);
-
+    REQUIRE(macch->car[0]->car.cy == (float)243.333313);
 
     REQUIRE(macch->car[1]->car.width == (float)300.000000);
     REQUIRE(macch->car[1]->car.height == (float)80.000000);
     REQUIRE(macch->car[1]->car.cx == (float)1012.000000);
-
+    REQUIRE(macch->car[1]->car.cy == (float)243.333313);
 
     REQUIRE(macch->car[2]->car.width == (float)300.000000);
     REQUIRE(macch->car[2]->car.height == (float)80.000000);
     REQUIRE(macch->car[2]->car.cx == (float)1315.000000);
+    REQUIRE(macch->car[2]->car.cy == (float)243.333313);
 
     REQUIRE(macch->car[3]->car.width == (float)300.000000);
     REQUIRE(macch->car[3]->car.height == (float)80.000000);
     REQUIRE(macch->car[3]->car.cx == (float)1618.000000);
+    REQUIRE(macch->car[3]->car.cy == (float)243.333313);
 
     delete(macch);
 }
