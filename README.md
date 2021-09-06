@@ -1,7 +1,7 @@
 # HOMEWORK 1 (DII - Tecniche di programmazione avanzata)
 
 Il seguente progetto prevede la creazione di un device con estensione .svg. Il device consiste in una macchina che può essere personalizzata dall'utente. Successivamente il progetto viene implementato con un altro device sviluppato da un collega.
-
+ 
 # PROGRAMMA
 
 ~~~
