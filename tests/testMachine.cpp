@@ -97,6 +97,37 @@ TEST_CASE("coca_myset_machine dovrebbe settare i parametri della prima macchina 
     delete(machine);
 }
 
+// test sulla funzione coca_myset_machine 
+TEST_CASE("coca_myset_machine deve settare il device motrice", "[machine]") {
+
+    coca_machine* machine = new coca_machine;
+    machine->numero = 4;
+    machine = coca_init_machine(machine);
+
+    machine->car[0]->car.width = 300;
+    machine->car[0]->car.height = 80;
+    machine->car[0]->diametro = 17;
+    machine->car[0]->assetto = 2;
+
+    machine = coca_myset_machine(machine);
+    
+    REQUIRE(machine->car[0]->car.width == (float)300.000000);
+    REQUIRE(machine->car[0]->car.height == (float)80.000000);
+    REQUIRE(machine->car[0]->car.cx == (float)709.000000);
+
+    REQUIRE(machine->car[1]->car.width == (float)300.000000);
+    REQUIRE(machine->car[1]->car.height == (float)80.000000);
+    REQUIRE(machine->car[1]->car.cx == (float)1012.000000);
+
+    REQUIRE(machine->car[2]->car.width == (float)300.000000);
+    REQUIRE(machine->car[2]->car.height == (float)80.000000);
+    REQUIRE(machine->car[2]->car.cx == (float)1315.000000);
+
+    REQUIRE(machine->car[3]->car.width == (float)300.000000);
+    REQUIRE(machine->car[3]->car.height == (float)80.000000);
+    REQUIRE(machine->car[3]->car.cx == (float)1618.000000);
+}
+
 // test sulla funzione coca_parse_machine
 TEST_CASE("coca_parse_machine deve settare il device motrice", "[machine]") {
 
